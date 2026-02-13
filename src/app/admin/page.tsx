@@ -1,9 +1,16 @@
 'use client';
 
-import { Users, Building2, Shield, Database, Settings, Bell, Mail, Key } from 'lucide-react';
+import { Users, Building2, Shield, Database, Settings, Bell, Mail, Key, Calculator } from 'lucide-react';
 import Link from 'next/link';
 
 const adminSections = [
+  {
+    title: 'Compliance Scoring',
+    description: 'Configure compliance score calculation methods',
+    icon: Calculator,
+    href: '/settings/compliance-scoring',
+    color: 'violet',
+  },
   {
     title: 'User Management',
     description: 'Manage users, roles, and permissions',
@@ -63,6 +70,7 @@ const adminSections = [
 ];
 
 const colorClasses = {
+  violet: 'bg-violet-100 text-violet-600',
   blue: 'bg-blue-100 text-blue-600',
   purple: 'bg-purple-100 text-purple-600',
   red: 'bg-red-100 text-red-600',

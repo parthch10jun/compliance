@@ -6,14 +6,14 @@ import clsx from 'clsx';
 
 // Mock Citations Data
 const mockCitations = [
-  { id: 'CIT-001', title: 'Capital Adequacy Requirements', section: 'Section 3.1', programId: 'PRG-001', programName: 'RBI Master Directions', authorityName: 'RBI', category: 'Capital', status: 'Compliant', hasObligation: true, obligationType: 'Reporting', controls: 5, riskRating: 3 },
-  { id: 'CIT-002', title: 'Asset Classification Norms', section: 'Section 4.2', programId: 'PRG-001', programName: 'RBI Master Directions', authorityName: 'RBI', category: 'Assets', status: 'Partially Compliant', hasObligation: true, obligationType: 'Disclosure', controls: 8, riskRating: 4 },
-  { id: 'CIT-003', title: 'KYC/AML Compliance', section: 'Section 5.1', programId: 'PRG-002', programName: 'PMLA Compliance', authorityName: 'RBI', category: 'AML', status: 'Compliant', hasObligation: true, obligationType: 'Filing', controls: 12, riskRating: 5 },
-  { id: 'CIT-004', title: 'Information Security Controls', section: 'A.5-A.8', programId: 'PRG-003', programName: 'ISO 27001:2022', authorityName: 'ISO', category: 'Security', status: 'Compliant', hasObligation: false, controls: 15, riskRating: 4 },
-  { id: 'CIT-005', title: 'Access Control Requirements', section: 'A.9', programId: 'PRG-003', programName: 'ISO 27001:2022', authorityName: 'ISO', category: 'Access', status: 'Partially Compliant', hasObligation: false, controls: 7, riskRating: 3 },
-  { id: 'CIT-006', title: 'Data Subject Rights', section: 'Article 15-22', programId: 'PRG-004', programName: 'GDPR Compliance', authorityName: 'EU', category: 'Privacy', status: 'Non-Compliant', hasObligation: true, obligationType: 'Notification', controls: 10, riskRating: 5 },
-  { id: 'CIT-007', title: 'Data Processing Principles', section: 'Article 5-6', programId: 'PRG-004', programName: 'GDPR Compliance', authorityName: 'EU', category: 'Privacy', status: 'Compliant', hasObligation: true, obligationType: 'Disclosure', controls: 6, riskRating: 4 },
-  { id: 'CIT-008', title: 'Data Localization', section: 'Article 29', programId: 'PRG-005', programName: 'PDPL Compliance', authorityName: 'SDAIA', category: 'Data', status: 'Not Assessed', hasObligation: true, obligationType: 'Filing', controls: 3, riskRating: 4 },
+  { id: 'CIT-001', title: 'Capital Adequacy Requirements', section: 'Section 3.1', programId: 'PRG-001', programName: 'RBI Master Directions', tags: ['RBI', 'India', 'Banking'], category: 'Capital', status: 'Compliant', hasObligation: true, obligationType: 'Reporting', controls: 5, riskRating: 3 },
+  { id: 'CIT-002', title: 'Asset Classification Norms', section: 'Section 4.2', programId: 'PRG-001', programName: 'RBI Master Directions', tags: ['RBI', 'India', 'Banking'], category: 'Assets', status: 'Partially Compliant', hasObligation: true, obligationType: 'Disclosure', controls: 8, riskRating: 4 },
+  { id: 'CIT-003', title: 'KYC/AML Compliance', section: 'Section 5.1', programId: 'PRG-002', programName: 'PMLA Compliance', tags: ['RBI', 'India', 'AML'], category: 'AML', status: 'Compliant', hasObligation: true, obligationType: 'Filing', controls: 12, riskRating: 5 },
+  { id: 'CIT-004', title: 'Information Security Controls', section: 'A.5-A.8', programId: 'PRG-003', programName: 'ISO 27001:2022', tags: ['ISO', 'International', 'Security'], category: 'Security', status: 'Compliant', hasObligation: false, controls: 15, riskRating: 4 },
+  { id: 'CIT-005', title: 'Access Control Requirements', section: 'A.9', programId: 'PRG-003', programName: 'ISO 27001:2022', tags: ['ISO', 'International', 'Security'], category: 'Access', status: 'Partially Compliant', hasObligation: false, controls: 7, riskRating: 3 },
+  { id: 'CIT-006', title: 'Data Subject Rights', section: 'Article 15-22', programId: 'PRG-004', programName: 'GDPR Compliance', tags: ['EU', 'European Union', 'Privacy'], category: 'Privacy', status: 'Non-Compliant', hasObligation: true, obligationType: 'Notification', controls: 10, riskRating: 5 },
+  { id: 'CIT-007', title: 'Data Processing Principles', section: 'Article 5-6', programId: 'PRG-004', programName: 'GDPR Compliance', tags: ['EU', 'European Union', 'Privacy'], category: 'Privacy', status: 'Compliant', hasObligation: true, obligationType: 'Disclosure', controls: 6, riskRating: 4 },
+  { id: 'CIT-008', title: 'Data Localization', section: 'Article 29', programId: 'PRG-005', programName: 'PDPL Compliance', tags: ['SDAIA', 'Saudi Arabia', 'Data'], category: 'Data', status: 'Not Assessed', hasObligation: true, obligationType: 'Filing', controls: 3, riskRating: 4 },
 ];
 
 const statusConfig = {
@@ -162,7 +162,7 @@ export default function CitationsPage() {
                   </td>
                   <td className="px-4 py-3">
                     <p className="text-sm text-[var(--foreground)]">{cit.programName}</p>
-                    <p className="text-xs text-[var(--foreground-muted)]">{cit.authorityName}</p>
+                    <p className="text-xs text-[var(--foreground-muted)]">{cit.tags[0] || 'Untagged'}</p>
                   </td>
                   <td className="px-4 py-3 text-sm text-[var(--foreground)]">{cit.category}</td>
                   <td className="px-4 py-3">

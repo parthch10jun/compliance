@@ -44,11 +44,6 @@ export default function AssessmentsDashboard() {
     <div>
       {/* Header */}
       <div className="animate-fade-in-up mb-8">
-        <div className="flex items-center gap-2 text-sm text-[var(--foreground-muted)] mb-2">
-          <Link href="/" className="hover:text-[var(--primary)]">Dashboard</Link>
-          <ChevronRight size={14} />
-          <span className="text-[var(--foreground)]">Assessments</span>
-        </div>
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-[var(--foreground)] tracking-tight">Assessments Dashboard</h1>

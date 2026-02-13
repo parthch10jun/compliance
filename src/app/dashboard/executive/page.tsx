@@ -7,8 +7,9 @@ import {
   AlertTriangle, CheckCircle2, Clock, XCircle, Shield, BookOpen,
   Calendar, FileText, Landmark, BarChart3, PieChart, Activity
 } from 'lucide-react';
-import { authorities, programs, issues, assessments, dashboardMetrics } from '@/lib/data/mock-data';
+import { programs, issues, assessments, dashboardMetrics } from '@/lib/data/mock-data';
 import { formatDate } from '@/lib/utils';
+import { ComplianceScoreModal } from '@/components/ComplianceScoreModal';
 
 // Compliance trend data (last 6 months)
 const complianceTrend = [
@@ -24,7 +25,16 @@ const riskDistribution = [
   { level: 'Low', count: 8, color: 'bg-emerald-500' },
 ];
 
+// Top authorities for compliance view
+const topAuthorities = [
+  { id: 'rbi', name: 'RBI', description: 'Reserve Bank of India', compliance: 91, trend: 3.2 },
+  { id: 'iso', name: 'ISO', description: 'International Standards', compliance: 88, trend: 2.1 },
+  { id: 'eu', name: 'EU', description: 'European Union', compliance: 85, trend: -1.4 },
+  { id: 'sdaia', name: 'SDAIA', description: 'Saudi Data & AI Authority', compliance: 78, trend: 5.8 },
+];
+
 export default function ExecutiveDashboard() {
+  const [showScoreModal, setShowScoreModal] = useState(false);
   const criticalIssues = issues.filter(i => i.severity === 'Critical' && i.status !== 'Closed');
   const overdueAssessments = assessments.filter(a => a.status === 'Overdue');
   const upcomingAssessments = assessments.filter(a => a.status === 'Scheduled').slice(0, 3);
@@ -52,8 +62,11 @@ export default function ExecutiveDashboard() {
 
       {/* KPI Cards Row */}
       <div className="animate-fade-in-up delay-1 grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {/* Overall Compliance */}
-        <div className="bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] rounded-xl p-6 text-white">
+        {/* Overall Compliance - Clickable */}
+        <button
+          onClick={() => setShowScoreModal(true)}
+          className="bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] rounded-xl p-6 text-white text-left group hover:scale-[1.02] transition-all cursor-pointer"
+        >
           <div className="flex items-center justify-between mb-4">
             <span className="text-white/70 text-sm font-medium">Overall Compliance</span>
             <div className="flex items-center gap-1 px-2 py-0.5 bg-white/20 rounded-full text-xs">
@@ -61,9 +74,9 @@ export default function ExecutiveDashboard() {
               +{dashboardMetrics.complianceTrend}%
             </div>
           </div>
-          <p className="text-4xl font-bold tracking-tight">{dashboardMetrics.overallCompliance}%</p>
-          <p className="text-white/60 text-xs mt-2">vs. 84.6% last quarter</p>
-        </div>
+          <p className="text-4xl font-bold tracking-tight group-hover:scale-105 transition-transform">{dashboardMetrics.overallCompliance}%</p>
+          <p className="text-white/60 text-xs mt-2">Click to view breakdown</p>
+        </button>
 
         {/* Critical Issues */}
         <div className="bg-white rounded-xl border border-[var(--border)] p-6">
@@ -177,28 +190,28 @@ export default function ExecutiveDashboard() {
             </Link>
           </div>
           <div className="space-y-4">
-            {authorities.map((auth) => (
-              <div key={auth.id} className="flex items-center gap-4">
+            {topAuthorities.map((authority) => (
+              <div key={authority.id} className="flex items-center gap-4">
                 <div className="w-16 flex-shrink-0">
                   <span className="inline-block px-2 py-1 bg-[var(--primary-lightest)] text-[var(--primary)] rounded text-xs font-semibold">
-                    {auth.name}
+                    {authority.name}
                   </span>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm text-[var(--foreground-muted)]">{auth.fullName}</span>
-                    <span className="text-sm font-semibold text-[var(--foreground)]">{auth.compliance}%</span>
+                    <span className="text-sm text-[var(--foreground-muted)]">{authority.description}</span>
+                    <span className="text-sm font-semibold text-[var(--foreground)]">{authority.compliance}%</span>
                   </div>
                   <div className="w-full h-2 bg-[var(--background-tertiary)] rounded-full overflow-hidden">
                     <div
-                      className={`h-full rounded-full transition-all ${auth.compliance >= 90 ? 'bg-emerald-500' : auth.compliance >= 80 ? 'bg-[var(--primary)]' : auth.compliance >= 70 ? 'bg-amber-500' : 'bg-red-500'}`}
-                      style={{ width: `${auth.compliance}%` }}
+                      className={`h-full rounded-full transition-all ${authority.compliance >= 90 ? 'bg-emerald-500' : authority.compliance >= 80 ? 'bg-[var(--primary)]' : authority.compliance >= 70 ? 'bg-amber-500' : 'bg-red-500'}`}
+                      style={{ width: `${authority.compliance}%` }}
                     />
                   </div>
                 </div>
-                <div className={`flex items-center gap-1 text-xs font-medium ${auth.trend > 0 ? 'text-emerald-600' : 'text-red-600'}`}>
-                  {auth.trend > 0 ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
-                  {Math.abs(auth.trend)}%
+                <div className={`flex items-center gap-1 text-xs font-medium ${authority.trend > 0 ? 'text-emerald-600' : 'text-red-600'}`}>
+                  {authority.trend > 0 ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
+                  {Math.abs(authority.trend)}%
                 </div>
               </div>
             ))}
@@ -230,7 +243,7 @@ export default function ExecutiveDashboard() {
                       </span>
                     </div>
                     <div className="flex items-center gap-3 text-xs text-[var(--foreground-muted)]">
-                      <span>{pgm.authorityName}</span>
+                      <span>{pgm.tags[0] || 'Untagged'}</span>
                       <span>•</span>
                       <span>{pgm.controls} controls</span>
                       <span>•</span>
@@ -337,6 +350,22 @@ export default function ExecutiveDashboard() {
           )}
         </div>
       </div>
+
+      {/* Compliance Score Modal */}
+      <ComplianceScoreModal
+        isOpen={showScoreModal}
+        onClose={() => setShowScoreModal(false)}
+        title="Executive View"
+        data={{
+          overallScore: dashboardMetrics.overallCompliance,
+          trend: dashboardMetrics.complianceTrend,
+          programs: programs.length,
+          requirements: { total: 335, compliant: 289, atRisk: 32, nonCompliant: 14 },
+          controls: { total: 368, effective: 312, partiallyEffective: 42, ineffective: 14 },
+          tests: { total: 476, passed: 396, failed: 42, pending: 38 },
+          obligations: { total: 68, completed: 52, inProgress: 12, overdue: 4 },
+        }}
+      />
     </div>
   );
 }

@@ -10,6 +10,9 @@
  * ISO Format: YYYY-MM-DD (e.g., "2024-12-23") - for data storage
  */
 
+const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 /**
  * Format a date string to standard format: "MMM DD, YYYY"
  * @param dateString - ISO date string (YYYY-MM-DD) or Date object
@@ -17,11 +20,10 @@
  */
 export function formatDate(dateString: string | Date): string {
   const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
-  return date.toLocaleDateString('en-US', { 
-    month: 'short', 
-    day: 'numeric', 
-    year: 'numeric' 
-  });
+  const month = MONTHS_SHORT[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  return `${month} ${day}, ${year}`;
 }
 
 /**
@@ -31,10 +33,9 @@ export function formatDate(dateString: string | Date): string {
  */
 export function formatDateShort(dateString: string | Date): string {
   const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
-  return date.toLocaleDateString('en-US', { 
-    month: 'short', 
-    day: 'numeric' 
-  });
+  const month = MONTHS_SHORT[date.getMonth()];
+  const day = date.getDate();
+  return `${month} ${day}`;
 }
 
 /**
@@ -44,11 +45,10 @@ export function formatDateShort(dateString: string | Date): string {
  */
 export function formatDateLong(dateString: string | Date): string {
   const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
-  return date.toLocaleDateString('en-US', { 
-    month: 'long', 
-    day: 'numeric', 
-    year: 'numeric' 
-  });
+  const month = MONTHS_LONG[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  return `${month} ${day}, ${year}`;
 }
 
 /**

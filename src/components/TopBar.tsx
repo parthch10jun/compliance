@@ -7,8 +7,8 @@ import {
   Bell, Settings, User, Zap, Home,
   BarChart3, CheckSquare, BookOpen, Shield, AlertTriangle,
   Library as LibraryIcon, ChevronDown, ChevronRight, Building2,
-  FolderKanban, FileStack, FlaskConical, Paperclip, AlertCircle,
-  Package, FileCheck, TrendingUp
+  FolderKanban, FlaskConical, Paperclip, AlertCircle,
+  Package, FileCheck, TrendingUp, FileText, Calendar
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -203,17 +203,30 @@ export default function TopBar({ onCommandPaletteOpen }: TopBarProps) {
                         <span>Programs</span>
                       </Link>
                       <Link
-                        href="/citations"
+                        href="/requirements"
                         onClick={() => setShowQuickAccess(false)}
                         className={clsx(
                           'flex items-center gap-2 px-3 py-2 rounded-lg text-p2 transition-all',
-                          pathname.startsWith('/citations')
+                          pathname.startsWith('/requirements')
                             ? 'bg-[var(--primary-lightest)] text-[var(--primary)] font-medium'
                             : 'text-[var(--foreground-muted)] hover:bg-[var(--background-secondary)] hover:text-[var(--foreground)]'
                         )}
                       >
-                        <FileStack size={16} />
-                        <span>Citations</span>
+                        <FileText size={16} />
+                        <span>Requirements</span>
+                      </Link>
+                      <Link
+                        href="/obligations"
+                        onClick={() => setShowQuickAccess(false)}
+                        className={clsx(
+                          'flex items-center gap-2 px-3 py-2 rounded-lg text-p2 transition-all',
+                          pathname.startsWith('/obligations')
+                            ? 'bg-[var(--primary-lightest)] text-[var(--primary)] font-medium'
+                            : 'text-[var(--foreground-muted)] hover:bg-[var(--background-secondary)] hover:text-[var(--foreground)]'
+                        )}
+                      >
+                        <Calendar size={16} />
+                        <span>Obligations</span>
                       </Link>
                     </div>
                   )}
@@ -282,6 +295,21 @@ export default function TopBar({ onCommandPaletteOpen }: TopBarProps) {
                   )}
                 </div>
 
+                {/* Risks */}
+                <Link
+                  href="/risks"
+                  onClick={() => setShowQuickAccess(false)}
+                  className={clsx(
+                    'flex items-center gap-3 px-3 py-2.5 rounded-lg text-p2 transition-all',
+                    pathname === '/risks' || pathname.startsWith('/risks/')
+                      ? 'bg-[var(--primary-lightest)] text-[var(--primary)] font-medium'
+                      : 'text-[var(--foreground)] hover:bg-[var(--background-secondary)]'
+                  )}
+                >
+                  <AlertTriangle size={18} />
+                  <span className="flex-1">Risk Register</span>
+                </Link>
+
                 {/* Issues */}
                 <Link
                   href="/issues"
@@ -293,7 +321,7 @@ export default function TopBar({ onCommandPaletteOpen }: TopBarProps) {
                       : 'text-[var(--foreground)] hover:bg-[var(--background-secondary)]'
                   )}
                 >
-                  <AlertTriangle size={18} />
+                  <AlertCircle size={18} />
                   <span className="flex-1">Issues</span>
                   <span className="px-2 py-0.5 bg-[var(--error)] text-white text-xs font-medium rounded-full">8</span>
                 </Link>

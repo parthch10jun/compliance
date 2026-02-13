@@ -1,0 +1,1839 @@
+{
+  "regulator": {
+    "id": "RBI",
+    "name": "Reserve Bank of India",
+    "country": "India",
+    "website": "https://www.rbi.org.in"
+  },
+  "program": {
+    "id": "RBI-IT-GOV-2023",
+    "name": "IT Governance, Risk, Controls and Assurance Practices",
+    "reference": "RBI/DOR/2023-24/81",
+    "issued_date": "2023-11-07",
+    "effective_date": "2024-04-01",
+    "version": "1.0",
+    "status": "Active"
+  },
+  "applicability": {
+    "entity_types": ["NBFCs"],
+    "scale_based_regulation": {
+      "top_layer": {
+        "applicable": true,
+        "criteria": "NBFCs with asset size ≥ ₹50,000 crore",
+        "compliance_level": "Full"
+      },
+      "upper_layer": {
+        "applicable": true,
+        "criteria": "NBFCs with asset size ≥ ₹1,000 crore and < ₹50,000 crore",
+        "compliance_level": "Substantial"
+      },
+      "middle_layer": {
+        "applicable": true,
+        "criteria": "NBFCs with asset size ≥ ₹500 crore and < ₹1,000 crore",
+        "compliance_level": "Moderate"
+      },
+      "base_layer": {
+        "applicable": false,
+        "criteria": "NBFCs with asset size < ₹500 crore",
+        "compliance_level": "Not Applicable"
+      }
+    }
+  },
+  "compliance_areas": [
+    {
+      "id": "CA-001",
+      "name": "IT Governance",
+      "description": "Establishment of IT governance framework, committees, policies, and oversight mechanisms",
+      "chapter": "Chapter 2",
+      "priority": "Critical",
+      "requirements_count": 15,
+      "controls_count": 28
+    },
+    {
+      "id": "CA-002",
+      "name": "IT Risk Management",
+      "description": "Comprehensive IT risk identification, assessment, mitigation, and monitoring",
+      "chapter": "Chapter 3",
+      "priority": "Critical",
+      "requirements_count": 12,
+      "controls_count": 22
+    },
+    {
+      "id": "CA-003",
+      "name": "Cybersecurity",
+      "description": "Cybersecurity controls, SOC operations, incident response, and threat management",
+      "chapter": "Chapter 4",
+      "priority": "Critical",
+      "requirements_count": 18,
+      "controls_count": 35
+    },
+    {
+      "id": "CA-004",
+      "name": "IT Operations and Resilience",
+      "description": "Business continuity, disaster recovery, backup, and operational resilience",
+      "chapter": "Chapter 5",
+      "priority": "High",
+      "requirements_count": 10,
+      "controls_count": 18
+    },
+    {
+      "id": "CA-005",
+      "name": "IT Audit and Assurance",
+      "description": "IT audit framework, internal/external audits, and compliance monitoring",
+      "chapter": "Chapter 6",
+      "priority": "High",
+      "requirements_count": 8,
+      "controls_count": 15
+    },
+    {
+      "id": "CA-006",
+      "name": "Preliminary and Definitions",
+      "description": "Scope, applicability, definitions, and interpretations",
+      "chapter": "Chapter 1",
+      "priority": "Medium",
+      "requirements_count": 3,
+      "controls_count": 5
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "code": "RBI-IT-001",
+      "name": "Applicability Determination",
+      "description": "Determine applicability of IT Governance directions based on NBFC scale and asset size",
+      "compliance_area_id": "CA-006",
+      "chapter": "Chapter 1 - Preliminary",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-001",
+          "code": "RBI-IT-CTRL-001",
+          "name": "Scale Classification Assessment",
+          "description": "Assess and document NBFC's classification under Scale-Based Regulation framework",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Compliance Officer",
+          "evidence_required": ["Asset size calculation", "Scale classification document", "Board approval"]
+        },
+        {
+          "id": "CTRL-002",
+          "code": "RBI-IT-CTRL-002",
+          "name": "Applicability Matrix Review",
+          "description": "Review and update applicability matrix for all IT governance requirements",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Chief Compliance Officer",
+          "evidence_required": ["Applicability matrix", "Gap analysis report"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-002",
+      "code": "RBI-IT-002",
+      "name": "Definitions and Interpretations",
+      "description": "Maintain updated definitions and interpretations of IT governance terms",
+      "compliance_area_id": "CA-006",
+      "chapter": "Chapter 1 - Preliminary",
+      "obligation_type": "Mandatory",
+      "frequency": "As needed",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Medium",
+      "controls": [
+        {
+          "id": "CTRL-003",
+          "code": "RBI-IT-CTRL-003",
+          "name": "Glossary Maintenance",
+          "description": "Maintain comprehensive glossary of IT governance terms aligned with RBI definitions",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "IT Governance Team",
+          "evidence_required": ["IT governance glossary", "Version control log"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-003",
+      "code": "RBI-IT-003",
+      "name": "Scope of Coverage",
+      "description": "Define and document scope of IT governance framework coverage",
+      "compliance_area_id": "CA-006",
+      "chapter": "Chapter 1 - Preliminary",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "High",
+      "controls": [
+        {
+          "id": "CTRL-004",
+          "code": "RBI-IT-CTRL-004",
+          "name": "Scope Documentation",
+          "description": "Document comprehensive scope covering all IT systems, processes, and third parties",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CIO",
+          "evidence_required": ["Scope document", "IT asset inventory", "Third-party list"]
+        },
+        {
+          "id": "CTRL-005",
+          "code": "RBI-IT-CTRL-005",
+          "name": "Scope Review and Approval",
+          "description": "Annual review and Board approval of IT governance scope",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Board IT Committee",
+          "evidence_required": ["Board minutes", "Approved scope document"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-004",
+      "code": "RBI-IT-004",
+      "name": "IT Governance Framework",
+      "description": "Establish comprehensive IT governance framework with clear roles, responsibilities, and oversight mechanisms",
+      "compliance_area_id": "CA-001",
+      "chapter": "Chapter 2 - IT Governance",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-006",
+          "code": "RBI-IT-CTRL-006",
+          "name": "Governance Framework Documentation",
+          "description": "Document comprehensive IT governance framework including structure, roles, and processes",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CIO",
+          "evidence_required": ["IT governance framework document", "Organizational chart", "RACI matrix"]
+        },
+        {
+          "id": "CTRL-007",
+          "code": "RBI-IT-CTRL-007",
+          "name": "Governance Framework Review",
+          "description": "Annual review and update of IT governance framework",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Board IT Committee",
+          "evidence_required": ["Review meeting minutes", "Updated framework", "Board approval"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-005",
+      "code": "RBI-IT-005",
+      "name": "Board IT Strategy Committee",
+      "description": "Constitute Board-level IT Strategy Committee with minimum 3 members including 1 independent director, meeting quarterly",
+      "compliance_area_id": "CA-001",
+      "chapter": "Chapter 2 - IT Governance",
+      "obligation_type": "Mandatory",
+      "frequency": "Quarterly",
+      "applicable_scales": ["Top", "Upper"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-008",
+          "code": "RBI-IT-CTRL-008",
+          "name": "Committee Constitution",
+          "description": "Constitute Board IT Strategy Committee with required composition",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Board of Directors",
+          "evidence_required": ["Board resolution", "Committee charter", "Member appointment letters"]
+        },
+        {
+          "id": "CTRL-009",
+          "code": "RBI-IT-CTRL-009",
+          "name": "Committee Meeting Compliance",
+          "description": "Ensure quarterly meetings with proper quorum and documentation",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Quarterly",
+          "owner": "Company Secretary",
+          "evidence_required": ["Meeting notices", "Attendance records", "Minutes of meetings", "Action item tracker"]
+        },
+        {
+          "id": "CTRL-010",
+          "code": "RBI-IT-CTRL-010",
+          "name": "Independent Director Participation",
+          "description": "Verify presence of at least one independent director in committee",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Company Secretary",
+          "evidence_required": ["Committee composition", "Director independence certificates"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-006",
+      "code": "RBI-IT-006",
+      "name": "IT Steering Committee",
+      "description": "Establish management-level IT Steering Committee including CIO, CISO, and business heads, meeting monthly",
+      "compliance_area_id": "CA-001",
+      "chapter": "Chapter 2 - IT Governance",
+      "obligation_type": "Mandatory",
+      "frequency": "Monthly",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-011",
+          "code": "RBI-IT-CTRL-011",
+          "name": "Steering Committee Formation",
+          "description": "Form IT Steering Committee with CIO, CISO, and key business heads",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CEO",
+          "evidence_required": ["Committee charter", "Member list", "Terms of reference"]
+        },
+        {
+          "id": "CTRL-012",
+          "code": "RBI-IT-CTRL-012",
+          "name": "Monthly Meeting Execution",
+          "description": "Conduct monthly IT Steering Committee meetings with proper agenda and minutes",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Monthly",
+          "owner": "CIO",
+          "evidence_required": ["Meeting calendar", "Agendas", "Minutes", "Decision log"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-007",
+      "code": "RBI-IT-007",
+      "name": "IT Strategy and Policy",
+      "description": "Develop comprehensive IT strategy aligned with business strategy, with Board approval and annual review",
+      "compliance_area_id": "CA-001",
+      "chapter": "Chapter 2 - IT Governance",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-013",
+          "code": "RBI-IT-CTRL-013",
+          "name": "IT Strategy Development",
+          "description": "Develop comprehensive IT strategy aligned with business objectives",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CIO",
+          "evidence_required": ["IT strategy document", "Business alignment matrix", "Stakeholder consultation records"]
+        },
+        {
+          "id": "CTRL-014",
+          "code": "RBI-IT-CTRL-014",
+          "name": "Board Approval of IT Strategy",
+          "description": "Obtain Board approval for IT strategy",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Board IT Committee",
+          "evidence_required": ["Board presentation", "Board resolution", "Approved IT strategy"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-008",
+      "code": "RBI-IT-008",
+      "name": "IT Budget and Resource Allocation",
+      "description": "Ensure adequate IT budget allocation with Board oversight of IT investments",
+      "compliance_area_id": "CA-001",
+      "chapter": "Chapter 2 - IT Governance",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "High",
+      "controls": [
+        {
+          "id": "CTRL-015",
+          "code": "RBI-IT-CTRL-015",
+          "name": "IT Budget Planning",
+          "description": "Develop comprehensive IT budget aligned with IT strategy",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CIO/CFO",
+          "evidence_required": ["IT budget document", "Budget justification", "Resource allocation plan"]
+        },
+        {
+          "id": "CTRL-016",
+          "code": "RBI-IT-CTRL-016",
+          "name": "Budget Monitoring and Variance Analysis",
+          "description": "Monitor IT budget utilization and analyze variances",
+          "control_type": "Detective",
+          "automation_level": "Semi-automated",
+          "frequency": "Monthly",
+          "owner": "CIO/CFO",
+          "evidence_required": ["Budget vs actual reports", "Variance analysis", "Corrective action plans"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-009",
+      "code": "RBI-IT-009",
+      "name": "IT Performance Metrics",
+      "description": "Define and monitor IT KPIs with regular reporting to Board",
+      "compliance_area_id": "CA-001",
+      "chapter": "Chapter 2 - IT Governance",
+      "obligation_type": "Mandatory",
+      "frequency": "Quarterly",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "High",
+      "controls": [
+        {
+          "id": "CTRL-017",
+          "code": "RBI-IT-CTRL-017",
+          "name": "KPI Framework Definition",
+          "description": "Define comprehensive IT KPIs aligned with business objectives",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CIO",
+          "evidence_required": ["KPI framework", "KPI definitions", "Target setting methodology"]
+        },
+        {
+          "id": "CTRL-018",
+          "code": "RBI-IT-CTRL-018",
+          "name": "KPI Monitoring and Reporting",
+          "description": "Monitor IT KPIs and report to Board quarterly",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Quarterly",
+          "owner": "CIO",
+          "evidence_required": ["KPI dashboards", "Quarterly reports", "Board presentations"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-010",
+      "code": "RBI-IT-010",
+      "name": "Change Management",
+      "description": "Implement formal change management process with Change Advisory Board",
+      "compliance_area_id": "CA-001",
+      "chapter": "Chapter 2 - IT Governance",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-019",
+          "code": "RBI-IT-CTRL-019",
+          "name": "Change Management Policy",
+          "description": "Establish comprehensive change management policy and procedures",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CIO",
+          "evidence_required": ["Change management policy", "Change procedures", "CAB charter"]
+        },
+        {
+          "id": "CTRL-020",
+          "code": "RBI-IT-CTRL-020",
+          "name": "Change Approval Process",
+          "description": "Ensure all changes are approved by CAB before implementation",
+          "control_type": "Preventive",
+          "automation_level": "Semi-automated",
+          "frequency": "Per change",
+          "owner": "Change Manager",
+          "evidence_required": ["Change requests", "CAB approvals", "Implementation records"]
+        },
+        {
+          "id": "CTRL-021",
+          "code": "RBI-IT-CTRL-021",
+          "name": "Emergency Change Management",
+          "description": "Manage emergency changes with post-implementation review",
+          "control_type": "Corrective",
+          "automation_level": "Manual",
+          "frequency": "As needed",
+          "owner": "Change Manager",
+          "evidence_required": ["Emergency change log", "Post-implementation reviews", "Lessons learned"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-011",
+      "code": "RBI-IT-011",
+      "name": "Project Management",
+      "description": "Implement structured project management methodology with governance framework",
+      "compliance_area_id": "CA-001",
+      "chapter": "Chapter 2 - IT Governance",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "High",
+      "controls": [
+        {
+          "id": "CTRL-022",
+          "code": "RBI-IT-CTRL-022",
+          "name": "Project Management Framework",
+          "description": "Establish project management framework (PMBOK/PRINCE2/Agile)",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "PMO Head",
+          "evidence_required": ["PM framework document", "Templates", "Training records"]
+        },
+        {
+          "id": "CTRL-023",
+          "code": "RBI-IT-CTRL-023",
+          "name": "Project Governance",
+          "description": "Implement project governance with steering committees and stage gates",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Per project",
+          "owner": "PMO Head",
+          "evidence_required": ["Project charters", "Steering committee minutes", "Gate review records"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-012",
+      "code": "RBI-IT-012",
+      "name": "Vendor Management",
+      "description": "Implement comprehensive vendor management policy with due diligence and SLA monitoring",
+      "compliance_area_id": "CA-001",
+      "chapter": "Chapter 2 - IT Governance",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-024",
+          "code": "RBI-IT-CTRL-024",
+          "name": "Vendor Due Diligence",
+          "description": "Conduct comprehensive due diligence before vendor onboarding",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Per vendor",
+          "owner": "Vendor Management Team",
+          "evidence_required": ["Due diligence reports", "Financial assessments", "Security assessments"]
+        },
+        {
+          "id": "CTRL-025",
+          "code": "RBI-IT-CTRL-025",
+          "name": "SLA Monitoring",
+          "description": "Monitor vendor SLA compliance and performance",
+          "control_type": "Detective",
+          "automation_level": "Semi-automated",
+          "frequency": "Monthly",
+          "owner": "Vendor Manager",
+          "evidence_required": ["SLA reports", "Performance scorecards", "Escalation records"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-032",
+      "code": "RBI-IT-032",
+      "name": "Chief Information Security Officer (CISO) Appointment",
+      "description": "Appoint qualified CISO with direct reporting to CEO/Board and adequate resources",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-050",
+          "code": "RBI-IT-CTRL-050",
+          "name": "CISO Qualification Verification",
+          "description": "Verify CISO has required qualifications (CISA/CISSP/equivalent) and experience",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "At appointment",
+          "owner": "HR/Board",
+          "evidence_required": ["Resume", "Certifications", "Experience letters", "Appointment letter"]
+        },
+        {
+          "id": "CTRL-051",
+          "code": "RBI-IT-CTRL-051",
+          "name": "CISO Reporting Structure",
+          "description": "Ensure CISO reports directly to CEO/Board with independence",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Quarterly",
+          "owner": "Board IT Committee",
+          "evidence_required": ["Org chart", "Reporting structure", "Meeting minutes"]
+        },
+        {
+          "id": "CTRL-052",
+          "code": "RBI-IT-CTRL-052",
+          "name": "CISO Resource Allocation",
+          "description": "Ensure CISO has adequate budget, team, and authority",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CEO/CFO",
+          "evidence_required": ["Budget allocation", "Team structure", "Authority matrix"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-033",
+      "code": "RBI-IT-033",
+      "name": "Security Operations Centre (SOC)",
+      "description": "Establish 24x7 SOC with real-time monitoring and incident response capability",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-053",
+          "code": "RBI-IT-CTRL-053",
+          "name": "SOC Establishment",
+          "description": "Establish SOC with 24x7 operations (in-house or outsourced)",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "One-time",
+          "owner": "CISO",
+          "evidence_required": ["SOC setup documentation", "Staffing plan", "Tool inventory"]
+        },
+        {
+          "id": "CTRL-054",
+          "code": "RBI-IT-CTRL-054",
+          "name": "Real-time Monitoring",
+          "description": "Implement real-time security monitoring and alerting",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "SOC Manager",
+          "evidence_required": ["Monitoring dashboards", "Alert logs", "Incident tickets"]
+        },
+        {
+          "id": "CTRL-055",
+          "code": "RBI-IT-CTRL-055",
+          "name": "SOC Performance Metrics",
+          "description": "Monitor SOC KPIs (MTTD, MTTR, false positive rate)",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Monthly",
+          "owner": "CISO",
+          "evidence_required": ["SOC metrics dashboard", "Monthly reports", "Improvement plans"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-034",
+      "code": "RBI-IT-034",
+      "name": "Access Control Management",
+      "description": "Implement user access management with RBAC and PAM",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-056",
+          "code": "RBI-IT-CTRL-056",
+          "name": "Access Control Policy",
+          "description": "Establish comprehensive access control policy",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CISO",
+          "evidence_required": ["Access control policy", "RBAC matrix", "Approval workflows"]
+        },
+        {
+          "id": "CTRL-057",
+          "code": "RBI-IT-CTRL-057",
+          "name": "User Access Provisioning",
+          "description": "Implement formal user access request and approval process",
+          "control_type": "Preventive",
+          "automation_level": "Semi-automated",
+          "frequency": "Per request",
+          "owner": "IAM Team",
+          "evidence_required": ["Access requests", "Approvals", "Provisioning logs"]
+        },
+        {
+          "id": "CTRL-058",
+          "code": "RBI-IT-CTRL-058",
+          "name": "Access Review and Recertification",
+          "description": "Conduct quarterly access reviews and recertification",
+          "control_type": "Detective",
+          "automation_level": "Semi-automated",
+          "frequency": "Quarterly",
+          "owner": "IAM Team",
+          "evidence_required": ["Access review reports", "Recertification records", "Remediation actions"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-035",
+      "code": "RBI-IT-035",
+      "name": "Multi-Factor Authentication (MFA)",
+      "description": "Implement MFA for all critical systems, remote access, and privileged users",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-059",
+          "code": "RBI-IT-CTRL-059",
+          "name": "MFA Implementation",
+          "description": "Implement MFA for all critical systems and applications",
+          "control_type": "Preventive",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "IAM Team",
+          "evidence_required": ["MFA configuration", "Coverage report", "User enrollment records"]
+        },
+        {
+          "id": "CTRL-060",
+          "code": "RBI-IT-CTRL-060",
+          "name": "MFA Compliance Monitoring",
+          "description": "Monitor MFA usage and compliance across all systems",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Daily",
+          "owner": "SOC Team",
+          "evidence_required": ["MFA usage reports", "Non-compliance alerts", "Remediation records"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-043",
+      "code": "RBI-IT-043",
+      "name": "Vulnerability Assessment and Penetration Testing (VAPT)",
+      "description": "Conduct annual VAPT by certified vendors with remediation and retesting",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-070",
+          "code": "RBI-IT-CTRL-070",
+          "name": "VAPT Vendor Selection",
+          "description": "Engage CERT-In empaneled or equivalent certified VAPT vendor",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CISO",
+          "evidence_required": ["Vendor certifications", "Engagement letter", "Scope document"]
+        },
+        {
+          "id": "CTRL-071",
+          "code": "RBI-IT-CTRL-071",
+          "name": "VAPT Execution",
+          "description": "Conduct comprehensive VAPT covering all critical systems",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CISO",
+          "evidence_required": ["VAPT report", "Findings summary", "Risk ratings"]
+        },
+        {
+          "id": "CTRL-072",
+          "code": "RBI-IT-CTRL-072",
+          "name": "Vulnerability Remediation",
+          "description": "Remediate critical and high vulnerabilities within defined timelines",
+          "control_type": "Corrective",
+          "automation_level": "Manual",
+          "frequency": "As needed",
+          "owner": "IT Security Team",
+          "evidence_required": ["Remediation plan", "Patch records", "Retest results"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-045",
+      "code": "RBI-IT-045",
+      "name": "Cyber Incident Response",
+      "description": "Establish incident response plan with dedicated team and regular drills",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-075",
+          "code": "RBI-IT-CTRL-075",
+          "name": "Incident Response Plan",
+          "description": "Develop and maintain comprehensive incident response plan",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CISO",
+          "evidence_required": ["IR plan", "Playbooks", "Contact lists", "Escalation matrix"]
+        },
+        {
+          "id": "CTRL-076",
+          "code": "RBI-IT-CTRL-076",
+          "name": "Incident Response Team",
+          "description": "Establish and train incident response team (CSIRT)",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CISO",
+          "evidence_required": ["Team roster", "Training records", "Certification records"]
+        },
+        {
+          "id": "CTRL-077",
+          "code": "RBI-IT-CTRL-077",
+          "name": "Incident Response Drills",
+          "description": "Conduct incident response drills and tabletop exercises",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Semi-annual",
+          "owner": "CISO",
+          "evidence_required": ["Drill scenarios", "Execution records", "Lessons learned", "Improvement plans"]
+        },
+        {
+          "id": "CTRL-078",
+          "code": "RBI-IT-CTRL-078",
+          "name": "Incident Reporting to RBI",
+          "description": "Report cyber incidents to RBI within prescribed timelines",
+          "control_type": "Corrective",
+          "automation_level": "Manual",
+          "frequency": "As needed",
+          "owner": "CISO/Compliance",
+          "evidence_required": ["Incident reports", "RBI notifications", "Acknowledgments"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-050",
+      "code": "RBI-IT-050",
+      "name": "Business Continuity Planning (BCP)",
+      "description": "Develop comprehensive BCP with business impact analysis and annual testing",
+      "compliance_area_id": "CA-004",
+      "chapter": "Chapter 5 - IT Operations and Resilience",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-085",
+          "code": "RBI-IT-CTRL-085",
+          "name": "Business Impact Analysis",
+          "description": "Conduct comprehensive BIA to identify critical processes",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "BCP Coordinator",
+          "evidence_required": ["BIA report", "Critical process list", "RTO/RPO definitions"]
+        },
+        {
+          "id": "CTRL-086",
+          "code": "RBI-IT-CTRL-086",
+          "name": "BCP Documentation",
+          "description": "Develop and maintain comprehensive BCP documentation",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "BCP Coordinator",
+          "evidence_required": ["BCP document", "Recovery procedures", "Contact lists"]
+        },
+        {
+          "id": "CTRL-087",
+          "code": "RBI-IT-CTRL-087",
+          "name": "BCP Testing",
+          "description": "Conduct annual BCP testing and drills",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "BCP Coordinator",
+          "evidence_required": ["Test plan", "Test results", "Observations", "Action items"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-051",
+      "code": "RBI-IT-051",
+      "name": "Disaster Recovery Planning (DRP)",
+      "description": "Establish disaster recovery plan with defined RTO/RPO and regular DR drills",
+      "compliance_area_id": "CA-004",
+      "chapter": "Chapter 5 - IT Operations and Resilience",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-088",
+          "code": "RBI-IT-CTRL-088",
+          "name": "DR Plan Development",
+          "description": "Develop comprehensive DR plan with RTO/RPO for all critical systems",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "DR Manager",
+          "evidence_required": ["DR plan", "RTO/RPO matrix", "Recovery procedures"]
+        },
+        {
+          "id": "CTRL-089",
+          "code": "RBI-IT-CTRL-089",
+          "name": "DR Testing",
+          "description": "Conduct annual DR drills and validate recovery capabilities",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "DR Manager",
+          "evidence_required": ["DR test plan", "Test results", "RTO/RPO achievement", "Lessons learned"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-052",
+      "code": "RBI-IT-052",
+      "name": "Data Backup and Recovery",
+      "description": "Implement backup policy with regular backups and restoration testing",
+      "compliance_area_id": "CA-004",
+      "chapter": "Chapter 5 - IT Operations and Resilience",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-090",
+          "code": "RBI-IT-CTRL-090",
+          "name": "Backup Policy Implementation",
+          "description": "Implement comprehensive backup policy (daily, weekly, monthly)",
+          "control_type": "Preventive",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "Backup Administrator",
+          "evidence_required": ["Backup policy", "Backup schedules", "Backup logs"]
+        },
+        {
+          "id": "CTRL-091",
+          "code": "RBI-IT-CTRL-091",
+          "name": "Backup Monitoring",
+          "description": "Monitor backup success/failure and resolve issues",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Daily",
+          "owner": "Backup Administrator",
+          "evidence_required": ["Backup reports", "Failure alerts", "Resolution records"]
+        },
+        {
+          "id": "CTRL-092",
+          "code": "RBI-IT-CTRL-092",
+          "name": "Restoration Testing",
+          "description": "Conduct quarterly backup restoration testing",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Quarterly",
+          "owner": "Backup Administrator",
+          "evidence_required": ["Test plan", "Restoration logs", "Validation results"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-053",
+      "code": "RBI-IT-053",
+      "name": "Alternate Site Management",
+      "description": "Establish alternate data center with geographic separation and regular synchronization",
+      "compliance_area_id": "CA-004",
+      "chapter": "Chapter 5 - IT Operations and Resilience",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-093",
+          "code": "RBI-IT-CTRL-093",
+          "name": "Alternate Site Setup",
+          "description": "Establish alternate data center with minimum 200 km separation",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "One-time",
+          "owner": "Infrastructure Manager",
+          "evidence_required": ["Site documentation", "Distance certification", "Setup records"]
+        },
+        {
+          "id": "CTRL-094",
+          "code": "RBI-IT-CTRL-094",
+          "name": "Data Synchronization",
+          "description": "Implement real-time or near-real-time data synchronization",
+          "control_type": "Preventive",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "Infrastructure Manager",
+          "evidence_required": ["Replication configuration", "Sync logs", "Lag monitoring"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-059",
+      "code": "RBI-IT-059",
+      "name": "IT Audit Framework",
+      "description": "Establish IT audit framework with risk-based approach and annual audit plan",
+      "compliance_area_id": "CA-005",
+      "chapter": "Chapter 6 - IT Audit and Assurance",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "High",
+      "controls": [
+        {
+          "id": "CTRL-105",
+          "code": "RBI-IT-CTRL-105",
+          "name": "IT Audit Policy",
+          "description": "Develop comprehensive IT audit policy and framework",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Chief Audit Executive",
+          "evidence_required": ["IT audit policy", "Audit charter", "Methodology"]
+        },
+        {
+          "id": "CTRL-106",
+          "code": "RBI-IT-CTRL-106",
+          "name": "Annual Audit Plan",
+          "description": "Develop risk-based annual IT audit plan",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Chief Audit Executive",
+          "evidence_required": ["Risk assessment", "Audit plan", "Board approval"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-060",
+      "code": "RBI-IT-060",
+      "name": "Internal IT Audit",
+      "description": "Conduct internal IT audits with qualified auditors and regular cycles",
+      "compliance_area_id": "CA-005",
+      "chapter": "Chapter 6 - IT Audit and Assurance",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "High",
+      "controls": [
+        {
+          "id": "CTRL-107",
+          "code": "RBI-IT-CTRL-107",
+          "name": "Internal Audit Execution",
+          "description": "Conduct internal IT audits as per annual plan",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Per plan",
+          "owner": "Internal Audit Team",
+          "evidence_required": ["Audit programs", "Working papers", "Audit reports"]
+        },
+        {
+          "id": "CTRL-108",
+          "code": "RBI-IT-CTRL-108",
+          "name": "Auditor Qualification",
+          "description": "Ensure IT auditors have required certifications (CISA/CISSP/equivalent)",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Chief Audit Executive",
+          "evidence_required": ["Auditor resumes", "Certifications", "Training records"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-061",
+      "code": "RBI-IT-061",
+      "name": "External IT Audit",
+      "description": "Conduct annual external IT audit by certified auditors with independent assessment",
+      "compliance_area_id": "CA-005",
+      "chapter": "Chapter 6 - IT Audit and Assurance",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-109",
+          "code": "RBI-IT-CTRL-109",
+          "name": "External Auditor Appointment",
+          "description": "Appoint qualified external IT auditors",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Audit Committee",
+          "evidence_required": ["Auditor credentials", "Engagement letter", "Independence declaration"]
+        },
+        {
+          "id": "CTRL-110",
+          "code": "RBI-IT-CTRL-110",
+          "name": "External Audit Execution",
+          "description": "Facilitate comprehensive external IT audit",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CIO/CISO",
+          "evidence_required": ["Audit scope", "Audit report", "Management responses"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-019",
+      "code": "RBI-IT-019",
+      "name": "IT Risk Management Framework",
+      "description": "Establish comprehensive IT risk management framework aligned with enterprise risk management",
+      "compliance_area_id": "CA-002",
+      "chapter": "Chapter 3 - IT Risk Management",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-026",
+          "code": "RBI-IT-CTRL-026",
+          "name": "Risk Framework Documentation",
+          "description": "Document comprehensive IT risk management framework",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CRO/CIO",
+          "evidence_required": ["Risk framework document", "Risk policies", "Risk appetite statement"]
+        },
+        {
+          "id": "CTRL-027",
+          "code": "RBI-IT-CTRL-027",
+          "name": "Risk Governance Structure",
+          "description": "Establish risk governance with clear roles and responsibilities",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CRO",
+          "evidence_required": ["Governance structure", "RACI matrix", "Committee charters"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-020",
+      "code": "RBI-IT-020",
+      "name": "IT Risk Assessment",
+      "description": "Conduct comprehensive IT risk assessments with regular updates",
+      "compliance_area_id": "CA-002",
+      "chapter": "Chapter 3 - IT Risk Management",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-028",
+          "code": "RBI-IT-CTRL-028",
+          "name": "Annual Risk Assessment",
+          "description": "Conduct comprehensive annual IT risk assessment",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "IT Risk Manager",
+          "evidence_required": ["Risk assessment report", "Risk register", "Heat maps"]
+        },
+        {
+          "id": "CTRL-029",
+          "code": "RBI-IT-CTRL-029",
+          "name": "Risk Treatment Plans",
+          "description": "Develop and implement risk treatment plans for identified risks",
+          "control_type": "Corrective",
+          "automation_level": "Manual",
+          "frequency": "Quarterly",
+          "owner": "Risk Owners",
+          "evidence_required": ["Treatment plans", "Implementation status", "Residual risk assessment"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-023",
+      "code": "RBI-IT-023",
+      "name": "Data Security and Privacy",
+      "description": "Implement data classification, encryption, and privacy controls",
+      "compliance_area_id": "CA-002",
+      "chapter": "Chapter 3 - IT Risk Management",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-035",
+          "code": "RBI-IT-CTRL-035",
+          "name": "Data Classification",
+          "description": "Implement data classification scheme (Public, Internal, Confidential, Restricted)",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Data Protection Officer",
+          "evidence_required": ["Classification policy", "Data inventory", "Classification labels"]
+        },
+        {
+          "id": "CTRL-036",
+          "code": "RBI-IT-CTRL-036",
+          "name": "Data Encryption",
+          "description": "Encrypt sensitive data at rest and in transit",
+          "control_type": "Preventive",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "Security Team",
+          "evidence_required": ["Encryption standards", "Implementation records", "Key management"]
+        },
+        {
+          "id": "CTRL-037",
+          "code": "RBI-IT-CTRL-037",
+          "name": "Data Loss Prevention (DLP)",
+          "description": "Implement DLP controls to prevent unauthorized data exfiltration",
+          "control_type": "Preventive",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "Security Team",
+          "evidence_required": ["DLP policies", "Alert logs", "Incident reports"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-024",
+      "code": "RBI-IT-024",
+      "name": "Third-Party Risk Management",
+      "description": "Assess and manage risks from third-party service providers",
+      "compliance_area_id": "CA-002",
+      "chapter": "Chapter 3 - IT Risk Management",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-038",
+          "code": "RBI-IT-CTRL-038",
+          "name": "Third-Party Risk Assessment",
+          "description": "Conduct risk assessment before onboarding third parties",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Per vendor",
+          "owner": "Third-Party Risk Manager",
+          "evidence_required": ["Risk assessment", "Due diligence reports", "Risk ratings"]
+        },
+        {
+          "id": "CTRL-039",
+          "code": "RBI-IT-CTRL-039",
+          "name": "Ongoing Third-Party Monitoring",
+          "description": "Monitor third-party performance and compliance",
+          "control_type": "Detective",
+          "automation_level": "Semi-automated",
+          "frequency": "Quarterly",
+          "owner": "Vendor Manager",
+          "evidence_required": ["Performance reports", "Compliance certificates", "Audit reports"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-025",
+      "code": "RBI-IT-025",
+      "name": "Cloud Computing Risk Management",
+      "description": "Manage risks associated with cloud services and ensure data sovereignty",
+      "compliance_area_id": "CA-002",
+      "chapter": "Chapter 3 - IT Risk Management",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-040",
+          "code": "RBI-IT-CTRL-040",
+          "name": "Cloud Risk Assessment",
+          "description": "Assess risks before adopting cloud services",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Per service",
+          "owner": "Cloud Security Team",
+          "evidence_required": ["Risk assessment", "Data residency verification", "Compliance mapping"]
+        },
+        {
+          "id": "CTRL-041",
+          "code": "RBI-IT-CTRL-041",
+          "name": "Cloud Security Controls",
+          "description": "Implement cloud security controls (CASB, CSPM, encryption)",
+          "control_type": "Preventive",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "Cloud Security Team",
+          "evidence_required": ["Security configurations", "Monitoring dashboards", "Compliance reports"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-031",
+      "code": "RBI-IT-031",
+      "name": "Cybersecurity Framework",
+      "description": "Adopt recognized cybersecurity framework (NIST CSF, ISO 27001, etc.)",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-048",
+          "code": "RBI-IT-CTRL-048",
+          "name": "Framework Adoption",
+          "description": "Adopt and implement recognized cybersecurity framework",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CISO",
+          "evidence_required": ["Framework selection document", "Implementation roadmap", "Gap assessment"]
+        },
+        {
+          "id": "CTRL-049",
+          "code": "RBI-IT-CTRL-049",
+          "name": "Framework Maturity Assessment",
+          "description": "Assess cybersecurity maturity against framework",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CISO",
+          "evidence_required": ["Maturity assessment", "Improvement plan", "Board reporting"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-037",
+      "code": "RBI-IT-037",
+      "name": "Network Security",
+      "description": "Implement network segmentation, firewalls, IDS/IPS, and secure architecture",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-061",
+          "code": "RBI-IT-CTRL-061",
+          "name": "Network Segmentation",
+          "description": "Implement network segmentation with DMZ, internal zones, and VLANs",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Network Security Team",
+          "evidence_required": ["Network architecture", "Segmentation design", "VLAN configuration"]
+        },
+        {
+          "id": "CTRL-062",
+          "code": "RBI-IT-CTRL-062",
+          "name": "Firewall Management",
+          "description": "Configure and manage firewalls with rule review",
+          "control_type": "Preventive",
+          "automation_level": "Semi-automated",
+          "frequency": "Quarterly",
+          "owner": "Network Security Team",
+          "evidence_required": ["Firewall rules", "Rule review logs", "Change records"]
+        },
+        {
+          "id": "CTRL-063",
+          "code": "RBI-IT-CTRL-063",
+          "name": "Intrusion Detection/Prevention",
+          "description": "Deploy and monitor IDS/IPS systems",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "SOC Team",
+          "evidence_required": ["IDS/IPS configuration", "Alert logs", "Incident reports"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-038",
+      "code": "RBI-IT-038",
+      "name": "Endpoint Security",
+      "description": "Implement endpoint protection with antivirus, EDR, and patch management",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-064",
+          "code": "RBI-IT-CTRL-064",
+          "name": "Antivirus/Anti-malware Deployment",
+          "description": "Deploy and maintain antivirus on all endpoints",
+          "control_type": "Preventive",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "Endpoint Security Team",
+          "evidence_required": ["Deployment status", "Update logs", "Scan reports"]
+        },
+        {
+          "id": "CTRL-065",
+          "code": "RBI-IT-CTRL-065",
+          "name": "Patch Management",
+          "description": "Implement patch management with regular updates",
+          "control_type": "Preventive",
+          "automation_level": "Semi-automated",
+          "frequency": "Monthly",
+          "owner": "Patch Management Team",
+          "evidence_required": ["Patch inventory", "Deployment reports", "Compliance status"]
+        },
+        {
+          "id": "CTRL-066",
+          "code": "RBI-IT-CTRL-066",
+          "name": "Endpoint Detection and Response (EDR)",
+          "description": "Deploy EDR solution for advanced threat detection",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "SOC Team",
+          "evidence_required": ["EDR deployment", "Alert logs", "Threat reports"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-042",
+      "code": "RBI-IT-042",
+      "name": "Encryption Standards",
+      "description": "Implement encryption for data at rest, in transit, and in use",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-067",
+          "code": "RBI-IT-CTRL-067",
+          "name": "Encryption Policy",
+          "description": "Define encryption standards (AES-256, TLS 1.2+, etc.)",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "CISO",
+          "evidence_required": ["Encryption policy", "Standards document", "Algorithm specifications"]
+        },
+        {
+          "id": "CTRL-068",
+          "code": "RBI-IT-CTRL-068",
+          "name": "Key Management",
+          "description": "Implement secure key management system (KMS)",
+          "control_type": "Preventive",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "Security Team",
+          "evidence_required": ["KMS configuration", "Key rotation logs", "Access logs"]
+        },
+        {
+          "id": "CTRL-069",
+          "code": "RBI-IT-CTRL-069",
+          "name": "Encryption Compliance Monitoring",
+          "description": "Monitor encryption implementation across systems",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Monthly",
+          "owner": "Security Team",
+          "evidence_required": ["Compliance reports", "Scan results", "Remediation records"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-044",
+      "code": "RBI-IT-044",
+      "name": "Security Information and Event Management (SIEM)",
+      "description": "Implement SIEM for centralized log management and correlation",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-073",
+          "code": "RBI-IT-CTRL-073",
+          "name": "SIEM Deployment",
+          "description": "Deploy SIEM solution with comprehensive log sources",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "SOC Manager",
+          "evidence_required": ["SIEM architecture", "Log source inventory", "Integration records"]
+        },
+        {
+          "id": "CTRL-074",
+          "code": "RBI-IT-CTRL-074",
+          "name": "SIEM Use Case Development",
+          "description": "Develop and tune SIEM use cases for threat detection",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Quarterly",
+          "owner": "SOC Team",
+          "evidence_required": ["Use case library", "Tuning logs", "Detection effectiveness"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-013",
+      "code": "RBI-IT-013",
+      "name": "IT Service Management",
+      "description": "Implement ITIL-based service management with incident, problem, and service request management",
+      "compliance_area_id": "CA-001",
+      "chapter": "Chapter 2 - IT Governance",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "High",
+      "controls": [
+        {
+          "id": "CTRL-111",
+          "code": "RBI-IT-CTRL-111",
+          "name": "ITSM Framework Implementation",
+          "description": "Implement ITIL or equivalent ITSM framework",
+          "control_type": "Preventive",
+          "automation_level": "Semi-automated",
+          "frequency": "Annual",
+          "owner": "IT Service Manager",
+          "evidence_required": ["ITSM framework", "Process documentation", "Tool implementation"]
+        },
+        {
+          "id": "CTRL-112",
+          "code": "RBI-IT-CTRL-112",
+          "name": "Incident Management",
+          "description": "Manage incidents with SLA compliance and root cause analysis",
+          "control_type": "Corrective",
+          "automation_level": "Semi-automated",
+          "frequency": "Continuous",
+          "owner": "Incident Manager",
+          "evidence_required": ["Incident tickets", "SLA reports", "RCA documents"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-014",
+      "code": "RBI-IT-014",
+      "name": "Software Development Life Cycle (SDLC)",
+      "description": "Implement secure SDLC with code review, testing, and security integration",
+      "compliance_area_id": "CA-001",
+      "chapter": "Chapter 2 - IT Governance",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-113",
+          "code": "RBI-IT-CTRL-113",
+          "name": "Secure SDLC Policy",
+          "description": "Establish secure SDLC policy with security gates",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Development Manager",
+          "evidence_required": ["SDLC policy", "Security requirements", "Gate criteria"]
+        },
+        {
+          "id": "CTRL-114",
+          "code": "RBI-IT-CTRL-114",
+          "name": "Code Review and Testing",
+          "description": "Conduct code reviews and security testing (SAST/DAST)",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Per release",
+          "owner": "Development Team",
+          "evidence_required": ["Code review records", "Test reports", "Vulnerability scans"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-015",
+      "code": "RBI-IT-015",
+      "name": "IT Asset Management",
+      "description": "Maintain comprehensive IT asset inventory with lifecycle management",
+      "compliance_area_id": "CA-001",
+      "chapter": "Chapter 2 - IT Governance",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "High",
+      "controls": [
+        {
+          "id": "CTRL-115",
+          "code": "RBI-IT-CTRL-115",
+          "name": "Asset Inventory Management",
+          "description": "Maintain comprehensive asset inventory (hardware, software, licenses)",
+          "control_type": "Preventive",
+          "automation_level": "Semi-automated",
+          "frequency": "Continuous",
+          "owner": "Asset Manager",
+          "evidence_required": ["Asset register", "Discovery scans", "Reconciliation reports"]
+        },
+        {
+          "id": "CTRL-116",
+          "code": "RBI-IT-CTRL-116",
+          "name": "Asset Lifecycle Management",
+          "description": "Manage asset lifecycle from procurement to disposal",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Continuous",
+          "owner": "Asset Manager",
+          "evidence_required": ["Lifecycle records", "Disposal certificates", "Sanitization logs"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-046",
+      "code": "RBI-IT-046",
+      "name": "Cyber Threat Intelligence",
+      "description": "Establish threat intelligence capability with feeds and analysis",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper"],
+      "priority": "High",
+      "controls": [
+        {
+          "id": "CTRL-079",
+          "code": "RBI-IT-CTRL-079",
+          "name": "Threat Intelligence Platform",
+          "description": "Implement threat intelligence platform with feeds",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "Threat Intelligence Team",
+          "evidence_required": ["TIP configuration", "Feed subscriptions", "Intelligence reports"]
+        },
+        {
+          "id": "CTRL-080",
+          "code": "RBI-IT-CTRL-080",
+          "name": "Threat Analysis and Dissemination",
+          "description": "Analyze threats and disseminate actionable intelligence",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Weekly",
+          "owner": "Threat Analyst",
+          "evidence_required": ["Threat bulletins", "IOC lists", "Mitigation recommendations"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-047",
+      "code": "RBI-IT-047",
+      "name": "Cybersecurity Awareness and Training",
+      "description": "Conduct regular cybersecurity awareness and training programs",
+      "compliance_area_id": "CA-003",
+      "chapter": "Chapter 4 - Cybersecurity",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "High",
+      "controls": [
+        {
+          "id": "CTRL-081",
+          "code": "RBI-IT-CTRL-081",
+          "name": "Security Awareness Program",
+          "description": "Conduct annual security awareness training for all employees",
+          "control_type": "Preventive",
+          "automation_level": "Semi-automated",
+          "frequency": "Annual",
+          "owner": "CISO",
+          "evidence_required": ["Training curriculum", "Attendance records", "Assessment results"]
+        },
+        {
+          "id": "CTRL-082",
+          "code": "RBI-IT-CTRL-082",
+          "name": "Phishing Simulation",
+          "description": "Conduct periodic phishing simulation exercises",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Quarterly",
+          "owner": "Security Awareness Team",
+          "evidence_required": ["Simulation results", "Click rates", "Remedial training"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-054",
+      "code": "RBI-IT-054",
+      "name": "Capacity Planning",
+      "description": "Conduct capacity planning for IT infrastructure and applications",
+      "compliance_area_id": "CA-004",
+      "chapter": "Chapter 5 - IT Operations and Resilience",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "High",
+      "controls": [
+        {
+          "id": "CTRL-095",
+          "code": "RBI-IT-CTRL-095",
+          "name": "Capacity Assessment",
+          "description": "Assess current capacity utilization and forecast future needs",
+          "control_type": "Preventive",
+          "automation_level": "Semi-automated",
+          "frequency": "Quarterly",
+          "owner": "Infrastructure Manager",
+          "evidence_required": ["Capacity reports", "Utilization trends", "Forecast models"]
+        },
+        {
+          "id": "CTRL-096",
+          "code": "RBI-IT-CTRL-096",
+          "name": "Capacity Expansion Planning",
+          "description": "Plan and execute capacity expansion based on forecasts",
+          "control_type": "Preventive",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Infrastructure Manager",
+          "evidence_required": ["Expansion plans", "Budget approvals", "Implementation records"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-062",
+      "code": "RBI-IT-062",
+      "name": "Audit Findings and Remediation",
+      "description": "Track and remediate audit findings within defined timelines",
+      "compliance_area_id": "CA-005",
+      "chapter": "Chapter 6 - IT Audit and Assurance",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-117",
+          "code": "RBI-IT-CTRL-117",
+          "name": "Findings Tracking",
+          "description": "Track all audit findings in centralized system",
+          "control_type": "Detective",
+          "automation_level": "Semi-automated",
+          "frequency": "Continuous",
+          "owner": "Compliance Team",
+          "evidence_required": ["Findings register", "Status reports", "Aging analysis"]
+        },
+        {
+          "id": "CTRL-118",
+          "code": "RBI-IT-CTRL-118",
+          "name": "Remediation Execution",
+          "description": "Remediate findings within agreed timelines",
+          "control_type": "Corrective",
+          "automation_level": "Manual",
+          "frequency": "Per finding",
+          "owner": "Finding Owners",
+          "evidence_required": ["Remediation plans", "Evidence of closure", "Validation records"]
+        },
+        {
+          "id": "CTRL-119",
+          "code": "RBI-IT-CTRL-119",
+          "name": "Audit Committee Reporting",
+          "description": "Report audit findings and remediation status to Audit Committee",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Quarterly",
+          "owner": "Chief Audit Executive",
+          "evidence_required": ["Committee presentations", "Status dashboards", "Minutes"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-065",
+      "code": "RBI-IT-065",
+      "name": "Continuous Monitoring",
+      "description": "Implement continuous monitoring and compliance validation",
+      "compliance_area_id": "CA-005",
+      "chapter": "Chapter 6 - IT Audit and Assurance",
+      "obligation_type": "Mandatory",
+      "frequency": "Continuous",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "High",
+      "controls": [
+        {
+          "id": "CTRL-120",
+          "code": "RBI-IT-CTRL-120",
+          "name": "Automated Control Monitoring",
+          "description": "Implement automated monitoring of key controls",
+          "control_type": "Detective",
+          "automation_level": "Automated",
+          "frequency": "Continuous",
+          "owner": "Compliance Team",
+          "evidence_required": ["Monitoring dashboards", "Alert configurations", "Exception reports"]
+        },
+        {
+          "id": "CTRL-121",
+          "code": "RBI-IT-CTRL-121",
+          "name": "Compliance Reporting",
+          "description": "Generate compliance reports for management and Board",
+          "control_type": "Detective",
+          "automation_level": "Semi-automated",
+          "frequency": "Monthly",
+          "owner": "Chief Compliance Officer",
+          "evidence_required": ["Compliance dashboards", "Monthly reports", "Board presentations"]
+        }
+      ]
+    },
+    {
+      "id": "REQ-066",
+      "code": "RBI-IT-066",
+      "name": "Regulatory Reporting to RBI",
+      "description": "Submit periodic IT governance and cybersecurity reports to RBI",
+      "compliance_area_id": "CA-005",
+      "chapter": "Chapter 6 - IT Audit and Assurance",
+      "obligation_type": "Mandatory",
+      "frequency": "Annual",
+      "applicable_scales": ["Top", "Upper", "Middle"],
+      "priority": "Critical",
+      "controls": [
+        {
+          "id": "CTRL-122",
+          "code": "RBI-IT-CTRL-122",
+          "name": "Annual IT Governance Report",
+          "description": "Submit annual IT governance report to RBI",
+          "control_type": "Detective",
+          "automation_level": "Manual",
+          "frequency": "Annual",
+          "owner": "Chief Compliance Officer",
+          "evidence_required": ["RBI report", "Submission acknowledgment", "Supporting documents"]
+        },
+        {
+          "id": "CTRL-123",
+          "code": "RBI-IT-CTRL-123",
+          "name": "Cyber Incident Reporting",
+          "description": "Report significant cyber incidents to RBI within 6 hours",
+          "control_type": "Corrective",
+          "automation_level": "Manual",
+          "frequency": "As needed",
+          "owner": "CISO",
+          "evidence_required": ["Incident reports", "RBI notifications", "Follow-up reports"]
+        }
+      ]
+    }
+  ]
+}
+

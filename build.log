@@ -1,0 +1,86 @@
+
+> compliance-instance@0.1.0 build
+> next build
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/parthc/Documents/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/parthc/Documents/Ascent/Compliance-Instance-V1.0/package-lock.json
+
+   ▲ Next.js 16.0.10 (Turbopack)
+
+   Creating an optimized production build ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ✓ Compiled successfully in 9.9s
+   Running TypeScript ...
+   Collecting page data using 9 workers ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   Generating static pages using 9 workers (0/36) ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   Generating static pages using 9 workers (9/36) 
+   Generating static pages using 9 workers (18/36) 
+   Generating static pages using 9 workers (27/36) 
+ ✓ Generating static pages using 9 workers (36/36) in 607.6ms
+   Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /admin
+├ ○ /assessments
+├ ○ /authorities
+├ ○ /citations
+├ ○ /compliance-calendar
+├ ○ /compliance/status
+├ ○ /controls
+├ ƒ /controls/[id]
+├ ○ /dashboard/executive
+├ ○ /dashboard/risk-heatmap
+├ ○ /dpdp-hub
+├ ○ /evidence
+├ ƒ /evidence/[id]
+├ ○ /internal-audit
+├ ƒ /internal-audit/[id]
+├ ○ /iso27001-hub
+├ ○ /issues
+├ ○ /library
+├ ○ /library/assets
+├ ○ /library/audits
+├ ○ /library/frameworks
+├ ○ /library/policies
+├ ○ /library/programs
+├ ƒ /library/programs/[id]
+├ ○ /library/risks
+├ ○ /obligations
+├ ƒ /obligations/[id]
+├ ○ /playbooks
+├ ƒ /playbooks/[id]
+├ ○ /predictive-compliance
+├ ○ /programs
+├ ƒ /programs/[id]
+├ ○ /regulatory-intelligence
+├ ○ /requirement-versions
+├ ○ /requirements
+├ ƒ /requirements/[id]
+├ ○ /risks
+├ ƒ /risks/[id]
+├ ○ /settings/compliance-scoring
+├ ○ /tasks
+└ ○ /tests
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

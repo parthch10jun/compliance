@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSidebar } from '@/contexts/SidebarContext';
 import {
   LayoutDashboard, BookOpen, Library, ClipboardCheck, ShieldAlert,
   Landmark, AlertTriangle, FileCheck, Shield, FileText, BarChart3,
   Clipboard, ChevronDown, ChevronRight, ListTodo, PanelLeftClose, PanelLeft,
   FolderKanban, Settings, Calendar, CircleAlert, Users, Building2,
   FileStack, FlaskConical, Paperclip, GitBranch, Layers, CheckSquare,
-  Package
+  Package, Tag, Calculator, Sliders, Compass, Bell, TrendingUp, Clock
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -86,7 +87,7 @@ function NavGroup({ icon, label, children, isCollapsed, defaultOpen = false }: N
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { isCollapsed, toggleCollapsed } = useSidebar();
 
   return (
     <aside className={clsx(
@@ -96,7 +97,7 @@ export default function Sidebar() {
       {/* Collapse Toggle */}
       <div className="flex justify-end p-2 flex-shrink-0 border-b border-[var(--border)]">
         <button
-          onClick={() => setIsCollapsed(!isCollapsed)}
+          onClick={toggleCollapsed}
           className="p-1.5 rounded-lg hover:bg-[var(--sidebar-hover)] text-[var(--foreground-muted)] transition-colors"
           title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
@@ -105,7 +106,7 @@ export default function Sidebar() {
       </div>
 
       {/* Scrollable Navigation */}
-      <nav className="p-2 space-y-1 overflow-y-auto flex-1 scrollbar-thin">
+      <nav className="p-2 space-y-1 overflow-y-auto flex-1 pb-4" style={{ scrollbarWidth: 'thin' }}>
         {/* 📊 Dashboards */}
         <NavGroup
           icon={<BarChart3 size={18} />}
@@ -125,6 +126,13 @@ export default function Sidebar() {
             icon={<BarChart3 size={16} />}
             label="Executive"
             isActive={pathname === '/dashboard/executive'}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/dashboard/risk-heatmap"
+            icon={<AlertTriangle size={16} />}
+            label="Risk Heat Map"
+            isActive={pathname === '/dashboard/risk-heatmap'}
             isCollapsed={isCollapsed}
           />
         </NavGroup>
@@ -159,6 +167,59 @@ export default function Sidebar() {
           />
         </NavGroup>
 
+        {/* 🔔 Regulatory Intelligence */}
+        <NavGroup
+          icon={<Bell size={18} />}
+          label="Regulatory Intelligence"
+          isCollapsed={isCollapsed}
+          defaultOpen={true}
+        >
+          <NavItem
+            href="/regulatory-intelligence"
+            icon={<Bell size={16} />}
+            label="Updates & Alerts"
+            isActive={pathname === '/regulatory-intelligence' || pathname.startsWith('/regulatory-intelligence/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/requirement-versions"
+            icon={<GitBranch size={16} />}
+            label="Version History"
+            isActive={pathname === '/requirement-versions' || pathname.startsWith('/requirement-versions/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/predictive-compliance"
+            icon={<TrendingUp size={16} />}
+            label="Predictive Compliance"
+            isActive={pathname === '/predictive-compliance' || pathname.startsWith('/predictive-compliance/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/compliance-calendar"
+            icon={<Clock size={16} />}
+            label="Compliance Calendar"
+            isActive={pathname === '/compliance-calendar' || pathname.startsWith('/compliance-calendar/')}
+            isCollapsed={isCollapsed}
+          />
+        </NavGroup>
+
+        {/* 🔍 Internal Audit */}
+        <NavGroup
+          icon={<Shield size={18} />}
+          label="Internal Audit"
+          isCollapsed={isCollapsed}
+          defaultOpen={true}
+        >
+          <NavItem
+            href="/internal-audit"
+            icon={<Shield size={16} />}
+            label="Audit Dashboard"
+            isActive={pathname === '/internal-audit' || pathname.startsWith('/internal-audit/')}
+            isCollapsed={isCollapsed}
+          />
+        </NavGroup>
+
         {/* 📖 Regulatory Universe */}
         <NavGroup
           icon={<BookOpen size={18} />}
@@ -176,15 +237,29 @@ export default function Sidebar() {
           <NavItem
             href="/programs"
             icon={<FolderKanban size={16} />}
-            label="Programs"
+            label="My Programs"
             isActive={pathname === '/programs' || pathname.startsWith('/programs/')}
             isCollapsed={isCollapsed}
           />
           <NavItem
-            href="/citations"
-            icon={<FileStack size={16} />}
-            label="Citations"
-            isActive={pathname === '/citations' || pathname.startsWith('/citations/')}
+            href="/requirements"
+            icon={<FileText size={16} />}
+            label="Requirements"
+            isActive={pathname === '/requirements' || pathname.startsWith('/requirements/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/obligations"
+            icon={<Calendar size={16} />}
+            label="Obligations"
+            isActive={pathname === '/obligations' || pathname.startsWith('/obligations/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/playbooks"
+            icon={<BookOpen size={16} />}
+            label="Playbooks"
+            isActive={pathname === '/playbooks' || pathname.startsWith('/playbooks/')}
             isCollapsed={isCollapsed}
           />
         </NavGroup>
@@ -219,6 +294,22 @@ export default function Sidebar() {
           />
         </NavGroup>
 
+        {/* ⚠️ Risk Management */}
+        <NavGroup
+          icon={<AlertTriangle size={18} />}
+          label="Risk Management"
+          isCollapsed={isCollapsed}
+          defaultOpen={true}
+        >
+          <NavItem
+            href="/risks"
+            icon={<ShieldAlert size={16} />}
+            label="Risk Register"
+            isActive={pathname === '/risks' || pathname.startsWith('/risks/')}
+            isCollapsed={isCollapsed}
+          />
+        </NavGroup>
+
         {/* 📚 Libraries */}
         <NavGroup
           icon={<Library size={18} />}
@@ -227,10 +318,17 @@ export default function Sidebar() {
           defaultOpen={false}
         >
           <NavItem
-            href="/library/risks"
-            icon={<AlertTriangle size={16} />}
-            label="Risks"
-            isActive={pathname === '/library/risks'}
+            href="/library/programs"
+            icon={<BookOpen size={16} />}
+            label="Program Templates"
+            isActive={pathname === '/library/programs'}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/library/frameworks"
+            icon={<Landmark size={16} />}
+            label="Frameworks"
+            isActive={pathname === '/library/frameworks'}
             isCollapsed={isCollapsed}
           />
           <NavItem
@@ -241,37 +339,102 @@ export default function Sidebar() {
             isCollapsed={isCollapsed}
           />
           <NavItem
+            href="/library/risks"
+            icon={<AlertTriangle size={16} />}
+            label="Risks"
+            isActive={pathname === '/library/risks'}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
             href="/library/assets"
             icon={<Package size={16} />}
             label="Assets"
             isActive={pathname === '/library/assets'}
             isCollapsed={isCollapsed}
           />
+        </NavGroup>
+
+        {/* 🧭 Compliance Hubs */}
+        {/* <NavGroup
+          icon={<Compass size={18} />}
+          label="Compliance Hubs"
+          isCollapsed={isCollapsed}
+          defaultOpen={false}
+        >
           <NavItem
-            href="/library/frameworks"
-            icon={<Landmark size={16} />}
-            label="Frameworks"
-            isActive={pathname === '/library/frameworks'}
+            href="/dpdp-hub"
+            icon={<Shield size={16} />}
+            label="DPDP Act 2023"
+            isActive={pathname === '/dpdp-hub'}
             isCollapsed={isCollapsed}
           />
-        </NavGroup>
+          <NavItem
+            href="/iso27001-hub"
+            icon={<Shield size={16} />}
+            label="ISO 27001:2022"
+            isActive={pathname === '/iso27001-hub'}
+            isCollapsed={isCollapsed}
+          />
+        </NavGroup> */}
 
         {/* Divider */}
         <div className="h-px bg-[var(--border)] my-3"></div>
 
         {/* ⚙️ Administration */}
-        <NavItem
-          href="/admin"
+        <NavGroup
           icon={<Settings size={18} />}
           label="Administration"
-          isActive={pathname === '/admin' || pathname.startsWith('/admin/')}
           isCollapsed={isCollapsed}
-        />
+          defaultOpen={pathname.startsWith('/settings') || pathname.startsWith('/admin')}
+        >
+          <NavItem
+            href="/admin"
+            icon={<Settings size={16} />}
+            label="Overview"
+            isActive={pathname === '/admin'}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/settings/compliance-scoring"
+            icon={<Calculator size={16} />}
+            label="Compliance Scoring"
+            isActive={pathname === '/settings/compliance-scoring'}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/admin/organization"
+            icon={<Building2 size={16} />}
+            label="Organization"
+            isActive={pathname === '/admin/organization'}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/admin/users"
+            icon={<Users size={16} />}
+            label="Users & Roles"
+            isActive={pathname === '/admin/users'}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/admin/integrations"
+            icon={<GitBranch size={16} />}
+            label="Integrations"
+            isActive={pathname === '/admin/integrations'}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/admin/system"
+            icon={<Sliders size={16} />}
+            label="System Settings"
+            isActive={pathname === '/admin/system'}
+            isCollapsed={isCollapsed}
+          />
+        </NavGroup>
       </nav>
 
       {/* Footer */}
       {!isCollapsed && (
-        <div className="absolute bottom-0 left-0 right-0 p-3 border-t border-[var(--border)] bg-[var(--sidebar-bg)]">
+        <div className="flex-shrink-0 p-3 border-t border-[var(--border)] bg-[var(--sidebar-bg)]">
           <span className="text-xs text-[var(--foreground-muted)]">Ascent Compliance v1.0</span>
         </div>
       )}
