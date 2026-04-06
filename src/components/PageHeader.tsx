@@ -12,11 +12,12 @@ interface PageHeaderProps {
   breadcrumbs?: Breadcrumb[];
   action?: React.ReactNode;
   icon?: React.ReactNode;
+  'data-tour'?: string;
 }
 
-export default function PageHeader({ title, description, breadcrumbs, action, icon }: PageHeaderProps) {
+export default function PageHeader({ title, description, breadcrumbs, action, icon, 'data-tour': dataTour }: PageHeaderProps) {
   return (
-    <div className="animate-fade-in-up mb-8 relative z-20">
+    <div className="animate-fade-in-up mb-8 relative z-20" data-tour={dataTour}>
       {breadcrumbs && breadcrumbs.length > 0 && (
         <div className="flex items-center gap-2 text-p3 text-[var(--foreground-muted)] mb-3">
           {breadcrumbs.map((crumb, index) => (

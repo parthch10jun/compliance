@@ -85,12 +85,14 @@ function ProgramsDashboardContent() {
     <div className="space-y-6">
       {/* Header */}
       <PageHeader
+        data-tour="programs-header"
         title="My Programs"
         description="Your active compliance programs - imported from library or custom created"
         action={
           <div className="flex items-center gap-3">
             <Link
               href="/library/programs"
+              data-tour="import-program"
               className="flex items-center gap-2 px-4 py-2.5 border border-[var(--border)] bg-[var(--background)] rounded-xl hover:bg-[var(--background-secondary)] hover:border-cyan-500/30 transition-all duration-200 text-p2 font-medium"
             >
               <Download size={18} className="text-cyan-600" />
@@ -98,6 +100,7 @@ function ProgramsDashboardContent() {
             </Link>
             <button
               onClick={() => setIsCreateModalOpen(true)}
+              data-tour="create-custom-program"
               className="flex items-center gap-2 px-4 py-2.5 bg-violet-600 text-white rounded-xl hover:bg-violet-700 transition-all duration-200 text-p2 font-medium shadow-sm hover:shadow-md"
             >
               <Sparkles size={18} />
@@ -108,8 +111,8 @@ function ProgramsDashboardContent() {
       />
 
       {/* KPI Cards */}
-      <div className="animate-fade-in-up delay-1 grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <div className="bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] rounded-xl p-5 text-white shadow-md">
+      <div className="animate-fade-in-up delay-1 grid grid-cols-2 lg:grid-cols-5 gap-4" data-tour="programs-kpis">
+        <div className="bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] rounded-xl p-5 text-white shadow-md" data-tour="programs-avg-compliance">
           <p className="text-white/70 text-p3 font-medium mb-1">Avg. Compliance</p>
           <p className="text-h2 font-bold tracking-tight">{avgCompliance}%</p>
           <div className="flex items-center gap-1 mt-2 text-p3 text-white/80">
@@ -141,6 +144,7 @@ function ProgramsDashboardContent() {
 
       {/* Search and Filters */}
       <SearchFilterBar
+        data-tour="programs-search-filter"
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
         searchPlaceholder="Search programs by name or authority..."
@@ -427,10 +431,13 @@ function ProgramsDashboardContent() {
           })()}
         </div>
       ) : filteredPrograms.length > 0 && viewMode === 'grid' ? (
-        <div className="animate-fade-in-up delay-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="animate-fade-in-up delay-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" data-tour="programs-grid">
           {filteredPrograms.map((pgm, idx) => (
             <Link key={pgm.id} href={`/programs/${pgm.id}`} className="group">
-              <div className="bg-white rounded-xl border border-[var(--border)] p-6 hover:shadow-lg hover:border-[var(--primary)] transition-all relative">
+              <div
+                className="bg-white rounded-xl border border-[var(--border)] p-6 hover:shadow-lg hover:border-[var(--primary)] transition-all relative"
+                data-tour={pgm.id === 'pgm-soc2-type2' ? "soc2-program-card" : idx === 0 ? "program-card-first" : undefined}
+              >
                 {/* Source Badge */}
                 <div className="absolute top-3 right-3">
                   <span className={clsx('text-[10px] px-2 py-0.5 rounded-full font-medium flex items-center gap-1',

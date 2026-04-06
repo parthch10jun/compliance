@@ -1,38 +1,28 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import {
   Shield,
-  CheckCircle2,
   AlertTriangle,
-  XCircle,
-  Target,
   FileText,
   ClipboardCheck,
-  ChevronRight,
   Calendar,
   User,
-  TrendingUp,
-  AlertCircle,
-  Clock,
   PlayCircle,
-  CheckSquare
+  ExternalLink
 } from 'lucide-react';
 import clsx from 'clsx';
 import Link from 'next/link';
 
-type MiddlePaneTab = 'controls' | 'assessments' | 'risks';
-type RightPaneContent = 
+type LeftPaneTab = 'controls' | 'assessments' | 'risks';
+type RightPaneContent =
   | { type: 'control'; data: any }
   | { type: 'assessment'; data: any }
   | { type: 'risk'; data: any }
   | null;
 
 interface RequirementThreePaneViewProps {
-  programRequirements: any[];
-  selectedRequirementId: string;
-  onRequirementSelect: (id: string) => void;
+  requirement: any;
   linkedControls: any[];
   linkedAssessments: any[];
   linkedRisks: any[];
@@ -40,19 +30,14 @@ interface RequirementThreePaneViewProps {
 }
 
 export function RequirementThreePaneView({
-  programRequirements,
-  selectedRequirementId,
-  onRequirementSelect,
+  requirement,
   linkedControls,
   linkedAssessments,
   linkedRisks,
   controlTests
 }: RequirementThreePaneViewProps) {
-  const router = useRouter();
-  const [middlePaneTab, setMiddlePaneTab] = useState<MiddlePaneTab>('controls');
+  const [leftPaneTab, setLeftPaneTab] = useState<LeftPaneTab>('controls');
   const [rightPaneContent, setRightPaneContent] = useState<RightPaneContent>(null);
-
-  const selectedRequirement = programRequirements.find(r => r.id === selectedRequirementId);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -95,69 +80,23 @@ export function RequirementThreePaneView({
   };
 
   return (
-    <div className="flex gap-4 h-[calc(100vh-400px)] min-h-[700px]">
-      {/* LEFT PANE: Requirements List */}
-      <div className="flex-[0_0_25%] bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col">
-        <div className="p-4 border-b border-gray-200 bg-gray-50">
-          <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-            <FileText size={16} className="text-blue-600" />
-            Requirements ({programRequirements.length})
-          </h3>
-          {selectedRequirement && (
-            <p className="text-xs text-gray-600 mt-1">{selectedRequirement.programName}</p>
-          )}
-        </div>
-        <div className="flex-1 overflow-y-auto">
-          {programRequirements.map((req) => (
-            <button
-              key={req.id}
-              onClick={() => {
-                onRequirementSelect(req.id);
-                setRightPaneContent(null);
-              }}
-              className={clsx(
-                'w-full text-left p-4 border-b border-gray-200 transition-all',
-                selectedRequirementId === req.id
-                  ? 'bg-blue-50 border-l-4 border-l-blue-500'
-                  : 'hover:bg-gray-50'
-              )}
-            >
-              <div className="mb-2">
-                <span className="text-xs font-mono text-blue-600">{req.code}</span>
-              </div>
-              <h4 className={clsx(
-                'text-sm font-semibold mb-1',
-                selectedRequirementId === req.id ? 'text-blue-700' : 'text-gray-900'
-              )}>
-                {req.title}
-              </h4>
-              <p className="text-xs text-gray-600 line-clamp-2 mb-2">
-                {req.description}
-              </p>
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className={clsx('px-2 py-0.5 rounded text-xs font-medium', getStatusColor(req.status))}>
-                  {req.status}
-                </span>
-                <span className="text-xs text-gray-500">{req.complianceScore}%</span>
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* MIDDLE PANE: Tabs for Controls, Assessments, Risks */}
-      <div className="flex-[0_0_35%] bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col">
+    <div className="flex gap-4 h-[calc(100vh-350px)] min-h-[700px]">
+      {/* LEFT PANE: Associated Entities */}
+      <div className={clsx(
+        'bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col transition-all',
+        rightPaneContent ? 'flex-[0_0_45%]' : 'flex-1'
+      )}>
         {/* Tab Headers */}
         <div className="border-b border-gray-200 bg-gray-50">
-          <div className="flex">
+          <div className="flex flex-wrap">
             <button
               onClick={() => {
-                setMiddlePaneTab('controls');
+                setLeftPaneTab('controls');
                 setRightPaneContent(null);
               }}
               className={clsx(
-                'flex-1 px-4 py-3 text-sm font-medium transition-all border-b-2',
-                middlePaneTab === 'controls'
+                'flex-1 min-w-[100px] px-3 py-3 text-sm font-medium transition-all border-b-2',
+                leftPaneTab === 'controls'
                   ? 'border-green-500 text-green-700 bg-white'
                   : 'border-transparent text-gray-600 hover:text-gray-900'
               )}
@@ -170,12 +109,12 @@ export function RequirementThreePaneView({
             </button>
             <button
               onClick={() => {
-                setMiddlePaneTab('assessments');
+                setLeftPaneTab('assessments');
                 setRightPaneContent(null);
               }}
               className={clsx(
-                'flex-1 px-4 py-3 text-sm font-medium transition-all border-b-2',
-                middlePaneTab === 'assessments'
+                'flex-1 min-w-[100px] px-3 py-3 text-sm font-medium transition-all border-b-2',
+                leftPaneTab === 'assessments'
                   ? 'border-purple-500 text-purple-700 bg-white'
                   : 'border-transparent text-gray-600 hover:text-gray-900'
               )}
@@ -188,12 +127,12 @@ export function RequirementThreePaneView({
             </button>
             <button
               onClick={() => {
-                setMiddlePaneTab('risks');
+                setLeftPaneTab('risks');
                 setRightPaneContent(null);
               }}
               className={clsx(
-                'flex-1 px-4 py-3 text-sm font-medium transition-all border-b-2',
-                middlePaneTab === 'risks'
+                'flex-1 min-w-[100px] px-3 py-3 text-sm font-medium transition-all border-b-2',
+                leftPaneTab === 'risks'
                   ? 'border-red-500 text-red-700 bg-white'
                   : 'border-transparent text-gray-600 hover:text-gray-900'
               )}
@@ -210,12 +149,12 @@ export function RequirementThreePaneView({
         {/* Tab Content */}
         <div className="flex-1 overflow-y-auto">
           {/* Controls Tab */}
-          {middlePaneTab === 'controls' && (
+          {leftPaneTab === 'controls' && (
             <>
               {linkedControls.length === 0 ? (
                 <div className="p-8 text-center text-gray-500">
                   <Shield size={32} className="mx-auto mb-2 opacity-30" />
-                  <p className="text-sm">No controls mapped</p>
+                  <p className="text-sm">No controls mapped to this requirement</p>
                 </div>
               ) : (
                 linkedControls.map((ctrl) => (
@@ -259,12 +198,12 @@ export function RequirementThreePaneView({
           )}
 
           {/* Assessments Tab */}
-          {middlePaneTab === 'assessments' && (
+          {leftPaneTab === 'assessments' && (
             <>
               {linkedAssessments.length === 0 ? (
                 <div className="p-8 text-center text-gray-500">
                   <ClipboardCheck size={32} className="mx-auto mb-2 opacity-30" />
-                  <p className="text-sm">No assessments scheduled</p>
+                  <p className="text-sm">No assessments linked to this requirement</p>
                 </div>
               ) : (
                 linkedAssessments.map((assessment) => (
@@ -303,12 +242,12 @@ export function RequirementThreePaneView({
           )}
 
           {/* Risks Tab */}
-          {middlePaneTab === 'risks' && (
+          {leftPaneTab === 'risks' && (
             <>
               {linkedRisks.length === 0 ? (
                 <div className="p-8 text-center text-gray-500">
                   <AlertTriangle size={32} className="mx-auto mb-2 opacity-30" />
-                  <p className="text-sm">No risks identified</p>
+                  <p className="text-sm">No risks linked to this requirement</p>
                 </div>
               ) : (
                 linkedRisks.map((risk) => (
@@ -345,7 +284,7 @@ export function RequirementThreePaneView({
 
       {/* RIGHT PANE: Detail View */}
       {rightPaneContent && (
-        <div className="flex-[0_0_40%] bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col">
+        <div className="flex-1 bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col">
           {/* Control Detail */}
           {rightPaneContent.type === 'control' && (
             <>
@@ -442,12 +381,15 @@ export function RequirementThreePaneView({
                   )}
                 </div>
 
-                <Link
-                  href={`/controls/${rightPaneContent.data.id}`}
-                  className="block w-full px-4 py-2 bg-green-600 text-white text-center text-sm font-medium rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  View Full Control Details
-                </Link>
+                <div className="pt-3 border-t border-gray-100">
+                  <Link
+                    href={`/controls/${rightPaneContent.data.id}`}
+                    className="flex items-center justify-center gap-2 w-full px-3 py-2 bg-green-600 text-white text-sm font-medium rounded hover:bg-green-700 transition-colors"
+                  >
+                    <ExternalLink size={14} />
+                    View Full Details
+                  </Link>
+                </div>
               </div>
             </>
           )}
@@ -651,12 +593,15 @@ export function RequirementThreePaneView({
                   </div>
                 )}
 
-                <Link
-                  href={`/risks/${rightPaneContent.data.id}`}
-                  className="block w-full px-4 py-2 bg-red-600 text-white text-center text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
-                >
-                  View Full Risk Details
-                </Link>
+                <div className="pt-3 border-t border-gray-100">
+                  <Link
+                    href={`/risks/${rightPaneContent.data.id}`}
+                    className="flex items-center justify-center gap-2 w-full px-3 py-2 bg-orange-600 text-white text-sm font-medium rounded hover:bg-orange-700 transition-colors"
+                  >
+                    <ExternalLink size={14} />
+                    View Full Details
+                  </Link>
+                </div>
               </div>
             </>
           )}

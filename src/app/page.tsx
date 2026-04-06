@@ -357,6 +357,7 @@ export default function Home() {
 
       {/* Overall Compliance Score - Hero Card (Clickable) */}
       <button
+        data-tour="compliance-score"
         onClick={() => setShowScoreModal(true)}
         className="animate-fade-in-up delay-1 relative z-10 overflow-hidden bg-gradient-to-r from-[var(--primary-dark)] via-[var(--primary)] to-[var(--primary-light)] rounded-xl p-8 mb-8 shadow-lg hover:shadow-xl transition-all w-full text-left group cursor-pointer hover:scale-[1.01]"
       >

@@ -1,6 +1,7 @@
 // Mock Data for Compliance Module
 import { ComplianceProgram, Assessment, Issue, DashboardMetrics } from '../types/compliance';
 import { cbuaePrograms } from './cbuae-comprehensive';
+import { e2eIssues } from './end-to-end-workflows';
 // [DEMO] Import demo data
 // import { paymePrograms, isDemoFeatureEnabled } from '../demo';
 import { isDemoFeatureEnabled } from '../demo';
@@ -205,6 +206,189 @@ const basePrograms: ComplianceProgram[] = [
     lastReviewDate: '2024-12-01', nextReviewDate: '2025-03-01',
     createdAt: '2024-06-01', updatedAt: '2024-12-20'
   },
+  // ============================================================================
+  // INDIA CORPORATE COMPLIANCE - COMPANIES ACT & SEBI LODR
+  // ============================================================================
+  {
+    id: 'pgm-companies-act-2013',
+    name: 'Companies Act, 2013 - Corporate Secretarial Compliance',
+    description: 'Corporate governance and secretarial compliance framework for listed entity under MCA',
+    tags: ['MCA', 'Regulator', 'India', 'Corporate Law', 'Listed Entity', 'Company Secretary'],
+    framework: 'Companies Act 2013',
+    status: 'Active',
+    owner: 'Priya Sharma (CS)',
+    department: 'Legal & Secretarial',
+    complianceScore: 85,
+    riskRating: 'Critical',
+    priority: 'Critical',
+    sourceTemplateId: 'tpl-companies-act-2013',
+    isCustom: false,
+    requirementCount: 12,
+    obligationCount: 6,
+    upcomingObligations: 4,
+    overdueObligations: 0,
+    controls: 6,
+    tests: 25,
+    testsPassed: 22,
+    testsFailed: 2,
+    testsPending: 1,
+    lastReviewDate: '2024-12-01',
+    nextReviewDate: '2025-03-01',
+    createdAt: '2024-01-01',
+    updatedAt: '2024-12-20'
+  },
+  {
+    id: 'pgm-sebi-lodr-2015',
+    name: 'SEBI LODR 2015 - Listing Obligations & Disclosure Requirements',
+    description: 'Listing compliance and disclosure requirements for securities market under SEBI',
+    tags: ['SEBI', 'Regulator', 'India', 'Listed Entity', 'Disclosure', 'Stock Exchange'],
+    framework: 'SEBI LODR',
+    status: 'Active',
+    owner: 'Priya Sharma (CS)',
+    department: 'Legal & Secretarial',
+    complianceScore: 88,
+    riskRating: 'Critical',
+    priority: 'Critical',
+    sourceTemplateId: 'tpl-sebi-lodr-2015',
+    isCustom: false,
+    requirementCount: 10,
+    obligationCount: 7,
+    upcomingObligations: 6,
+    overdueObligations: 0,
+    controls: 6,
+    tests: 30,
+    testsPassed: 27,
+    testsFailed: 2,
+    testsPending: 1,
+    lastReviewDate: '2024-12-01',
+    nextReviewDate: '2025-03-01',
+    createdAt: '2024-01-01',
+    updatedAt: '2024-12-20'
+  },
+  // ============================================================================
+  // SOC 2 TYPE II COMPLIANCE (AICPA)
+  // ============================================================================
+  {
+    id: 'pgm-soc2-type2',
+    name: 'SOC 2 Type II Compliance',
+    description: 'AICPA System and Organization Controls 2 audit framework for security, availability, and confidentiality',
+    tags: ['AICPA', 'Standards Body', 'USA', 'Security', 'Trust Services', 'Audit', 'SOC2'],
+    framework: 'SOC 2',
+    status: 'Active',
+    owner: 'Security Team Lead',
+    department: 'Information Security',
+    complianceScore: 88,
+    riskRating: 'High',
+    priority: 'Critical',
+    sourceTemplateId: 'tpl-soc2-type2',
+    isCustom: false,
+    requirementCount: 64,
+    obligationCount: 8,
+    upcomingObligations: 2,
+    overdueObligations: 0,
+    controls: 85,
+    tests: 120,
+    testsPassed: 105,
+    testsFailed: 8,
+    testsPending: 7,
+    lastReviewDate: '2024-12-01',
+    nextReviewDate: '2025-06-01',
+    createdAt: '2024-01-01',
+    updatedAt: '2024-12-15'
+  },
+  // ============================================================================
+  // SOC 1 TYPE II COMPLIANCE (SSAE 18)
+  // ============================================================================
+  {
+    id: 'pgm-soc1-type2',
+    name: 'SOC 1 Type II (SSAE 18)',
+    description: 'Service Organization Control report for Internal Controls over Financial Reporting (ICFR)',
+    tags: ['AICPA', 'Standards Body', 'USA', 'Financial Controls', 'Audit', 'ICFR', 'SOC1'],
+    framework: 'SOC 1',
+    status: 'Active',
+    owner: 'Chief Financial Officer',
+    department: 'Finance',
+    complianceScore: 92,
+    riskRating: 'High',
+    priority: 'Critical',
+    sourceTemplateId: 'tpl-soc1-type2',
+    isCustom: false,
+    requirementCount: 45,
+    obligationCount: 0,
+    upcomingObligations: 0,
+    overdueObligations: 0,
+    controls: 27,
+    tests: 54,
+    testsPassed: 50,
+    testsFailed: 2,
+    testsPending: 2,
+    lastReviewDate: '2026-02-01',
+    nextReviewDate: '2026-08-01',
+    createdAt: '2025-08-01',
+    updatedAt: '2026-02-15'
+  },
+  // ============================================================================
+  // ISO 27701 PIMS COMPLIANCE
+  // ============================================================================
+  {
+    id: 'pgm-iso27701',
+    name: 'ISO 27701:2025 (PIMS)',
+    description: 'Privacy Information Management System - Extension to ISO 27001 for privacy management',
+    tags: ['ISO', 'Standards Body', 'International', 'Privacy', 'PIMS', 'GDPR', 'Data Protection'],
+    framework: 'ISO 27701',
+    status: 'Active',
+    owner: 'Data Protection Officer',
+    department: 'Privacy & Compliance',
+    complianceScore: 85,
+    riskRating: 'High',
+    priority: 'Critical',
+    sourceTemplateId: 'tpl-iso27701',
+    isCustom: false,
+    requirementCount: 50,
+    obligationCount: 0,
+    upcomingObligations: 0,
+    overdueObligations: 0,
+    controls: 30,
+    tests: 60,
+    testsPassed: 52,
+    testsFailed: 4,
+    testsPending: 4,
+    lastReviewDate: '2026-02-10',
+    nextReviewDate: '2026-08-10',
+    createdAt: '2025-09-01',
+    updatedAt: '2026-02-20'
+  },
+  // ============================================================================
+  // NPCI TPAP CERTIFICATION (UPI Payment Apps)
+  // ============================================================================
+  {
+    id: 'pgm-npci-tpap',
+    name: 'NPCI TPAP Certification Requirements',
+    description: 'Third Party Application Provider certification for UPI payments (GPay, PhonePe, Razor Pay model)',
+    tags: ['NPCI', 'Regulator', 'India', 'Payments', 'UPI', 'TPAP', 'Fintech', 'Digital Payments'],
+    framework: 'NPCI TPAP',
+    status: 'Active',
+    owner: 'Head of Payments',
+    department: 'Payments & Fintech',
+    complianceScore: 92,
+    riskRating: 'Critical',
+    priority: 'Critical',
+    sourceTemplateId: 'tpl-npci-tpap',
+    isCustom: false,
+    requirementCount: 48,
+    obligationCount: 12,
+    upcomingObligations: 3,
+    overdueObligations: 0,
+    controls: 65,
+    tests: 95,
+    testsPassed: 88,
+    testsFailed: 4,
+    testsPending: 3,
+    lastReviewDate: '2024-12-01',
+    nextReviewDate: '2025-03-01',
+    createdAt: '2024-01-01',
+    updatedAt: '2024-12-20'
+  },
   // Add comprehensive CBUAE programs (5 major programs with 555 requirements, 2210 controls, 207 obligations)
   ...cbuaePrograms,
 ];
@@ -233,6 +417,8 @@ export const issues: Issue[] = [
   { id: 'iss-004', title: 'Missing Data Classification', description: 'Sensitive data not properly classified per PDPL', programId: 'pgm-005', programName: 'PDPL Compliance', severity: 'High', status: 'In Progress', category: 'Policy Violation', owner: 'Ahmed Al-Rashid', assignedTo: 'Data Governance Team', discoveredDate: '2024-11-20', dueDate: '2024-12-30', createdAt: '2024-11-20', updatedAt: '2024-12-12' },
   { id: 'iss-005', title: 'Patch Management Gap', description: 'Critical patches not applied within 72 hours', programId: 'pgm-001', programName: 'RBI IT Governance', controlId: 'ctl-007', severity: 'High', status: 'Pending Review', category: 'Audit Finding', owner: 'Rahul Sharma', assignedTo: 'IT Operations', discoveredDate: '2024-12-08', dueDate: '2024-12-22', resolvedDate: '2024-12-18', correctiveAction: 'Implemented automated patch deployment', createdAt: '2024-12-08', updatedAt: '2024-12-18' },
   { id: 'iss-006', title: 'Backup Verification Failure', description: 'Monthly backup restoration test failed', programId: 'pgm-001', programName: 'RBI IT Governance', controlId: 'ctl-008', severity: 'Critical', status: 'In Progress', category: 'Control Gap', owner: 'Rahul Sharma', assignedTo: 'IT Operations', discoveredDate: '2024-12-15', dueDate: '2024-12-25', createdAt: '2024-12-15', updatedAt: '2024-12-16' },
+  // End-to-End Workflow Action Items
+  ...e2eIssues, // Adds 5 end-to-end workflow action items demonstrating evidence collection workflow
 ];
 
 export const dashboardMetrics: DashboardMetrics = {

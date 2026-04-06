@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import { Shell } from "@/components";
+import { DemoWizardProvider } from "@/contexts/DemoWizardContext";
+import DemoWizard from "@/components/DemoWizard";
+import DemoWizardLauncher from "@/components/DemoWizardLauncher";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -22,7 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${outfit.variable} antialiased`}>
-        <Shell>{children}</Shell>
+        <DemoWizardProvider>
+          <Shell>{children}</Shell>
+          <DemoWizard />
+          <DemoWizardLauncher />
+        </DemoWizardProvider>
       </body>
     </html>
   );

@@ -8,21 +8,13 @@ import { programTemplates } from '@/lib/data/program-library';
 const libraryCategories = [
   {
     id: 'programs',
-    title: 'Program Templates',
-    description: 'Pre-built compliance programs ready to import',
+    title: 'Programs & Frameworks',
+    description: 'Browse by authority or explore compliance programs and standards',
     icon: BookOpen,
     href: '/library/programs',
     count: programTemplates.length,
-    color: 'from-cyan-500 to-cyan-600'
-  },
-  {
-    id: 'frameworks',
-    title: 'Frameworks',
-    description: 'Compliance frameworks and standards library',
-    icon: Library,
-    href: '/library/frameworks',
-    count: 12,
-    color: 'from-blue-500 to-blue-600'
+    color: 'from-cyan-500 to-cyan-600',
+    badge: 'Unified Library'
   },
   {
     id: 'policies',
@@ -136,9 +128,16 @@ export default function LibraryPage() {
                   <ArrowRight size={20} className="text-[var(--foreground-muted)] group-hover:text-[var(--primary)] transition-colors" />
                 </div>
 
-                <h3 className="text-h4 font-semibold text-[var(--foreground)] mb-2 group-hover:text-[var(--primary)] transition-colors">
-                  {category.title}
-                </h3>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-h4 font-semibold text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors">
+                    {category.title}
+                  </h3>
+                  {'badge' in category && (
+                    <span className="px-2 py-1 bg-cyan-100 text-cyan-700 text-xs rounded-full font-medium">
+                      {category.badge}
+                    </span>
+                  )}
+                </div>
                 <p className="text-p2 text-[var(--foreground-muted)] mb-4">
                   {category.description}
                 </p>

@@ -75,6 +75,7 @@ function RequirementsPageContent() {
       <PageHeader
         title="Requirement Citations"
         description={selectedProgram ? `Requirements mandated by ${selectedProgram.framework}` : "Continuous-state compliance requirements from regulatory authorities"}
+        data-tour="requirements-header"
         action={
           <button
             onClick={() => setShowAddModal(true)}
@@ -94,7 +95,7 @@ function RequirementsPageContent() {
       />
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-5 gap-4 animate-fade-in-up delay-1">
+      <div className="grid grid-cols-5 gap-4 animate-fade-in-up delay-1" data-tour="requirements-kpis">
         <div className="p-5 rounded-xl bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] text-white shadow-md">
           <p className="text-white/70 text-p3 font-medium mb-1">Total Requirements</p>
           <p className="text-h2 font-bold tracking-tight">{stats.total}</p>
@@ -150,7 +151,7 @@ function RequirementsPageContent() {
       />
 
       {/* Requirements Table */}
-      <div className="animate-fade-in-up delay-3 bg-white rounded-xl border border-[var(--border)] overflow-hidden">
+      <div className="animate-fade-in-up delay-3 bg-white rounded-xl border border-[var(--border)] overflow-hidden" data-tour="requirements-table">
         <table className="w-full">
           <thead className="bg-[var(--background-secondary)]">
             <tr>

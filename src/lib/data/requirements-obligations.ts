@@ -3,6 +3,12 @@ import { cbuaeRequirements, cbuaeObligations } from './cbuae-comprehensive';
 import rbiITGovernance from './rbi-it-governance';
 import dpdpITFramework from './dpdp-act-2023';
 import oilGasStandards from './oil-gas-standards';
+import indiaCorporateCompliance from './india-corporate-compliance';
+import soc2Framework from './soc2-framework';
+import npciTpap from './npci-tpap';
+import iso27001Framework from './iso27001-framework';
+import { soc1Requirements } from './soc1-requirements';
+import { iso27701Requirements } from './iso27701-requirements';
 // [DEMO] Import demo data
 // import { paymeObligations, paymeRequirements, isDemoFeatureEnabled } from '../demo';
 import { isDemoFeatureEnabled } from '../demo';
@@ -775,6 +781,38 @@ const importedEPARequirements: RequirementCitation[] = oilGasStandards.requireme
     programName: 'EPA Environmental Requirements for Oil & Gas'
   }));
 
+// Create imported Companies Act 2013 program requirements (pgm-companies-act-2013) from template requirements
+const importedCompaniesActRequirements: RequirementCitation[] = indiaCorporateCompliance.requirements
+  .filter(req => req.programId === 'tpl-companies-act-2013')
+  .map(req => ({
+    ...req,
+    programId: 'pgm-companies-act-2013', // Link to the imported program in My Programs
+    programName: 'Companies Act, 2013 - Corporate Secretarial Compliance'
+  }));
+
+// Create imported SEBI LODR 2015 program requirements (pgm-sebi-lodr-2015) from template requirements
+const importedSEBILODRRequirements: RequirementCitation[] = indiaCorporateCompliance.requirements
+  .filter(req => req.programId === 'tpl-sebi-lodr-2015')
+  .map(req => ({
+    ...req,
+    programId: 'pgm-sebi-lodr-2015', // Link to the imported program in My Programs
+    programName: 'SEBI LODR 2015 - Listing Obligations & Disclosure Requirements'
+  }));
+
+// Create SOC 1 program requirements (pgm-soc1-type2) from SOC 1 requirements
+const soc1ProgramRequirements: RequirementCitation[] = soc1Requirements.map(req => ({
+  ...req,
+  programId: 'pgm-soc1-type2', // Link to the SOC 1 program in My Programs
+  programName: 'SOC 1 Type II (SSAE 18)'
+}));
+
+// Create ISO 27701 program requirements (pgm-iso27701) from ISO 27701 requirements
+const iso27701ProgramRequirements: RequirementCitation[] = iso27701Requirements.map(req => ({
+  ...req,
+  programId: 'pgm-iso27701', // Link to the ISO 27701 program in My Programs
+  programName: 'ISO 27701:2025 (PIMS)'
+}));
+
 // Base requirements array
 const allBaseRequirements: RequirementCitation[] = [
   ...baseRequirements,
@@ -787,6 +825,14 @@ const allBaseRequirements: RequirementCitation[] = [
   ...importedISO9001Requirements, // Adds 7 ISO 9001 requirements for imported program (pgm-iso9001)
   ...importedOSHARequirements, // Adds 5 OSHA requirements for imported program (pgm-osha)
   ...importedEPARequirements, // Adds 5 EPA requirements for imported program (pgm-epa)
+  ...indiaCorporateCompliance.requirements, // Adds 22 India Corporate Compliance template requirements (12 CA + 10 LODR)
+  ...importedCompaniesActRequirements, // Adds 12 Companies Act 2013 requirements for imported program
+  ...importedSEBILODRRequirements, // Adds 10 SEBI LODR 2015 requirements for imported program
+  ...soc2Framework.requirements, // Adds SOC 2 Type II requirements
+  ...soc1ProgramRequirements, // Adds 45 SOC 1 Type II requirements for program (pgm-soc1-type2)
+  ...iso27701ProgramRequirements, // Adds 50 ISO 27701 PIMS requirements for program (pgm-iso27701)
+  ...npciTpap.requirements, // Adds NPCI TPAP requirements
+  ...iso27001Framework.requirements, // Adds 12 ISO 27001 ISMS requirements
 ];
 
 // [DEMO] Export combined requirements with demo data if enabled
@@ -1321,6 +1367,24 @@ const importedEPAObligations: ObligationCitation[] = oilGasStandards.obligations
     programName: 'EPA Environmental Requirements for Oil & Gas'
   }));
 
+// Create imported Companies Act 2013 program obligations (pgm-companies-act-2013) from template obligations
+const importedCompaniesActObligations: ObligationCitation[] = indiaCorporateCompliance.obligations
+  .filter(obl => obl.programId === 'tpl-companies-act-2013')
+  .map(obl => ({
+    ...obl,
+    programId: 'pgm-companies-act-2013', // Link to the imported program in My Programs
+    programName: 'Companies Act, 2013 - Corporate Secretarial Compliance'
+  }));
+
+// Create imported SEBI LODR 2015 program obligations (pgm-sebi-lodr-2015) from template obligations
+const importedSEBILODRObligations: ObligationCitation[] = indiaCorporateCompliance.obligations
+  .filter(obl => obl.programId === 'tpl-sebi-lodr-2015')
+  .map(obl => ({
+    ...obl,
+    programId: 'pgm-sebi-lodr-2015', // Link to the imported program in My Programs
+    programName: 'SEBI LODR 2015 - Listing Obligations & Disclosure Requirements'
+  }));
+
 // Base obligations array
 const allBaseObligations: ObligationCitation[] = [
   ...baseObligations,
@@ -1330,6 +1394,12 @@ const allBaseObligations: ObligationCitation[] = [
   ...oilGasStandards.obligations, // Adds oil & gas obligations (OSHA, EPA, USCG templates)
   ...importedOSHAObligations, // Adds 2 OSHA obligations for imported program (pgm-osha)
   ...importedEPAObligations, // Adds 3 EPA obligations for imported program (pgm-epa)
+  ...indiaCorporateCompliance.obligations, // Adds 13 India Corporate Compliance template obligations (6 CA + 7 LODR)
+  ...importedCompaniesActObligations, // Adds 6 Companies Act 2013 obligations for imported program
+  ...importedSEBILODRObligations, // Adds 7 SEBI LODR 2015 obligations for imported program
+  ...soc2Framework.obligations, // Adds SOC 2 Type II obligations
+  ...npciTpap.obligations, // Adds NPCI TPAP obligations
+  ...iso27001Framework.obligations, // Adds 2 ISO 27001 ISMS obligations
 ];
 
 // [DEMO] Export combined obligations with demo data if enabled

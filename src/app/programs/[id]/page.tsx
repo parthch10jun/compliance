@@ -204,6 +204,7 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ id: st
       <PageHeader
         title={program.name}
         description={program.description}
+        data-tour={program.id === 'pgm-soc2-type2' ? 'soc2-program-detail-header' : undefined}
         action={
           <div className="flex items-center gap-3">
             <button
@@ -251,7 +252,10 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ id: st
       </div>
 
       {/* Key Metrics Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 animate-fade-in-up delay-1">
+      <div
+        className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 animate-fade-in-up delay-1"
+        data-tour={program.id === 'pgm-soc2-type2' ? 'soc2-program-kpis' : undefined}
+      >
         <div className="p-5 rounded-xl bg-white border border-[var(--border)] hover:shadow-md transition-shadow">
           <p className="text-[var(--foreground-muted)] text-p3 font-medium mb-1">Compliance Score</p>
           <p className="text-h2 font-bold text-emerald-600">{program.complianceScore}%</p>
@@ -293,7 +297,10 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ id: st
 
       {/* Tab Switcher */}
       <div className="border-b border-[var(--border)] bg-white rounded-t-xl">
-        <div className="flex gap-1 p-1">
+        <div
+          className="flex gap-1 p-1"
+          data-tour={program.id === 'pgm-soc2-type2' ? 'soc2-program-tabs' : undefined}
+        >
           <button
             onClick={() => setActiveTab('info')}
             className={clsx(
@@ -589,6 +596,7 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ id: st
           onMiddlePaneTabChange={setMiddlePaneTab}
           rightPaneContent={rightPaneContent}
           onRightPaneContentChange={setRightPaneContent}
+          onViewAllRequirements={() => setShowAllRequirementsModal(true)}
         />
       )}
 

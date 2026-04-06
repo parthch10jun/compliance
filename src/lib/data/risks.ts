@@ -1,4 +1,5 @@
 import { Risk, RiskControlLink, RiskRequirementLink, RiskObligationLink, calculateRiskScore, getRiskRating, calculateRiskReduction } from '../types/compliance';
+import { e2eRisks } from './end-to-end-workflows';
 
 /**
  * RISKS - Mock data for risk register
@@ -164,6 +165,8 @@ export const risks: Risk[] = [
     createdAt: '2024-03-01',
     updatedAt: '2024-11-25'
   },
+  // End-to-End Workflow Risks
+  ...e2eRisks, // Adds 3 end-to-end risks (SOC 2 CC6.1, SOC 1 CE-1, ISO 27701 PIMS-5.5)
 ];
 
 /**

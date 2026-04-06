@@ -40,4 +40,5 @@ export { RequirementThreePaneView } from './RequirementThreePaneView';
 export { ProgramElementsThreePaneView } from './ProgramElementsThreePaneView';
 export { default as NewAuditModal } from './NewAuditModal';
 export { AIControlMappingAssistant } from './AIControlMappingAssistant';
-
+export { default as DemoWizard } from './DemoWizard';
+export { default as DemoWizardLauncher } from './DemoWizardLauncher';

@@ -133,7 +133,7 @@ export default function RequirementDetailPage() {
       </button>
 
       {/* Page Header with View Toggle */}
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-start justify-between gap-4" data-tour="requirement-detail-header">
         <PageHeader
           title={requirement.title}
           description={requirement.description}
@@ -258,6 +258,7 @@ export default function RequirementDetailPage() {
                 <button
                   onClick={() => setShowMapControlModal(true)}
                   className="px-3 py-1.5 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 rounded-lg font-medium flex items-center gap-1 transition-colors text-p2"
+                  data-tour="map-control-button"
                 >
                   <Plus size={14} />
                   Link Control
@@ -436,7 +437,7 @@ export default function RequirementDetailPage() {
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Program Info */}
-          <div className="bg-white rounded-xl border border-[var(--border)] p-6">
+          <div className="bg-white rounded-xl border border-[var(--border)] p-6" data-tour="requirement-program-link">
             <h3 className="text-h4 font-bold text-[var(--foreground)] mb-4">Program</h3>
             <Link
               href={`/programs/${requirement.programId}`}
@@ -512,14 +513,9 @@ export default function RequirementDetailPage() {
         </div>
         </div>
       ) : (
-        // Three-Pane View
+        // Two-Pane View: Associated Entities
         <RequirementThreePaneView
-          programRequirements={programRequirements}
-          selectedRequirementId={selectedRequirementId}
-          onRequirementSelect={(id) => {
-            setSelectedRequirementId(id);
-            router.push(`/requirements/${id}`);
-          }}
+          requirement={requirement}
           linkedControls={selectedLinkedControls}
           linkedAssessments={selectedLinkedAssessments}
           linkedRisks={selectedLinkedRisks}

@@ -6,7 +6,7 @@ import { evidence } from '@/lib/data/evidence';
 import { controls } from '@/lib/data/controls';
 import { requirements } from '@/lib/data/requirements-obligations';
 import { controlTests } from '@/lib/data/control-tests';
-import { FileText, Upload, Download, Eye, Clock, CheckCircle, XCircle, AlertCircle, Calendar, User, Tag, Link2, History, Edit, Shield, Target, FlaskConical, FileCheck, ExternalLink } from 'lucide-react';
+import { FileText, Upload, Download, Eye, Clock, CheckCircle, XCircle, AlertCircle, Calendar, User, Tag, Link2, History, Edit, Shield, Target, FlaskConical, FileCheck, ExternalLink, MessageSquare, Send, ThumbsUp, ThumbsDown, RefreshCw, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { formatDate } from '@/lib/utils/date-formatter';
@@ -17,6 +17,7 @@ export default function EvidenceDetailPage({ params }: { params: Promise<{ id: s
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [showLinkModal, setShowLinkModal] = useState(false);
   const [showVersionModal, setShowVersionModal] = useState(false);
+  const [newComment, setNewComment] = useState('');
   
   const evidenceItem = evidence.find(e => e.id === id);
   
@@ -278,8 +279,257 @@ export default function EvidenceDetailPage({ params }: { params: Promise<{ id: s
         </div>
       </div>
 
-      {/* Version History */}
+      {/* Approval Workflow Timeline */}
       <div className="p-6 rounded-xl bg-white border border-[var(--border)] animate-fade-in-up delay-4">
+        <div className="flex items-center gap-2 mb-6">
+          <ArrowRight size={20} className="text-blue-600" />
+          <h3 className="text-h3 font-semibold text-[var(--foreground)]">Approval Workflow</h3>
+        </div>
+
+        <div className="relative">
+          {/* Timeline Line */}
+          <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-gray-200"></div>
+
+          {/* Workflow Steps */}
+          <div className="space-y-6">
+            {/* Step 1: Upload (Doer) */}
+            <div className="relative flex items-start gap-4">
+              <div className={clsx(
+                'w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 z-10 border-4 border-white',
+                evidenceItem.uploadedAt ? 'bg-emerald-500' : 'bg-gray-300'
+              )}>
+                <Upload size={20} className="text-white" />
+              </div>
+              <div className="flex-1 pt-2">
+                <div className="flex items-center justify-between mb-1">
+                  <h4 className="text-p1 font-semibold text-[var(--foreground)]">Evidence Uploaded</h4>
+                  {evidenceItem.uploadedAt && (
+                    <span className="text-p3 text-[var(--foreground-muted)]">{formatDate(evidenceItem.uploadedAt)}</span>
+                  )}
+                </div>
+                <p className="text-p2 text-[var(--foreground-muted)] mb-1">
+                  Uploaded by <span className="font-medium text-[var(--foreground)]">{evidenceItem.uploadedBy}</span>
+                </p>
+                <span className="inline-block px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">Doer/Collector</span>
+              </div>
+            </div>
+
+            {/* Step 2: Review (Reviewer) */}
+            <div className="relative flex items-start gap-4">
+              <div className={clsx(
+                'w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 z-10 border-4 border-white',
+                evidenceItem.reviewedAt ? 'bg-emerald-500' :
+                evidenceItem.status === 'Pending Review' ? 'bg-amber-500' : 'bg-gray-300'
+              )}>
+                <Eye size={20} className="text-white" />
+              </div>
+              <div className="flex-1 pt-2">
+                <div className="flex items-center justify-between mb-1">
+                  <h4 className="text-p1 font-semibold text-[var(--foreground)]">Under Review</h4>
+                  {evidenceItem.reviewedAt && (
+                    <span className="text-p3 text-[var(--foreground-muted)]">{formatDate(evidenceItem.reviewedAt)}</span>
+                  )}
+                </div>
+                {evidenceItem.reviewedBy ? (
+                  <>
+                    <p className="text-p2 text-[var(--foreground-muted)] mb-1">
+                      Reviewed by <span className="font-medium text-[var(--foreground)]">{evidenceItem.reviewedBy}</span>
+                    </p>
+                    <span className="inline-block px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs font-medium">Reviewer</span>
+                  </>
+                ) : evidenceItem.status === 'Pending Review' ? (
+                  <>
+                    <p className="text-p2 text-amber-600 mb-1">Awaiting review...</p>
+                    <span className="inline-block px-2 py-1 bg-amber-100 text-amber-700 rounded text-xs font-medium">Pending</span>
+                  </>
+                ) : (
+                  <p className="text-p2 text-gray-400">Not yet reviewed</p>
+                )}
+              </div>
+            </div>
+
+            {/* Step 3: Approval (Approver) */}
+            <div className="relative flex items-start gap-4">
+              <div className={clsx(
+                'w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 z-10 border-4 border-white',
+                evidenceItem.approvedAt ? 'bg-emerald-500' :
+                evidenceItem.status === 'Rejected' ? 'bg-red-500' : 'bg-gray-300'
+              )}>
+                {evidenceItem.status === 'Rejected' ? (
+                  <XCircle size={20} className="text-white" />
+                ) : (
+                  <CheckCircle size={20} className="text-white" />
+                )}
+              </div>
+              <div className="flex-1 pt-2">
+                <div className="flex items-center justify-between mb-1">
+                  <h4 className="text-p1 font-semibold text-[var(--foreground)]">
+                    {evidenceItem.status === 'Rejected' ? 'Rejected' : 'Final Approval'}
+                  </h4>
+                  {evidenceItem.approvedAt && (
+                    <span className="text-p3 text-[var(--foreground-muted)]">{formatDate(evidenceItem.approvedAt)}</span>
+                  )}
+                </div>
+                {evidenceItem.approvedBy ? (
+                  <>
+                    <p className="text-p2 text-[var(--foreground-muted)] mb-1">
+                      {evidenceItem.status === 'Rejected' ? 'Rejected' : 'Approved'} by <span className="font-medium text-[var(--foreground)]">{evidenceItem.approvedBy}</span>
+                    </p>
+                    <span className="inline-block px-2 py-1 bg-emerald-100 text-emerald-700 rounded text-xs font-medium">Approver</span>
+                    {evidenceItem.rejectionReason && (
+                      <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+                        <p className="text-sm font-medium text-red-900 mb-1">Rejection Reason:</p>
+                        <p className="text-sm text-red-700">{evidenceItem.rejectionReason}</p>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <p className="text-p2 text-gray-400">Awaiting approval</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Buttons Based on Status */}
+        <div className="mt-6 pt-6 border-t border-[var(--border)]">
+          <div className="flex items-center gap-3">
+            {evidenceItem.status === 'Draft' && (
+              <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium">
+                <Send size={18} />
+                Submit for Review
+              </button>
+            )}
+            {evidenceItem.status === 'Pending Review' && (
+              <>
+                <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all font-medium">
+                  <ThumbsUp size={18} />
+                  Approve Evidence
+                </button>
+                <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all font-medium">
+                  <ThumbsDown size={18} />
+                  Reject Evidence
+                </button>
+                <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-all font-medium">
+                  <RefreshCw size={18} />
+                  Request Changes
+                </button>
+              </>
+            )}
+            {evidenceItem.status === 'Rejected' && (
+              <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium">
+                <Upload size={18} />
+                Upload Revised Version
+              </button>
+            )}
+            {evidenceItem.status === 'Approved' && (
+              <div className="flex-1 p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-center">
+                <p className="text-sm font-medium text-emerald-900">
+                  <CheckCircle size={16} className="inline mr-2" />
+                  Evidence Approved - No Action Required
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Comments & Activity */}
+      <div className="p-6 rounded-xl bg-white border border-[var(--border)] animate-fade-in-up delay-5">
+        <div className="flex items-center gap-2 mb-6">
+          <MessageSquare size={20} className="text-indigo-600" />
+          <h3 className="text-h3 font-semibold text-[var(--foreground)]">Comments & Activity</h3>
+          <span className="ml-auto px-3 py-1 bg-[var(--background-secondary)] text-[var(--foreground)] rounded-full text-p3 font-medium">
+            3 Comments
+          </span>
+        </div>
+
+        {/* Comment Input */}
+        <div className="mb-6">
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Add a comment or ask a question..."
+            className="w-full px-4 py-3 border border-[var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] resize-none"
+            rows={3}
+          />
+          <div className="flex items-center justify-end gap-2 mt-2">
+            <button
+              onClick={() => setNewComment('')}
+              className="px-4 py-2 text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                console.log('Comment posted:', newComment);
+                setNewComment('');
+              }}
+              disabled={!newComment.trim()}
+              className="px-4 py-2 bg-[var(--primary)] text-white rounded-lg hover:bg-[var(--primary-dark)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Post Comment
+            </button>
+          </div>
+        </div>
+
+        {/* Comments List */}
+        <div className="space-y-4">
+          {/* Sample Comment 1 - Reviewer */}
+          <div className="flex items-start gap-3 p-4 bg-[var(--background-secondary)] rounded-lg">
+            <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+              <User size={20} className="text-purple-600" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <p className="text-p2 font-semibold text-[var(--foreground)]">Michael Chen</p>
+                <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs font-medium">Reviewer</span>
+                <span className="text-p3 text-[var(--foreground-muted)]">2 hours ago</span>
+              </div>
+              <p className="text-p2 text-[var(--foreground-muted)]">
+                The MFA configuration looks good. Can you also include the backup authentication methods documentation?
+              </p>
+            </div>
+          </div>
+
+          {/* Sample Comment 2 - Doer */}
+          <div className="flex items-start gap-3 p-4 bg-[var(--background-secondary)] rounded-lg">
+            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+              <User size={20} className="text-blue-600" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <p className="text-p2 font-semibold text-[var(--foreground)]">Sarah Johnson</p>
+                <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs font-medium">Doer</span>
+                <span className="text-p3 text-[var(--foreground-muted)]">1 hour ago</span>
+              </div>
+              <p className="text-p2 text-[var(--foreground-muted)]">
+                Sure! I'll upload version 1.1 with the backup authentication methods included.
+              </p>
+            </div>
+          </div>
+
+          {/* Sample Comment 3 - Approver */}
+          <div className="flex items-start gap-3 p-4 bg-[var(--background-secondary)] rounded-lg">
+            <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+              <User size={20} className="text-emerald-600" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <p className="text-p2 font-semibold text-[var(--foreground)]">Jane Doe</p>
+                <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs font-medium">Approver</span>
+                <span className="text-p3 text-[var(--foreground-muted)]">30 minutes ago</span>
+              </div>
+              <p className="text-p2 text-[var(--foreground-muted)]">
+                Perfect! Once the backup methods are added, I'll give final approval.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Version History */}
+      <div className="p-6 rounded-xl bg-white border border-[var(--border)] animate-fade-in-up delay-6">
         <div className="flex items-center gap-2 mb-4">
           <History size={20} className="text-violet-600" />
           <h3 className="text-h3 font-semibold text-[var(--foreground)]">Version History</h3>
@@ -329,7 +579,7 @@ export default function EvidenceDetailPage({ params }: { params: Promise<{ id: s
 
       {/* Linked Controls */}
       {linkedControls.length > 0 && (
-        <div className="p-6 rounded-xl bg-white border border-[var(--border)] animate-fade-in-up delay-5">
+        <div className="p-6 rounded-xl bg-white border border-[var(--border)] animate-fade-in-up delay-7">
           <div className="flex items-center gap-2 mb-4">
             <Shield size={20} className="text-blue-600" />
             <h3 className="text-h3 font-semibold text-[var(--foreground)]">Linked Controls</h3>
@@ -376,7 +626,7 @@ export default function EvidenceDetailPage({ params }: { params: Promise<{ id: s
 
       {/* Linked Requirements */}
       {linkedRequirements.length > 0 && (
-        <div className="p-6 rounded-xl bg-white border border-[var(--border)] animate-fade-in-up delay-6">
+        <div className="p-6 rounded-xl bg-white border border-[var(--border)] animate-fade-in-up delay-8">
           <div className="flex items-center gap-2 mb-4">
             <Target size={20} className="text-violet-600" />
             <h3 className="text-h3 font-semibold text-[var(--foreground)]">Linked Requirements</h3>
@@ -423,7 +673,7 @@ export default function EvidenceDetailPage({ params }: { params: Promise<{ id: s
 
       {/* Linked Tests */}
       {linkedTests.length > 0 && (
-        <div className="p-6 rounded-xl bg-white border border-[var(--border)] animate-fade-in-up delay-7">
+        <div className="p-6 rounded-xl bg-white border border-[var(--border)] animate-fade-in-up delay-9">
           <div className="flex items-center gap-2 mb-4">
             <FlaskConical size={20} className="text-indigo-600" />
             <h3 className="text-h3 font-semibold text-[var(--foreground)]">Linked Tests</h3>

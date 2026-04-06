@@ -1,6 +1,13 @@
 import { Control } from '../types/compliance';
 import dpdpITFramework from './dpdp-act-2023';
 import oilGasStandards from './oil-gas-standards';
+import indiaCorporateCompliance from './india-corporate-compliance';
+import soc2Framework from './soc2-framework';
+import npciTpap from './npci-tpap';
+import iso27001Framework from './iso27001-framework';
+import { soc1Controls } from './soc1-controls';
+import { iso27701Controls } from './iso27701-controls';
+import { soc2CC61Controls, soc1CE1Controls, iso27701PIMS55Controls } from './end-to-end-workflows';
 // [DEMO] Import demo controls
 // import { paymeControls, isDemoFeatureEnabled } from '../demo';
 
@@ -1222,8 +1229,22 @@ const baseControls: Control[] = [
   ...oilGasStandards.controls, // Adds oil & gas controls (OSHA, EPA, USCG)
 ];
 
+// Combine all controls
+const allBaseControls: Control[] = [
+  ...baseControls,
+  ...indiaCorporateCompliance.controls, // Adds 6 corporate secretarial controls
+  ...soc2Framework.controls, // Adds SOC 2 Type II controls
+  ...soc1Controls, // Adds 27 SOC 1 Type II controls
+  ...iso27701Controls, // Adds 30 ISO 27701 PIMS controls
+  ...npciTpap.controls, // Adds NPCI TPAP controls
+  ...iso27001Framework.controls, // Adds 10 ISO 27001 ISMS controls
+  ...soc2CC61Controls, // Adds 3 end-to-end SOC 2 CC6.1 controls
+  ...soc1CE1Controls, // Adds 3 end-to-end SOC 1 CE-1 controls
+  ...iso27701PIMS55Controls, // Adds 2 end-to-end ISO 27701 PIMS-5.5 controls
+];
+
 // [DEMO] Export controls with demo data if enabled
 // export const controls: Control[] = isDemoFeatureEnabled('demoData')
-//   ? [...baseControls, ...paymeControls] // Adds 18 PayMe India demo controls
-//   : baseControls;
-export const controls: Control[] = baseControls;
+//   ? [...allBaseControls, ...paymeControls] // Adds 18 PayMe India demo controls
+//   : allBaseControls;
+export const controls: Control[] = allBaseControls;

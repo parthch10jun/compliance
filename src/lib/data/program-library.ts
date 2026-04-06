@@ -6,12 +6,20 @@ import cbuaeFrameworks from './cbuae-frameworks';
 import rbiITGovernance from './rbi-it-governance';
 import dpdpITFramework from './dpdp-act-2023';
 import oilGasStandards from './oil-gas-standards';
+import indiaCorporateCompliance from './india-corporate-compliance';
+import soc2Framework from './soc2-framework';
+import npciTpap from './npci-tpap';
 
 export const programTemplates: ProgramTemplate[] = [
   // ============================================================================
   // CBUAE (Central Bank of UAE) FRAMEWORKS
   // ============================================================================
   ...cbuaeFrameworks,
+
+  // ============================================================================
+  // INDIA CORPORATE COMPLIANCE (Companies Act & SEBI LODR)
+  // ============================================================================
+  ...indiaCorporateCompliance.templates,
 
   // ============================================================================
   // RBI (Reserve Bank of India) FRAMEWORKS
@@ -56,6 +64,48 @@ export const programTemplates: ProgramTemplate[] = [
   ...oilGasStandards.templates,
 
   // ============================================================================
+  // SOC 2 TYPE II COMPLIANCE
+  // ============================================================================
+  soc2Framework.template,
+
+  // ============================================================================
+  // SOC 1 TYPE II COMPLIANCE (SSAE 18)
+  // ============================================================================
+  {
+    id: 'tpl-soc1-type2',
+    name: 'SOC 1 Type II (SSAE 18)',
+    description: 'Service Organization Control report for Internal Controls over Financial Reporting (ICFR)',
+    longDescription: 'SOC 1 Type II reports provide assurance on controls at service organizations that are relevant to user entities\' internal control over financial reporting (ICFR). Based on SSAE 18 standards, these reports evaluate the design and operating effectiveness of controls over a period of time. SOC 1 is essential for service organizations whose services impact their clients\' financial statements.',
+    tags: ['AICPA', 'Standards Body', 'USA', 'Financial Controls', 'Audit'],
+    framework: 'SOC 1',
+    version: 'SSAE 18',
+    category: 'Standard',
+    requirementCount: 45,
+    obligationCount: 0,
+    controlCount: 27,
+    publisher: 'AICPA',
+    effectiveDate: '2017-05-01',
+    lastUpdated: '2026-01-15',
+    popularity: 156,
+    keyFeatures: [
+      'COSO Framework Alignment (5 Components)',
+      'Control Environment & Governance',
+      'Risk Assessment for Financial Reporting',
+      'Control Activities for ICFR',
+      'Information & Communication Systems',
+      'Monitoring Activities'
+    ],
+    applicableTo: ['Service Organizations', 'Financial Services', 'Payroll Processors', 'Data Centers', 'USA', 'International'],
+    createdAt: '2017-05-01',
+    updatedAt: '2026-01-15'
+  },
+
+  // ============================================================================
+  // NPCI TPAP (UPI Payment Apps)
+  // ============================================================================
+  npciTpap.template,
+
+  // ============================================================================
   // INTERNATIONAL STANDARDS
   // ============================================================================
   {
@@ -84,6 +134,36 @@ export const programTemplates: ProgramTemplate[] = [
     applicableTo: ['All Industries', 'International'],
     createdAt: '2022-10-25',
     updatedAt: '2024-01-15'
+  },
+  {
+    id: 'tpl-iso27701',
+    name: 'ISO 27701:2025 (PIMS)',
+    description: 'Privacy Information Management System - Extension to ISO 27001 for privacy management',
+    longDescription: 'ISO/IEC 27701:2025 is the international standard for Privacy Information Management Systems (PIMS). It extends ISO 27001 and ISO 27002 with additional requirements and controls for managing privacy and protecting personally identifiable information (PII). The 2025 update aligns with evolving global privacy regulations including GDPR, and provides guidance for both PII controllers and PII processors.',
+    tags: ['ISO', 'Standards Body', 'International', 'Privacy', 'PIMS', 'GDPR'],
+    framework: 'ISO 27701',
+    version: '2025',
+    category: 'Standard',
+    requirementCount: 50,
+    obligationCount: 0,
+    controlCount: 30,
+    publisher: 'ISO/IEC',
+    effectiveDate: '2025-02-01',
+    lastUpdated: '2026-02-15',
+    popularity: 189,
+    keyFeatures: [
+      'Privacy by Design and Default',
+      'PII Controller Requirements (Clause 7)',
+      'PII Processor Requirements (Clause 8)',
+      'Data Subject Rights Management',
+      'Privacy Impact Assessments (DPIA)',
+      'Cross-border Transfer Safeguards',
+      'Consent Management',
+      'Breach Notification Procedures'
+    ],
+    applicableTo: ['Organizations processing PII', 'Data Controllers', 'Data Processors', 'All Industries', 'International'],
+    createdAt: '2019-08-06',
+    updatedAt: '2026-02-15'
   },
   {
     id: 'tpl-gdpr',

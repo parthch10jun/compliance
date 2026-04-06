@@ -11,6 +11,7 @@ interface SearchFilterBarProps {
   onViewModeChange?: (mode: any) => void;
   formatLabel?: (option: string) => string;
   showHierarchyView?: boolean;
+  'data-tour'?: string;
 }
 
 export default function SearchFilterBar({
@@ -21,10 +22,11 @@ export default function SearchFilterBar({
   actions,
   viewMode,
   onViewModeChange,
-  showHierarchyView = false
+  showHierarchyView = false,
+  'data-tour': dataTour
 }: SearchFilterBarProps) {
   return (
-    <div className="mb-6 animate-fade-in-up delay-1">
+    <div className="mb-6 animate-fade-in-up delay-1" data-tour={dataTour}>
       <div className="flex items-center gap-4 mb-3">
         {/* Search Input */}
         <div className="relative flex-1 max-w-md">

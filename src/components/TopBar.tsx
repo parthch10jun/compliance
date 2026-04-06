@@ -65,6 +65,7 @@ export default function TopBar({ onCommandPaletteOpen }: TopBarProps) {
 
           {/* Quick Access Button */}
           <button
+            data-tour="command-palette"
             onClick={() => setShowQuickAccess(!showQuickAccess)}
             className={clsx(
               "flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200",

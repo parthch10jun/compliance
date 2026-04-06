@@ -121,6 +121,7 @@ function ControlsDashboardContent() {
     <div>
       {/* Header */}
       <PageHeader
+        data-tour="controls-header"
         title="Controls Dashboard"
         description="Monitor control effectiveness and testing coverage"
         action={

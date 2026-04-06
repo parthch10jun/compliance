@@ -11,6 +11,7 @@ export * from './config';
 // export * from './payme-requirements';
 // export * from './payme-controls';
 export * from './playbooks';
+export * from './tours';
 
 // Re-export commonly used items
 export { DEMO_MODE, isDemoEnabled, isDemoFeatureEnabled } from './config';
@@ -19,4 +20,5 @@ export { DEMO_MODE, isDemoEnabled, isDemoFeatureEnabled } from './config';
 // export { paymeRequirements } from './payme-requirements';
 // export { paymeControls } from './payme-controls';
 export { demoPlaybooks } from './playbooks';
+export { demoTours, getTourById, getToursByCategory } from './tours';
 

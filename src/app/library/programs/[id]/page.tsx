@@ -54,6 +54,7 @@ export default function ProgramTemplateDetailPage({ params }: { params: Promise<
 
       {/* Page Header */}
       <PageHeader
+        data-tour="soc2-detail-header"
         title={template.name}
         description={template.description}
         action={
@@ -62,9 +63,10 @@ export default function ProgramTemplateDetailPage({ params }: { params: Promise<
               <Share2 size={18} />
               Share
             </button>
-            <button 
+            <button
               onClick={handleImport}
               disabled={importing}
+              data-tour="import-soc2-confirm"
               className="flex items-center gap-2 px-6 py-2.5 bg-cyan-600 text-white rounded-xl hover:bg-cyan-700 transition-all duration-200 text-p2 font-medium shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Download size={18} />

@@ -7,7 +7,7 @@ import { risks, riskControlLinks } from '@/lib/data/risks';
 import { requirements, obligations } from '@/lib/data/requirements-obligations';
 import { evidence } from '@/lib/data/evidence';
 import { controlTests } from '@/lib/data/control-tests';
-import { Shield, Activity, Calendar, User, Building2, FileText, AlertTriangle, Target, TrendingDown, CheckCircle2, Upload, Download, Eye, Clock, CheckCircle, XCircle, PlayCircle, History, ExternalLink, Edit } from 'lucide-react';
+import { Shield, Activity, Calendar, User, Building2, FileText, AlertTriangle, Target, TrendingDown, CheckCircle2, Upload, Download, Eye, Clock, CheckCircle, XCircle, PlayCircle, History, ExternalLink, Edit, AlertCircle, TrendingUp, Minus, BookOpen, Hash, FileCode } from 'lucide-react';
 import Link from 'next/link';
 import clsx from 'clsx';
 
@@ -509,9 +509,328 @@ export default function ControlDetailPage({ params }: { params: Promise<{ id: st
         )}
       </div>
 
+      {/* Control Gaps */}
+      <div className="animate-fade-in-up delay-6 p-6 rounded-xl bg-white border border-[var(--border)]">
+        <div className="flex items-center gap-2 mb-4">
+          <AlertCircle size={20} className="text-orange-500" />
+          <h3 className="text-h3 font-semibold text-[var(--foreground)]">Control Gaps & Deficiencies</h3>
+          <span className="ml-auto px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-p3 font-medium">
+            2 Active Gaps
+          </span>
+          <button className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-all text-p3 font-medium">
+            <AlertCircle size={16} className="inline mr-2" />
+            Log Gap
+          </button>
+        </div>
+
+        <div className="space-y-3">
+          {/* Gap 1 */}
+          <div className="p-4 rounded-lg border-2 border-orange-200 bg-orange-50">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-p2 font-semibold text-orange-700">GAP-001</span>
+                  <span className="px-2 py-0.5 rounded-full text-p3 font-medium bg-red-100 text-red-700 border border-red-200">
+                    Critical
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full text-p3 font-medium bg-blue-100 text-blue-700 border border-blue-200">
+                    Open
+                  </span>
+                </div>
+                <p className="text-p2 font-semibold text-[var(--foreground)] mb-2">MFA not enforced for 15 service accounts</p>
+                <p className="text-p3 text-[var(--foreground-muted)] mb-3">
+                  During quarterly testing, discovered 15 service accounts without MFA enabled. This creates a security gap as service accounts have elevated privileges.
+                </p>
+
+                <div className="grid grid-cols-4 gap-3 mb-3">
+                  <div className="p-2.5 bg-white rounded-lg border border-orange-200">
+                    <p className="text-p3 text-[var(--foreground-muted)] mb-1">Identified</p>
+                    <p className="text-p3 font-semibold text-[var(--foreground)]">Dec 15, 2024</p>
+                  </div>
+                  <div className="p-2.5 bg-white rounded-lg border border-orange-200">
+                    <p className="text-p3 text-[var(--foreground-muted)] mb-1">Owner</p>
+                    <p className="text-p3 font-semibold text-[var(--foreground)]">IT Security</p>
+                  </div>
+                  <div className="p-2.5 bg-white rounded-lg border border-orange-200">
+                    <p className="text-p3 text-[var(--foreground-muted)] mb-1">Target Close</p>
+                    <p className="text-p3 font-semibold text-red-600">Dec 22, 2024</p>
+                  </div>
+                  <div className="p-2.5 bg-white rounded-lg border border-orange-200">
+                    <p className="text-p3 text-[var(--foreground-muted)] mb-1">Progress</p>
+                    <p className="text-p3 font-semibold text-blue-600">60% (9/15 fixed)</p>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-white rounded-lg border border-orange-200">
+                  <p className="text-p3 font-semibold text-[var(--foreground)] mb-1">Remediation Plan:</p>
+                  <p className="text-p3 text-[var(--foreground-muted)]">
+                    IT to enable MFA for remaining 6 service accounts. Completed: 9/15. ETA: Dec 20, 2024.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Gap 2 */}
+          <div className="p-4 rounded-lg border border-amber-200 bg-amber-50">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-p2 font-semibold text-amber-700">GAP-002</span>
+                  <span className="px-2 py-0.5 rounded-full text-p3 font-medium bg-orange-100 text-orange-700 border border-orange-200">
+                    Medium
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full text-p3 font-medium bg-blue-100 text-blue-700 border border-blue-200">
+                    In Progress
+                  </span>
+                </div>
+                <p className="text-p2 font-semibold text-[var(--foreground)] mb-2">MFA policy documentation outdated</p>
+                <p className="text-p3 text-[var(--foreground-muted)] mb-3">
+                  Current MFA policy (v1.2) doesn't reflect recent changes to exception approval process. Needs update to v2.0.
+                </p>
+
+                <div className="grid grid-cols-4 gap-3 mb-3">
+                  <div className="p-2.5 bg-white rounded-lg border border-amber-200">
+                    <p className="text-p3 text-[var(--foreground-muted)] mb-1">Identified</p>
+                    <p className="text-p3 font-semibold text-[var(--foreground)]">Dec 10, 2024</p>
+                  </div>
+                  <div className="p-2.5 bg-white rounded-lg border border-amber-200">
+                    <p className="text-p3 text-[var(--foreground-muted)] mb-1">Owner</p>
+                    <p className="text-p3 font-semibold text-[var(--foreground)]">Compliance Team</p>
+                  </div>
+                  <div className="p-2.5 bg-white rounded-lg border border-amber-200">
+                    <p className="text-p3 text-[var(--foreground-muted)] mb-1">Target Close</p>
+                    <p className="text-p3 font-semibold text-green-600">Dec 25, 2024</p>
+                  </div>
+                  <div className="p-2.5 bg-white rounded-lg border border-amber-200">
+                    <p className="text-p3 text-[var(--foreground-muted)] mb-1">Progress</p>
+                    <p className="text-p3 font-semibold text-blue-600">75% (Draft ready)</p>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-white rounded-lg border border-amber-200">
+                  <p className="text-p3 font-semibold text-[var(--foreground)] mb-1">Remediation Plan:</p>
+                  <p className="text-p3 text-[var(--foreground-muted)]">
+                    Policy draft v2.0 completed. Pending CISO review and Board approval. Expected completion: Dec 23, 2024.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Test Results History */}
+      <div className="animate-fade-in-up delay-7 p-6 rounded-xl bg-white border border-[var(--border)]">
+        <div className="flex items-center gap-2 mb-4">
+          <History size={20} className="text-purple-500" />
+          <h3 className="text-h3 font-semibold text-[var(--foreground)]">Test Results History</h3>
+          <span className="ml-auto px-3 py-1 bg-[var(--background-secondary)] text-[var(--foreground)] rounded-full text-p3 font-medium">
+            Last 6 Tests
+          </span>
+        </div>
+
+        {/* Test Results Timeline */}
+        <div className="space-y-4">
+          {[
+            { date: 'Dec 16, 2024', test: 'TST-001', name: 'Q4 MFA Enforcement', result: 'Pass', score: '98/100', tester: 'John Smith', trend: 'up' },
+            { date: 'Sep 18, 2024', test: 'TST-001', name: 'Q3 MFA Enforcement', result: 'Pass', score: '95/100', tester: 'Sarah Lee', trend: 'stable' },
+            { date: 'Jun 12, 2024', test: 'TST-001', name: 'Q2 MFA Enforcement', result: 'Fail', score: '82/100', tester: 'Mike Chen', trend: 'down' },
+            { date: 'Mar 20, 2024', test: 'TST-001', name: 'Q1 MFA Enforcement', result: 'Pass', score: '94/100', tester: 'John Smith', trend: 'up' },
+            { date: 'Dec 15, 2023', test: 'TST-001', name: 'Q4 MFA Enforcement', result: 'Pass', score: '92/100', tester: 'Sarah Lee', trend: 'stable' },
+            { date: 'Sep 10, 2023', test: 'TST-001', name: 'Q3 MFA Enforcement', result: 'Pass', score: '90/100', tester: 'Mike Chen', trend: 'up' },
+          ].map((item, index) => (
+            <div key={index} className="relative pl-8 pb-4 border-l-2 border-[var(--border)] last:border-l-0 last:pb-0">
+              {/* Timeline dot */}
+              <div className={clsx(
+                "absolute left-[-9px] top-1 w-4 h-4 rounded-full border-2 border-white",
+                item.result === 'Pass' ? 'bg-emerald-500' : 'bg-red-500'
+              )}></div>
+
+              <div className="p-4 rounded-lg border border-[var(--border)] hover:shadow-sm transition-all">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-p3 text-[var(--foreground-muted)]">{item.date}</span>
+                      <span className="text-p3 font-semibold text-purple-600">{item.test}</span>
+                      <span className={clsx('px-2 py-0.5 rounded-full text-p3 font-medium border',
+                        item.result === 'Pass' ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'bg-red-100 text-red-700 border-red-200'
+                      )}>
+                        {item.result}
+                      </span>
+                      {item.trend === 'up' && <TrendingUp size={14} className="text-emerald-500" />}
+                      {item.trend === 'down' && <TrendingDown size={14} className="text-red-500" />}
+                      {item.trend === 'stable' && <Minus size={14} className="text-gray-400" />}
+                    </div>
+                    <p className="text-p2 font-medium text-[var(--foreground)] mb-1">{item.name}</p>
+                    <div className="flex items-center gap-4 text-p3 text-[var(--foreground-muted)]">
+                      <span>Score: <span className="font-semibold text-[var(--foreground)]">{item.score}</span></span>
+                      <span>•</span>
+                      <span>Tester: {item.tester}</span>
+                    </div>
+                  </div>
+                  <button className="px-3 py-1.5 text-p3 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                    View Details →
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Policy Mapping - Section-wise */}
+      <div className="animate-fade-in-up delay-8 p-6 rounded-xl bg-white border border-[var(--border)]">
+        <div className="flex items-center gap-2 mb-4">
+          <BookOpen size={20} className="text-indigo-500" />
+          <h3 className="text-h3 font-semibold text-[var(--foreground)]">Policy & Regulation Mapping</h3>
+          <span className="ml-auto px-3 py-1 bg-[var(--background-secondary)] text-[var(--foreground)] rounded-full text-p3 font-medium">
+            4 Policy Sections
+          </span>
+        </div>
+
+        <p className="text-p3 text-[var(--foreground-muted)] mb-4">
+          Specific policy sections and regulatory clauses that mandate this control
+        </p>
+
+        <div className="space-y-3">
+          {/* Policy Section 1 */}
+          <div className="p-4 rounded-lg border border-indigo-200 bg-indigo-50">
+            <div className="flex items-start gap-3">
+              <FileCode size={20} className="text-indigo-600 mt-1 flex-shrink-0" />
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-p2 font-bold text-indigo-700">SOC 2 Trust Services Criteria</span>
+                  <span className="px-2 py-0.5 rounded-full text-p3 font-medium bg-indigo-100 text-indigo-700 border border-indigo-300">
+                    CC6.1
+                  </span>
+                </div>
+                <p className="text-p2 font-semibold text-[var(--foreground)] mb-2">
+                  Common Criteria 6.1 - Logical and Physical Access Controls
+                </p>
+                <div className="p-3 bg-white rounded-lg border border-indigo-200 mb-3">
+                  <p className="text-p3 text-[var(--foreground)] italic">
+                    "The entity implements logical access security software, infrastructure, and architectures over protected information assets to protect them from security events to meet the entity's objectives."
+                  </p>
+                </div>
+                <div className="flex items-center gap-4 text-p3">
+                  <span className="text-[var(--foreground-muted)]">
+                    <span className="font-semibold text-indigo-600">Point of Focus:</span> Multi-factor authentication is required for access to sensitive systems
+                  </span>
+                </div>
+                <div className="mt-2">
+                  <a href="#" className="text-p3 text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1">
+                    View Full Section <ExternalLink size={12} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Policy Section 2 */}
+          <div className="p-4 rounded-lg border border-blue-200 bg-blue-50">
+            <div className="flex items-start gap-3">
+              <Hash size={20} className="text-blue-600 mt-1 flex-shrink-0" />
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-p2 font-bold text-blue-700">ISO 27001:2022</span>
+                  <span className="px-2 py-0.5 rounded-full text-p3 font-medium bg-blue-100 text-blue-700 border border-blue-300">
+                    A.5.15
+                  </span>
+                </div>
+                <p className="text-p2 font-semibold text-[var(--foreground)] mb-2">
+                  Annex A 5.15 - Access Control
+                </p>
+                <div className="p-3 bg-white rounded-lg border border-blue-200 mb-3">
+                  <p className="text-p3 text-[var(--foreground)] italic">
+                    "Rules to control physical and logical access to information and other associated assets shall be established and implemented based on business and information security requirements."
+                  </p>
+                </div>
+                <div className="flex items-center gap-4 text-p3">
+                  <span className="text-[var(--foreground-muted)]">
+                    <span className="font-semibold text-blue-600">Implementation:</span> MFA must be enforced for all privileged accounts
+                  </span>
+                </div>
+                <div className="mt-2">
+                  <a href="#" className="text-p3 text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
+                    View Full Section <ExternalLink size={12} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Policy Section 3 */}
+          <div className="p-4 rounded-lg border border-purple-200 bg-purple-50">
+            <div className="flex items-start gap-3">
+              <BookOpen size={20} className="text-purple-600 mt-1 flex-shrink-0" />
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-p2 font-bold text-purple-700">Company Information Security Policy</span>
+                  <span className="px-2 py-0.5 rounded-full text-p3 font-medium bg-purple-100 text-purple-700 border border-purple-300">
+                    Section 4.2.3
+                  </span>
+                </div>
+                <p className="text-p2 font-semibold text-[var(--foreground)] mb-2">
+                  Authentication & Access Control - Multi-Factor Authentication
+                </p>
+                <div className="p-3 bg-white rounded-lg border border-purple-200 mb-3">
+                  <p className="text-p3 text-[var(--foreground)] italic">
+                    "All employees, contractors, and third-party users accessing company systems must authenticate using multi-factor authentication (MFA). MFA must combine at least two of: something you know (password), something you have (token/phone), or something you are (biometric)."
+                  </p>
+                </div>
+                <div className="flex items-center gap-4 text-p3">
+                  <span className="text-[var(--foreground-muted)]">
+                    <span className="font-semibold text-purple-600">Approved:</span> Board of Directors - Jan 15, 2024
+                  </span>
+                </div>
+                <div className="mt-2">
+                  <a href="#" className="text-p3 text-purple-600 hover:text-purple-700 font-medium flex items-center gap-1">
+                    View Full Policy <ExternalLink size={12} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Policy Section 4 */}
+          <div className="p-4 rounded-lg border border-teal-200 bg-teal-50">
+            <div className="flex items-start gap-3">
+              <Shield size={20} className="text-teal-600 mt-1 flex-shrink-0" />
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-p2 font-bold text-teal-700">NIST Cybersecurity Framework</span>
+                  <span className="px-2 py-0.5 rounded-full text-p3 font-medium bg-teal-100 text-teal-700 border border-teal-300">
+                    PR.AC-1
+                  </span>
+                </div>
+                <p className="text-p2 font-semibold text-[var(--foreground)] mb-2">
+                  Protect - Identity Management, Authentication and Access Control
+                </p>
+                <div className="p-3 bg-white rounded-lg border border-teal-200 mb-3">
+                  <p className="text-p3 text-[var(--foreground)] italic">
+                    "Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users and processes"
+                  </p>
+                </div>
+                <div className="flex items-center gap-4 text-p3">
+                  <span className="text-[var(--foreground-muted)]">
+                    <span className="font-semibold text-teal-600">Subcategory:</span> Multi-factor authentication for remote access
+                  </span>
+                </div>
+                <div className="mt-2">
+                  <a href="#" className="text-p3 text-teal-600 hover:text-teal-700 font-medium flex items-center gap-1">
+                    View Framework <ExternalLink size={12} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Mitigated Risks */}
       {linkedRisks.length > 0 && (
-        <div className="animate-fade-in-up delay-4 p-6 rounded-xl bg-white border border-[var(--border)]">
+        <div className="animate-fade-in-up delay-9 p-6 rounded-xl bg-white border border-[var(--border)]">
           <div className="flex items-center gap-2 mb-4">
             <AlertTriangle size={20} className="text-red-500" />
             <h3 className="text-h3 font-semibold text-[var(--foreground)]">Mitigated Risks</h3>

@@ -10,7 +10,7 @@ import {
   Clipboard, ChevronDown, ChevronRight, ListTodo, PanelLeftClose, PanelLeft,
   FolderKanban, Settings, Calendar, CircleAlert, Users, Building2,
   FileStack, FlaskConical, Paperclip, GitBranch, Layers, CheckSquare,
-  Package, Tag, Calculator, Sliders, Compass, Bell, TrendingUp, Clock
+  Package, Tag, Calculator, Sliders, Compass, Bell, TrendingUp, Clock, FileBarChart
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -20,13 +20,15 @@ interface NavItemProps {
   label: string;
   isActive?: boolean;
   isCollapsed?: boolean;
+  'data-tour'?: string;
 }
 
-function NavItem({ href, icon, label, isActive, isCollapsed }: NavItemProps) {
+function NavItem({ href, icon, label, isActive, isCollapsed, 'data-tour': dataTour }: NavItemProps) {
   return (
     <Link
       href={href}
       title={isCollapsed ? label : undefined}
+      data-tour={dataTour}
       className={clsx(
         'flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors',
         isActive
@@ -135,6 +137,13 @@ export default function Sidebar() {
             isActive={pathname === '/dashboard/risk-heatmap'}
             isCollapsed={isCollapsed}
           />
+          <NavItem
+            href="/reports"
+            icon={<FileBarChart size={16} />}
+            label="Reports"
+            isActive={pathname === '/reports' || pathname.startsWith('/reports/')}
+            isCollapsed={isCollapsed}
+          />
         </NavGroup>
 
         {/* ✓ My Work */}
@@ -179,6 +188,13 @@ export default function Sidebar() {
             icon={<Bell size={16} />}
             label="Updates & Alerts"
             isActive={pathname === '/regulatory-intelligence' || pathname.startsWith('/regulatory-intelligence/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/circulars"
+            icon={<FileText size={16} />}
+            label="Circulars & Notifications"
+            isActive={pathname === '/circulars' || pathname.startsWith('/circulars/')}
             isCollapsed={isCollapsed}
           />
           <NavItem
@@ -240,6 +256,7 @@ export default function Sidebar() {
             label="My Programs"
             isActive={pathname === '/programs' || pathname.startsWith('/programs/')}
             isCollapsed={isCollapsed}
+            data-tour="programs-nav"
           />
           <NavItem
             href="/requirements"
@@ -247,6 +264,7 @@ export default function Sidebar() {
             label="Requirements"
             isActive={pathname === '/requirements' || pathname.startsWith('/requirements/')}
             isCollapsed={isCollapsed}
+            data-tour="requirements-nav"
           />
           <NavItem
             href="/obligations"
@@ -254,6 +272,7 @@ export default function Sidebar() {
             label="Obligations"
             isActive={pathname === '/obligations' || pathname.startsWith('/obligations/')}
             isCollapsed={isCollapsed}
+            data-tour="obligations-nav"
           />
           <NavItem
             href="/playbooks"
@@ -350,6 +369,29 @@ export default function Sidebar() {
             icon={<Package size={16} />}
             label="Assets"
             isActive={pathname === '/library/assets'}
+            isCollapsed={isCollapsed}
+          />
+        </NavGroup>
+
+        {/* 🛠️ Tools */}
+        <NavGroup
+          icon={<Sliders size={18} />}
+          label="Tools"
+          isCollapsed={isCollapsed}
+          defaultOpen={pathname === '/builder' || pathname === '/setup-wizard'}
+        >
+          <NavItem
+            href="/builder"
+            icon={<Layers size={16} />}
+            label="Visual Builder"
+            isActive={pathname === '/builder'}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/setup-wizard"
+            icon={<Compass size={16} />}
+            label="Setup Wizard"
+            isActive={pathname === '/setup-wizard'}
             isCollapsed={isCollapsed}
           />
         </NavGroup>
