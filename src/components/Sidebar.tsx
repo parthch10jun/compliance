@@ -173,7 +173,6 @@ export default function Sidebar() {
             label="Control Testing"
             isActive={pathname === '/control-testing' || pathname.startsWith('/control-testing/')}
             isCollapsed={isCollapsed}
-            badgeColor="blue"
           />
           <NavItem
             href="/issue-management"
@@ -181,7 +180,6 @@ export default function Sidebar() {
             label="Issue Management"
             isActive={pathname === '/issue-management' || pathname.startsWith('/issue-management/')}
             isCollapsed={isCollapsed}
-            badgeColor="red"
           />
           <NavItem
             href="/test-templates"
@@ -189,7 +187,6 @@ export default function Sidebar() {
             label="Test Templates"
             isActive={pathname === '/test-templates' || pathname.startsWith('/test-templates/')}
             isCollapsed={isCollapsed}
-            badgeColor="green"
           />
         </NavGroup>
 
