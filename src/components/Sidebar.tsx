@@ -154,13 +154,6 @@ export default function Sidebar() {
           defaultOpen={true}
         >
           <NavItem
-            href="/tasks"
-            icon={<ListTodo size={16} />}
-            label="My Actions"
-            isActive={pathname === '/tasks'}
-            isCollapsed={isCollapsed}
-          />
-          <NavItem
             href="/assessments"
             icon={<Calendar size={16} />}
             label="My Assessments"
@@ -173,6 +166,30 @@ export default function Sidebar() {
             label="My Issues"
             isActive={pathname === '/issues' || pathname.startsWith('/issues/')}
             isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/control-testing"
+            icon={<Shield size={16} />}
+            label="Control Testing"
+            isActive={pathname === '/control-testing' || pathname.startsWith('/control-testing/')}
+            isCollapsed={isCollapsed}
+            badgeColor="blue"
+          />
+          <NavItem
+            href="/issue-management"
+            icon={<CircleAlert size={16} />}
+            label="Issue Management"
+            isActive={pathname === '/issue-management' || pathname.startsWith('/issue-management/')}
+            isCollapsed={isCollapsed}
+            badgeColor="red"
+          />
+          <NavItem
+            href="/test-templates"
+            icon={<FileText size={16} />}
+            label="Test Templates"
+            isActive={pathname === '/test-templates' || pathname.startsWith('/test-templates/')}
+            isCollapsed={isCollapsed}
+            badgeColor="green"
           />
         </NavGroup>
 

@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { PageHeader } from '@/components';
 import { circulars, Circular, ComplianceAction } from '@/lib/data/circulars';
-import { 
-  FileText, 
-  Calendar, 
-  Clock, 
+import {
+  FileText,
+  Calendar,
+  Clock,
   AlertTriangle,
   CheckCircle2,
   Building2,
@@ -170,10 +171,13 @@ export default function CircularsPage() {
               <p className="text-sm text-gray-600">Drop a regulatory circular PDF to automatically extract compliance actions with AI</p>
             </div>
           </div>
-          <button className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium">
+          <Link
+            href="/circulars/upload"
+            className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+          >
             <Upload className="w-4 h-4" />
             Upload Circular
-          </button>
+          </Link>
         </div>
       </div>
 
