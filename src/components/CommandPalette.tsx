@@ -99,50 +99,45 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-start justify-center pt-[12vh]"
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-start justify-center pt-[20vh]"
       onClick={onClose}
     >
       <Command
-        className="w-full max-w-xl bg-white rounded-2xl shadow-2xl border border-[var(--border)] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200"
+        className="w-full max-w-2xl bg-[#1A1A1A] rounded-xl shadow-2xl border border-[#2A2A2A] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input */}
-        <div className="flex items-center gap-3 px-4 py-4 border-b border-[var(--border)]">
-          <Search size={20} className="text-[var(--foreground-muted)]" />
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-[#2A2A2A]">
+          <Search size={18} className="text-gray-500" />
           <Command.Input
-            placeholder="Search commands, pages, or type '>' for actions..."
-            className="flex-1 bg-transparent outline-none text-base text-[var(--foreground)] placeholder:text-[var(--foreground-muted)]"
+            placeholder="Search..."
+            className="flex-1 bg-transparent outline-none text-sm text-white placeholder:text-gray-500"
             autoFocus
           />
-          <kbd className="hidden sm:flex items-center gap-1 px-2 py-1 bg-[var(--background-secondary)] border border-[var(--border)] rounded-lg text-xs text-[var(--foreground-muted)] font-medium">
+          <kbd className="hidden sm:flex items-center gap-1 px-2 py-1 bg-[#2A2A2A] rounded text-xs text-gray-400 font-mono">
             ESC
           </kbd>
         </div>
 
         {/* Results */}
-        <Command.List className="max-h-[400px] overflow-y-auto p-2">
-          <Command.Empty className="py-8 text-center text-sm text-[var(--foreground-muted)]">
-            No results found. Try a different search term.
+        <Command.List className="max-h-[60vh] overflow-y-auto">
+          <Command.Empty className="py-12 text-center text-sm text-gray-500">
+            No results found.
           </Command.Empty>
 
           {/* Navigation */}
-          <Command.Group heading="Navigation" className="pb-2">
+          <Command.Group heading="Navigation" className="pb-1">
             {navigationCommands.map((item) => (
               <Command.Item
                 key={item.id}
                 value={item.label}
                 onSelect={() => handleSelect(item)}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer text-sm text-[var(--foreground)] hover:bg-[var(--primary-lightest)] hover:text-[var(--primary)] data-[selected=true]:bg-[var(--primary-lightest)] data-[selected=true]:text-[var(--primary)] transition-colors"
+                className="flex items-center gap-3 px-4 py-2.5 cursor-pointer text-sm text-white hover:bg-[#2A2A2A] data-[selected=true]:bg-[#2A2A2A] transition-colors"
               >
-                <span className="text-[var(--foreground-muted)] group-hover:text-[var(--primary)]">
+                <span className="text-gray-400 w-5 h-5 flex items-center justify-center">
                   {item.icon}
                 </span>
                 <span className="flex-1">{item.label}</span>
-                {item.shortcut && (
-                  <kbd className="px-2 py-0.5 bg-[var(--background-secondary)] border border-[var(--border)] rounded text-xs text-[var(--foreground-muted)] font-mono">
-                    {item.shortcut}
-                  </kbd>
-                )}
               </Command.Item>
             ))}
           </Command.Group>

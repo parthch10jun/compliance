@@ -608,17 +608,27 @@ function ControlsDashboardContent() {
 
       {/* Controls Table */}
       <div className="animate-fade-in-up delay-4 bg-white rounded-xl border border-[var(--border)] overflow-hidden shadow-sm">
-        <table className="w-full">
-          <thead className="bg-[var(--background-secondary)]">
+        <table className="w-full table-fixed">
+          <colgroup>
+            <col className="w-[30%]" /> {/* Control */}
+            <col className="w-[15%]" /> {/* Category */}
+            <col className="w-[12%]" /> {/* Type */}
+            <col className="w-[12%]" /> {/* Automation */}
+            <col className="w-[12%]" /> {/* Effectiveness */}
+            <col className="w-[8%]" /> {/* Tests */}
+            <col className="w-[8%]" /> {/* Next Test */}
+            <col className="w-[3%]" /> {/* Actions */}
+          </colgroup>
+          <thead className="bg-[var(--background-secondary)] border-b-2 border-[var(--border)]">
             <tr>
               <th className="text-left px-6 py-4 text-p3 font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Control</th>
               <th className="text-left px-6 py-4 text-p3 font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Category</th>
-              <th className="text-center px-6 py-4 text-p3 font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Type</th>
-              <th className="text-center px-6 py-4 text-p3 font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Automation</th>
-              <th className="text-center px-6 py-4 text-p3 font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Effectiveness</th>
-              <th className="text-center px-6 py-4 text-p3 font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Tests</th>
-              <th className="text-center px-6 py-3 text-xs font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Next Test</th>
-              <th className="px-6 py-3"></th>
+              <th className="text-left px-6 py-4 text-p3 font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Type</th>
+              <th className="text-left px-6 py-4 text-p3 font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Automation</th>
+              <th className="text-left px-6 py-4 text-p3 font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Effectiveness</th>
+              <th className="text-left px-6 py-4 text-p3 font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Tests</th>
+              <th className="text-left px-6 py-4 text-p3 font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Next Test</th>
+              <th className="text-left px-6 py-4 text-p3 font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[var(--border)]">

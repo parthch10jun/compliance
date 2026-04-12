@@ -10,7 +10,8 @@ import {
   Clipboard, ChevronDown, ChevronRight, ListTodo, PanelLeftClose, PanelLeft,
   FolderKanban, Settings, Calendar, CircleAlert, Users, Building2,
   FileStack, FlaskConical, Paperclip, GitBranch, Layers, CheckSquare,
-  Package, Tag, Calculator, Sliders, Compass, Bell, TrendingUp, Clock, FileBarChart
+  Package, Tag, Calculator, Sliders, Compass, Bell, TrendingUp, Clock, FileBarChart,
+  Activity
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -142,6 +143,22 @@ export default function Sidebar() {
             icon={<FileBarChart size={16} />}
             label="Reports"
             isActive={pathname === '/reports' || pathname.startsWith('/reports/')}
+            isCollapsed={isCollapsed}
+          />
+        </NavGroup>
+
+        {/* Analytics */}
+        <NavGroup
+          icon={<Activity size={18} />}
+          label="Analytics"
+          isCollapsed={isCollapsed}
+          defaultOpen={false}
+        >
+          <NavItem
+            href="/compliance-lifecycle"
+            icon={<Activity size={16} />}
+            label="Lifecycle Efficiency"
+            isActive={pathname === '/compliance-lifecycle'}
             isCollapsed={isCollapsed}
           />
         </NavGroup>
@@ -376,6 +393,13 @@ export default function Sidebar() {
             icon={<AlertTriangle size={16} />}
             label="Risks"
             isActive={pathname === '/library/risks'}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/vendors"
+            icon={<Building2 size={16} />}
+            label="Vendors"
+            isActive={pathname === '/vendors'}
             isCollapsed={isCollapsed}
           />
           <NavItem

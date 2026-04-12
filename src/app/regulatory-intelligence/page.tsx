@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import PageHeader from "@/components/PageHeader";
+import { CircularUpload } from "@/components/CircularUpload";
+import { ExtractedActionItems } from "@/components/ExtractedActionItems";
+import { type ActionItem } from "@/lib/services/regulatory-ai";
 import {
   Bell,
   AlertTriangle,
@@ -11,7 +14,8 @@ import {
   FileText,
   Calendar,
   Target,
-  Zap
+  Zap,
+  Upload
 } from "lucide-react";
 
 // Simple date formatter to avoid hydration issues
@@ -86,10 +90,17 @@ const mockUpdates: RegulatoryUpdate[] = [
 export default function RegulatoryIntelligencePage() {
   const [selectedUpdate, setSelectedUpdate] = useState<RegulatoryUpdate | null>(null);
   const [filter, setFilter] = useState<"all" | "action-required" | "new">("all");
+  const [extractedActions, setExtractedActions] = useState<ActionItem[]>([]);
+  const [extractionMetadata, setExtractionMetadata] = useState<any>(null);
 
   const filteredUpdates = mockUpdates.filter(update =>
     filter === "all" || update.status === filter
   );
+
+  const handleExtractionComplete = (actionItems: ActionItem[], metadata?: any) => {
+    setExtractedActions(actionItems);
+    setExtractionMetadata(metadata);
+  };
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
@@ -118,8 +129,48 @@ export default function RegulatoryIntelligencePage() {
         description="Real-time monitoring of RBI updates and their impact on your compliance program"
       />
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      {/* AI Circular Upload */}
+      <CircularUpload onExtractComplete={handleExtractionComplete} />
+
+      {/* Extracted Action Items - Show if available */}
+      {extractedActions.length > 0 && (
+        <ExtractedActionItems
+          actionItems={extractedActions}
+          metadata={extractionMetadata}
+        />
+      )}
+
+      {/* Show placeholder message when no circulars uploaded yet */}
+      {extractedActions.length === 0 && (
+        <div className="bg-white border border-[var(--border)] rounded-xl p-12 text-center">
+          <div className="w-16 h-16 mx-auto mb-4 bg-[var(--primary-lightest)] rounded-full flex items-center justify-center">
+            <Upload size={32} className="text-[var(--primary)]" />
+          </div>
+          <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+            No Circulars Analyzed Yet
+          </h3>
+          <p className="text-sm text-[var(--foreground-muted)] mb-6 max-w-md mx-auto">
+            Upload a regulatory circular PDF above to extract compliance action items using AI-powered analysis.
+          </p>
+          <div className="flex items-center justify-center gap-6 text-sm text-[var(--foreground-muted)]">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-green-600" />
+              <span>Instant extraction</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-green-600" />
+              <span>Criticality scoring</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-green-600" />
+              <span>Confidence levels</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+        {/* OLD HARDCODED STATS - REMOVED */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6" style={{ display: 'none' }}>
         <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
@@ -173,7 +224,8 @@ export default function RegulatoryIntelligencePage() {
         </div>
       </div>
 
-      {/* Filters - Tab Style */}
+      {/* OLD HARDCODED FILTERS AND UPDATES - HIDDEN */}
+      <div style={{ display: 'none' }}>
       <div className="bg-white rounded-lg border border-gray-200 mb-6">
         <div className="border-b border-gray-200 bg-gray-50">
           <div className="flex gap-1 px-2">
@@ -401,6 +453,8 @@ export default function RegulatoryIntelligencePage() {
           </div>
         </div>
       )}
+      </div>
+      {/* END HIDDEN SECTION */}
     </div>
   );
 }
