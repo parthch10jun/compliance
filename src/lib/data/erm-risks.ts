@@ -1,0 +1,433 @@
+/**
+ * ERM Risk Register - Mock Data
+ * High-quality enterprise risks across all categories
+ */
+
+export interface Risk {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  owner: string;
+  businessUnit: string;
+
+  // Enhanced Organizational Assignment (RM_EC_01, RM_IR_07-08)
+  project?: string; // RM_IR_07
+  location?: string; // RM_IR_08
+  legalEntity?: string; // RM_EC_01
+  department?: string; // RM_EC_01
+
+  // Risk Sources & Consequences (RM_IR_09-11 - Bow-tie)
+  sources?: string[]; // Risk sources/causes
+  event?: string; // Risk event description
+  consequences?: string[]; // Risk consequences
+
+  // Objectives linkage (RM_IR_13)
+  linkedObjectives?: string[]; // Objective IDs
+
+  inherentLikelihood: 1 | 2 | 3 | 4 | 5;
+  inherentConsequence: 1 | 2 | 3 | 4 | 5;
+  inherentRating: 'Critical' | 'High' | 'Medium' | 'Low';
+  residualLikelihood: 1 | 2 | 3 | 4 | 5;
+  residualConsequence: 1 | 2 | 3 | 4 | 5;
+  residualRating: 'Critical' | 'High' | 'Medium' | 'Low';
+  treatment: 'Mitigate' | 'Avoid' | 'Transfer' | 'Accept';
+  controlsCount: number;
+  status: 'Identified' | 'Assessed' | 'Treated' | 'Monitored' | 'Closed';
+  lastReviewDate: string;
+  nextReviewDate: string;
+}
+
+export const mockRisks: Risk[] = [
+  {
+    id: 'RSK-001',
+    title: 'Third-party vendor data breach exposure',
+    description: 'Inadequate security controls in vendor environments',
+    category: 'Cybersecurity',
+    owner: 'Sarah Chen (CISO)',
+    businessUnit: 'Information Technology',
+
+    // Enhanced fields
+    project: 'Cloud Migration Initiative',
+    location: 'Global (All Offices)',
+    legalEntity: 'Ascent Technologies Inc.',
+    department: 'IT Security',
+    sources: ['Weak vendor security controls', 'Lack of encryption', 'Inadequate access management'],
+    event: 'Unauthorized access to customer data through vendor system',
+    consequences: ['Financial loss from fines', 'Reputational damage', 'Customer trust erosion', 'Regulatory penalties'],
+    linkedObjectives: ['OBJ-001', 'OBJ-003'],
+
+    inherentLikelihood: 4,
+    inherentConsequence: 5,
+    inherentRating: 'Critical',
+    residualLikelihood: 3,
+    residualConsequence: 3,
+    residualRating: 'Medium',
+    treatment: 'Mitigate',
+    controlsCount: 12,
+    status: 'Treated',
+    lastReviewDate: '2024-03-20',
+    nextReviewDate: '2024-06-20'
+  },
+  {
+    id: 'RSK-002',
+    title: 'Ransomware attack on critical infrastructure',
+    description: 'Sophisticated malware targeting core systems',
+    category: 'Cybersecurity',
+    owner: 'Sarah Chen (CISO)',
+    businessUnit: 'Information Technology',
+    inherentLikelihood: 5,
+    inherentConsequence: 5,
+    inherentRating: 'Critical',
+    residualLikelihood: 2,
+    residualConsequence: 3,
+    residualRating: 'Medium',
+    treatment: 'Mitigate',
+    controlsCount: 18,
+    status: 'Treated',
+    lastReviewDate: '2024-03-15',
+    nextReviewDate: '2024-06-15'
+  },
+  {
+    id: 'RSK-003',
+    title: 'Insider threat - privileged access abuse',
+    description: 'Employees with elevated privileges misusing access',
+    category: 'Cybersecurity',
+    owner: 'Sarah Chen (CISO)',
+    businessUnit: 'Information Technology',
+    inherentLikelihood: 3,
+    inherentConsequence: 4,
+    inherentRating: 'High',
+    residualLikelihood: 2,
+    residualConsequence: 3,
+    residualRating: 'Medium',
+    treatment: 'Mitigate',
+    controlsCount: 8,
+    status: 'Monitored',
+    lastReviewDate: '2024-04-01',
+    nextReviewDate: '2024-07-01'
+  },
+  {
+    id: 'RSK-004',
+    title: 'Supply chain disruption - component shortage',
+    description: 'Geopolitical tensions affecting suppliers',
+    category: 'Operational',
+    owner: 'David Kumar (COO)',
+    businessUnit: 'Operations',
+    inherentLikelihood: 4,
+    inherentConsequence: 4,
+    inherentRating: 'High',
+    residualLikelihood: 2,
+    residualConsequence: 3,
+    residualRating: 'Medium',
+    treatment: 'Mitigate',
+    controlsCount: 6,
+    status: 'Treated',
+    lastReviewDate: '2024-03-25',
+    nextReviewDate: '2024-06-25'
+  },
+  {
+    id: 'RSK-005',
+    title: 'Regulatory non-compliance - data privacy',
+    description: 'GDPR and CCPA violation exposure',
+    category: 'Compliance',
+    owner: 'Jennifer Walsh (CCO)',
+    businessUnit: 'Legal & Compliance',
+    inherentLikelihood: 3,
+    inherentConsequence: 4,
+    inherentRating: 'High',
+    residualLikelihood: 2,
+    residualConsequence: 3,
+    residualRating: 'Medium',
+    treatment: 'Mitigate',
+    controlsCount: 15,
+    status: 'Treated',
+    lastReviewDate: '2024-04-05',
+    nextReviewDate: '2024-07-05'
+  },
+  {
+    id: 'RSK-006',
+    title: 'Market volatility impact on revenue',
+    description: 'Economic downturn affecting projections',
+    category: 'Financial',
+    owner: 'Patricia Wilson (CFO)',
+    businessUnit: 'Finance',
+    inherentLikelihood: 4,
+    inherentConsequence: 4,
+    inherentRating: 'High',
+    residualLikelihood: 3,
+    residualConsequence: 3,
+    residualRating: 'Medium',
+    treatment: 'Accept',
+    controlsCount: 4,
+    status: 'Monitored',
+    lastReviewDate: '2024-04-10',
+    nextReviewDate: '2024-07-10'
+  },
+  {
+    id: 'RSK-007',
+    title: 'Key personnel departure - knowledge loss',
+    description: 'Critical employees leaving with specialized expertise',
+    category: 'Operational',
+    owner: 'Maria Garcia (CHRO)',
+    businessUnit: 'Human Resources',
+    inherentLikelihood: 3,
+    inherentConsequence: 3,
+    inherentRating: 'Medium',
+    residualLikelihood: 2,
+    residualConsequence: 2,
+    residualRating: 'Low',
+    treatment: 'Mitigate',
+    controlsCount: 7,
+    status: 'Treated',
+    lastReviewDate: '2024-04-15',
+    nextReviewDate: '2024-07-15'
+  },
+  {
+    id: 'RSK-008',
+    title: 'Cloud infrastructure outage',
+    description: 'AWS/Azure regional failure affecting services',
+    category: 'Operational',
+    owner: 'Sarah Chen (CISO)',
+    businessUnit: 'Information Technology',
+    inherentLikelihood: 3,
+    inherentConsequence: 4,
+    inherentRating: 'High',
+    residualLikelihood: 2,
+    residualConsequence: 2,
+    residualRating: 'Low',
+    treatment: 'Mitigate',
+    controlsCount: 10,
+    status: 'Treated',
+    lastReviewDate: '2024-03-30',
+    nextReviewDate: '2024-06-30'
+  },
+  {
+    id: 'RSK-009',
+    title: 'Product liability - defective components',
+    description: 'Manufacturing defects leading to product recalls',
+    category: 'Operational',
+    owner: 'David Kumar (COO)',
+    businessUnit: 'Operations',
+    inherentLikelihood: 3,
+    inherentConsequence: 4,
+    inherentRating: 'High',
+    residualLikelihood: 2,
+    residualConsequence: 3,
+    residualRating: 'Medium',
+    treatment: 'Mitigate',
+    controlsCount: 9,
+    status: 'Treated',
+    lastReviewDate: '2024-04-02',
+    nextReviewDate: '2024-07-02'
+  },
+  {
+    id: 'RSK-010',
+    title: 'Foreign exchange volatility',
+    description: 'Currency fluctuations impacting international operations',
+    category: 'Financial',
+    owner: 'Patricia Wilson (CFO)',
+    businessUnit: 'Finance',
+    inherentLikelihood: 3,
+    inherentConsequence: 3,
+    inherentRating: 'Medium',
+    residualLikelihood: 3,
+    residualConsequence: 3,
+    residualRating: 'Medium',
+    treatment: 'Transfer',
+    controlsCount: 5,
+    status: 'Treated',
+    lastReviewDate: '2024-04-08',
+    nextReviewDate: '2024-07-08'
+  },
+  {
+    id: 'RSK-011',
+    title: 'Environmental compliance violations',
+    description: 'Waste disposal and emissions exceeding regulations',
+    category: 'Compliance',
+    owner: 'Jennifer Walsh (CCO)',
+    businessUnit: 'Legal & Compliance',
+    inherentLikelihood: 3,
+    inherentConsequence: 3,
+    inherentRating: 'Medium',
+    residualLikelihood: 2,
+    residualConsequence: 2,
+    residualRating: 'Low',
+    treatment: 'Mitigate',
+    controlsCount: 8,
+    status: 'Treated',
+    lastReviewDate: '2024-04-12',
+    nextReviewDate: '2024-07-12'
+  },
+  {
+    id: 'RSK-012',
+    title: 'Strategic partnership failure',
+    description: 'Key business partnership dissolution',
+    category: 'Strategic',
+    owner: 'CEO Office',
+    businessUnit: 'Corporate Strategy',
+    inherentLikelihood: 4,
+    inherentConsequence: 4,
+    inherentRating: 'High',
+    residualLikelihood: 3,
+    residualConsequence: 3,
+    residualRating: 'Medium',
+    treatment: 'Mitigate',
+    controlsCount: 6,
+    status: 'Monitored',
+    lastReviewDate: '2024-04-18',
+    nextReviewDate: '2024-07-18'
+  },
+  {
+    id: 'RSK-013',
+    title: 'Business continuity - natural disaster',
+    description: 'Earthquake/flood affecting primary facilities',
+    category: 'Operational',
+    owner: 'David Kumar (COO)',
+    businessUnit: 'Operations',
+    inherentLikelihood: 4,
+    inherentConsequence: 5,
+    inherentRating: 'Critical',
+    residualLikelihood: 3,
+    residualConsequence: 4,
+    residualRating: 'High',
+    treatment: 'Mitigate',
+    controlsCount: 14,
+    status: 'Treated',
+    lastReviewDate: '2024-03-28',
+    nextReviewDate: '2024-06-28'
+  },
+  {
+    id: 'RSK-014',
+    title: 'Intellectual property theft',
+    description: 'Trade secrets and patents being compromised',
+    category: 'Cybersecurity',
+    owner: 'Sarah Chen (CISO)',
+    businessUnit: 'Information Technology',
+    inherentLikelihood: 3,
+    inherentConsequence: 4,
+    inherentRating: 'High',
+    residualLikelihood: 2,
+    residualConsequence: 3,
+    residualRating: 'Medium',
+    treatment: 'Mitigate',
+    controlsCount: 11,
+    status: 'Treated',
+    lastReviewDate: '2024-04-05',
+    nextReviewDate: '2024-07-05'
+  },
+  {
+    id: 'RSK-015',
+    title: 'Customer data privacy breach',
+    description: 'Unauthorized access to customer PII',
+    category: 'Cybersecurity',
+    owner: 'Sarah Chen (CISO)',
+    businessUnit: 'Information Technology',
+    inherentLikelihood: 5,
+    inherentConsequence: 5,
+    inherentRating: 'Critical',
+    residualLikelihood: 3,
+    residualConsequence: 4,
+    residualRating: 'High',
+    treatment: 'Mitigate',
+    controlsCount: 16,
+    status: 'Monitored',
+    lastReviewDate: '2024-04-01',
+    nextReviewDate: '2024-06-01'
+  },
+  {
+    id: 'RSK-016',
+    title: 'Credit risk - customer defaults',
+    description: 'Major customers unable to pay receivables',
+    category: 'Financial',
+    owner: 'Patricia Wilson (CFO)',
+    businessUnit: 'Finance',
+    inherentLikelihood: 3,
+    inherentConsequence: 3,
+    inherentRating: 'Medium',
+    residualLikelihood: 2,
+    residualConsequence: 2,
+    residualRating: 'Low',
+    treatment: 'Mitigate',
+    controlsCount: 7,
+    status: 'Treated',
+    lastReviewDate: '2024-04-09',
+    nextReviewDate: '2024-07-09'
+  },
+  {
+    id: 'RSK-017',
+    title: 'Workplace safety incident',
+    description: 'Employee injury in manufacturing facility',
+    category: 'Operational',
+    owner: 'Maria Garcia (CHRO)',
+    businessUnit: 'Human Resources',
+    inherentLikelihood: 4,
+    inherentConsequence: 4,
+    inherentRating: 'High',
+    residualLikelihood: 2,
+    residualConsequence: 3,
+    residualRating: 'Medium',
+    treatment: 'Mitigate',
+    controlsCount: 12,
+    status: 'Treated',
+    lastReviewDate: '2024-04-03',
+    nextReviewDate: '2024-07-03'
+  },
+  {
+    id: 'RSK-018',
+    title: 'Reputational damage - social media crisis',
+    description: 'Viral negative sentiment campaign',
+    category: 'Strategic',
+    owner: 'CMO Office',
+    businessUnit: 'Marketing',
+    inherentLikelihood: 4,
+    inherentConsequence: 4,
+    inherentRating: 'High',
+    residualLikelihood: 3,
+    residualConsequence: 3,
+    residualRating: 'Medium',
+    treatment: 'Mitigate',
+    controlsCount: 5,
+    status: 'Monitored',
+    lastReviewDate: '2024-04-14',
+    nextReviewDate: '2024-07-14'
+  },
+  {
+    id: 'RSK-019',
+    title: 'IT system integration failure',
+    description: 'ERP upgrade causing business disruption',
+    category: 'Operational',
+    owner: 'Sarah Chen (CISO)',
+    businessUnit: 'Information Technology',
+    inherentLikelihood: 3,
+    inherentConsequence: 3,
+    inherentRating: 'Medium',
+    residualLikelihood: 2,
+    residualConsequence: 2,
+    residualRating: 'Low',
+    treatment: 'Mitigate',
+    controlsCount: 9,
+    status: 'Treated',
+    lastReviewDate: '2024-04-11',
+    nextReviewDate: '2024-07-11'
+  },
+  {
+    id: 'RSK-020',
+    title: 'Competitive market disruption',
+    description: 'New entrant with disruptive technology',
+    category: 'Strategic',
+    owner: 'CEO Office',
+    businessUnit: 'Corporate Strategy',
+    inherentLikelihood: 4,
+    inherentConsequence: 4,
+    inherentRating: 'High',
+    residualLikelihood: 4,
+    residualConsequence: 4,
+    residualRating: 'High',
+    treatment: 'Accept',
+    controlsCount: 3,
+    status: 'Monitored',
+    lastReviewDate: '2024-04-16',
+    nextReviewDate: '2024-07-16'
+  },
+];
