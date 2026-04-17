@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Grid3X3, Plus, Trash2, Save } from 'lucide-react';
 import clsx from 'clsx';
-import { type LikelihoodLevel, type ConsequenceLevel, type RiskMatrix, generateMatrixCells } from '@/lib/data/categories-matrices';
+import { type LikelihoodLevel, type ConsequenceLevel, type RiskMatrix, type MatrixCell, generateMatrixCells } from '@/lib/data/categories-matrices';
 
 export default function NewMatrixPage() {
   const router = useRouter();
@@ -609,7 +609,7 @@ export default function NewMatrixPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {previewMatrix.cells.map((row, rowIndex) => {
+                    {previewMatrix.cells.map((row: MatrixCell[], rowIndex: number) => {
                       const likelihoodLevel = likelihoodScale.find(l => l.value === row[0].likelihood);
                       return (
                         <tr key={rowIndex}>
@@ -617,7 +617,7 @@ export default function NewMatrixPage() {
                             <div>{likelihoodLevel?.label}</div>
                             <div className="font-normal text-gray-600">({row[0].likelihood})</div>
                           </th>
-                          {row.map((cell, cellIndex) => (
+                          {row.map((cell: MatrixCell, cellIndex: number) => (
                             <td
                               key={cellIndex}
                               className="border border-gray-300 p-3 text-center font-bold text-sm"

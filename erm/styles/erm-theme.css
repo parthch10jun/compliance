@@ -1,0 +1,40 @@
+/* ERM Module - Indigo Theme */
+:root {
+  /* Primary Colors - Indigo */
+  --erm-primary: #6366F1;          /* Indigo-500 - Main brand */
+  --erm-primary-hover: #4F46E5;    /* Indigo-600 - Hover states */
+  --erm-primary-light: #A5B4FC;    /* Indigo-300 - Light variant */
+  --erm-primary-lighter: #C7D2FE;  /* Indigo-200 - Lighter */
+  --erm-primary-lightest: #E0E7FF; /* Indigo-100 - Backgrounds */
+  --erm-primary-dark: #4338CA;     /* Indigo-700 - Dark */
+  --erm-primary-darker: #3730A3;   /* Indigo-800 - Darker */
+
+  /* Background & Surface (same as Compliance for consistency) */
+  --background: #FAFAF9;
+  --background-secondary: #F5F5F4;
+  --background-tertiary: #F5F5F4;
+  --surface: #FFFFFF;
+  
+  /* Borders */
+  --border: #E7E5E4;
+  --border-light: #F5F5F4;
+  --border-strong: #D6D3D1;
+  
+  /* Text */
+  --foreground: #0F172A;
+  --foreground-secondary: #334155;
+  --foreground-muted: #64748B;
+  --foreground-light: #94A3B8;
+  
+  /* Risk-specific colors */
+  --risk-critical: #DC2626;    /* Red-600 */
+  --risk-high: #F59E0B;        /* Amber-500 */
+  --risk-medium: #EAB308;      /* Yellow-500 */
+  --risk-low: #10B981;         /* Green-500 */
+  
+  /* Status colors */
+  --status-active: #10B981;
+  --status-pending: #F59E0B;
+  --status-overdue: #DC2626;
+  --status-mitigated: #3B82F6;
+}

@@ -41,7 +41,7 @@ export function useAutoSave({
 
   const dataRef = useRef(data);
   const initialDataRef = useRef(JSON.stringify(data));
-  const saveTimeoutRef = useRef<NodeJS.Timeout>();
+  const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // RM_MR_22: Auto-save at regular intervals
   const performAutoSave = useCallback(async () => {

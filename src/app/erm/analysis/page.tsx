@@ -47,7 +47,7 @@ export default function RiskAnalysisPage() {
     const trend = calculateTrend(residualScore, previousScore);
 
     // Calculate treatment intensity based on controls
-    const controlsCount = risk.linkedControlIds?.length || 0;
+    const controlsCount = risk.controlsCount || 0;
     const effectivenessAvg = 75; // Mock average effectiveness
     const treatmentIntensity = calculateTreatmentIntensity(controlsCount, effectivenessAvg);
 
@@ -179,7 +179,7 @@ export default function RiskAnalysisPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm font-medium">{risk.controls}</div>
+                      <div className="text-sm font-medium">{risk.controlsCount}</div>
                     </td>
                   </tr>
                 ))}

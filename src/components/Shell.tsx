@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import TopBar from './TopBar';
 import Sidebar from './Sidebar';
 import CommandPalette from './CommandPalette';
@@ -17,7 +17,13 @@ function ShellContent({ children }: ShellProps) {
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [pendingNavKey, setPendingNavKey] = useState<string | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
   const { isCollapsed } = useSidebar();
+
+  // Check if we're on ERM routes - if so, don't render Shell
+  if (pathname.startsWith('/erm')) {
+    return <>{children}</>;
+  }
 
   // Navigation shortcuts mapping
   const navShortcuts: Record<string, string> = {

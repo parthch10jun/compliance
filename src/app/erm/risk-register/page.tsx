@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { mockRisks, type Risk } from '@/lib/data/erm-risks';
 import RiskDetailModal from '@/components/erm/RiskDetailModal';
@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import clsx from 'clsx';
 
-export default function RiskRegisterPage() {
+function RiskRegisterContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
@@ -97,6 +97,7 @@ export default function RiskRegisterPage() {
       const aVal = a[sortField];
       const bVal = b[sortField];
 
+      if (aVal === undefined || bVal === undefined) return 0;
       if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
       if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
       return 0;
@@ -420,5 +421,13 @@ function SortableHeader({
         )}
       </div>
     </th>
+  );
+}
+
+export default function RiskRegisterPage() {
+  return (
+    <Suspense fallback={<div className="p-8">Loading...</div>}>
+      <RiskRegisterContent />
+    </Suspense>
   );
 }

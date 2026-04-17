@@ -456,3 +456,18 @@ border:     #FDE68A  (amber-200)
 **Page:** `/authorities`
 **Card Type:** Grid View Authority Card
 **Total Measurements:** 25+ exact specifications
+
+
+The ERM Dashboard should have these reporting capabilities, let me know how we plan to show this, don't just implement level 1 functionality, what I mean by level 1 is that don't just show let's say a risk register, at leastlet me drill down to a second level, let's say view a risk in all screens so that if someone asks me to show that I can confidently say that here you go:
+
+RM_MR_37	The system should have the ability to track risk assessment results against risk tolerance(s) and/or other criteria.		8. Monitor & Review	Reporting	Critical	Already implemented in the system
+RM_MR_38	The system should have the ability to report by entity in the organizational structure, categories and sub-categories of risk, or multiple combinations of these.		8. Monitor & Review	Reporting	Critical	Already implemented in the system
+RM_MR_39	The system should have the ability to report risk assessment results against risk tolerance(s) and/or other criteria.		8. Monitor & Review	Reporting	Critical	Already implemented in the system
+RM_MR_40	The system should have the ability to display past, present, and future risk profiles in tabular and/or graphical formats.		8. Monitor & Review	Reporting	Important	
+RM_MR_41	The system should have the ability to integrate with leading analytics and reporting packages (e.g., Business Objects, Crystal Reports, etc.).		8. Monitor & Review	Reporting	Important	Reporting system is already implemented in the system
+RM_MR_42	The system should have the ability to print and export all working screens/data fields.		8. Monitor & Review	Reporting	Critical	Already implemented in the system- Export available for every library
+RM_MR_43	The system should have the ability to support different legends for risks displayed in dashboard.		8. Monitor & Review	Reporting	Important	Already implemented in the system
+RM_MR_44	The system should have the ability to compare dashboard snap-shots created at different points in time.		8. Monitor & Review	Reporting	Critical	Already implemented in the system
+RM_MR_45	The system should have the ability to provide automatically notifications when a new risk is assigned to a risk owner and when a risk rating reaches or exceeds a risk tolerance.		8. Monitor & Review	Workflow / Business Process	Important	Already implemented in the system
+RM_MR_46	The system should have the ability to report on risks on various statuses.		8. Monitor & Review	Reporting	Important	Already implemented in the system
+RM_MR_47	The system should have the ability to customize email notification text/template.		8. Monitor & Review	Workflow / Business Process	Important	Already implemented in the system- through System Admin

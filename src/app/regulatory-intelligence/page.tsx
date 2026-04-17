@@ -140,34 +140,82 @@ export default function RegulatoryIntelligencePage() {
         />
       )}
 
-      {/* Show placeholder message when no circulars uploaded yet */}
-      {extractedActions.length === 0 && (
-        <div className="bg-white border border-[var(--border)] rounded-xl p-12 text-center">
-          <div className="w-16 h-16 mx-auto mb-4 bg-[var(--primary-lightest)] rounded-full flex items-center justify-center">
-            <Upload size={32} className="text-[var(--primary)]" />
-          </div>
-          <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
-            No Circulars Analyzed Yet
-          </h3>
-          <p className="text-sm text-[var(--foreground-muted)] mb-6 max-w-md mx-auto">
-            Upload a regulatory circular PDF above to extract compliance action items using AI-powered analysis.
-          </p>
-          <div className="flex items-center justify-center gap-6 text-sm text-[var(--foreground-muted)]">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 size={16} className="text-green-600" />
-              <span>Instant extraction</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 size={16} className="text-green-600" />
-              <span>Criticality scoring</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 size={16} className="text-green-600" />
-              <span>Confidence levels</span>
-            </div>
-          </div>
+      {/* Recent Circulars Section */}
+      <div className="bg-white border border-[var(--border)] rounded-xl overflow-hidden">
+        <div className="px-6 py-4 border-b border-[var(--border)] bg-[var(--background-secondary)]">
+          <h2 className="text-lg font-semibold text-[var(--foreground)]">Recent Circulars</h2>
+          <p className="text-sm text-[var(--foreground-muted)]">Regulatory updates from RBI, SEBI, and MCA</p>
         </div>
-      )}
+
+        {/* Show placeholder when no circulars */}
+        {extractedActions.length === 0 && (
+          <div className="p-12 text-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-[var(--primary-lightest)] rounded-full flex items-center justify-center">
+              <Upload size={32} className="text-[var(--primary)]" />
+            </div>
+            <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+              No Circulars Analyzed Yet
+            </h3>
+            <p className="text-sm text-[var(--foreground-muted)] mb-6 max-w-md mx-auto">
+              Upload a regulatory circular PDF above to extract compliance action items using AI-powered analysis.
+            </p>
+            <div className="flex items-center justify-center gap-6 text-sm text-[var(--foreground-muted)]">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-green-600" />
+                <span>Instant extraction</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-green-600" />
+                <span>Criticality scoring</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-green-600" />
+                <span>Confidence levels</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Show uploaded circular summary */}
+        {extractedActions.length > 0 && extractionMetadata && (
+          <div className="p-6">
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <FileText size={24} className="text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-base font-semibold text-[var(--foreground)] mb-1">
+                    {extractionMetadata.circularNumber || 'Regulatory Circular'}
+                  </h3>
+                  <p className="text-sm text-[var(--foreground-muted)] mb-3">
+                    {extractionMetadata.actionsExtracted} action items extracted with {extractionMetadata.averageConfidence} average confidence
+                  </p>
+                  <div className="flex flex-wrap items-center gap-4 text-xs text-[var(--foreground-muted)]">
+                    {extractionMetadata.totalPages && (
+                      <div className="flex items-center gap-1">
+                        <FileText size={14} />
+                        <span>{extractionMetadata.totalPages} pages</span>
+                      </div>
+                    )}
+                    <div className="flex items-center gap-1">
+                      <Clock size={14} />
+                      <span>Processed in {extractionMetadata.processingTime}s</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Target size={14} />
+                      <span>{extractionMetadata.averageConfidence} avg confidence</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span className="px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full text-xs font-semibold uppercase">
+                Analyzed
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
 
         {/* OLD HARDCODED STATS - REMOVED */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6" style={{ display: 'none' }}>

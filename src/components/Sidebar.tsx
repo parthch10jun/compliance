@@ -11,7 +11,7 @@ import {
   FolderKanban, Settings, Calendar, CircleAlert, Users, Building2,
   FileStack, FlaskConical, Paperclip, GitBranch, Layers, CheckSquare,
   Package, Tag, Calculator, Sliders, Compass, Bell, TrendingUp, Clock, FileBarChart,
-  Activity
+  Activity, Target, Folder, Grid3X3
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -344,18 +344,132 @@ export default function Sidebar() {
           />
         </NavGroup>
 
-        {/* ⚠️ Risk Management */}
+        {/* ⚠️ Risk Management (Old) */}
         <NavGroup
           icon={<AlertTriangle size={18} />}
           label="Risk Management"
           isCollapsed={isCollapsed}
-          defaultOpen={true}
+          defaultOpen={false}
         >
           <NavItem
             href="/risks"
             icon={<ShieldAlert size={16} />}
             label="Risk Register"
             isActive={pathname === '/risks' || pathname.startsWith('/risks/')}
+            isCollapsed={isCollapsed}
+          />
+        </NavGroup>
+
+        {/* 🎯 ERM (Enterprise Risk Management) */}
+        <NavGroup
+          icon={<Shield size={18} />}
+          label="ERM"
+          isCollapsed={isCollapsed}
+          defaultOpen={pathname.startsWith('/erm')}
+        >
+          <NavItem
+            href="/erm"
+            icon={<LayoutDashboard size={16} />}
+            label="Dashboard"
+            isActive={pathname === '/erm' || pathname === '/erm/'}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/risk-register"
+            icon={<ShieldAlert size={16} />}
+            label="Risk Register"
+            isActive={pathname === '/erm/risk-register' || pathname.startsWith('/erm/risk-register/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/assessments"
+            icon={<ClipboardCheck size={16} />}
+            label="Assessments"
+            isActive={pathname === '/erm/assessments' || pathname.startsWith('/erm/assessments/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/controls"
+            icon={<Shield size={16} />}
+            label="Controls Library"
+            isActive={pathname === '/erm/controls' || pathname.startsWith('/erm/controls/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/treatments"
+            icon={<Target size={16} />}
+            label="Treatment Plans"
+            isActive={pathname === '/erm/treatments' || pathname.startsWith('/erm/treatments/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/evaluation"
+            icon={<TrendingUp size={16} />}
+            label="Risk Evaluation"
+            isActive={pathname === '/erm/evaluation' || pathname.startsWith('/erm/evaluation/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/analysis"
+            icon={<Activity size={16} />}
+            label="Advanced Analysis"
+            isActive={pathname === '/erm/analysis' || pathname.startsWith('/erm/analysis/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/heatmap"
+            icon={<Grid3X3 size={16} />}
+            label="Risk Heatmap"
+            isActive={pathname === '/erm/heatmap' || pathname.startsWith('/erm/heatmap/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/objectives"
+            icon={<Target size={16} />}
+            label="Objectives"
+            isActive={pathname === '/erm/objectives' || pathname.startsWith('/erm/objectives/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/categories"
+            icon={<Folder size={16} />}
+            label="Categories"
+            isActive={pathname === '/erm/categories' || pathname.startsWith('/erm/categories/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/matrices"
+            icon={<Grid3X3 size={16} />}
+            label="Matrices"
+            isActive={pathname === '/erm/matrices' || pathname.startsWith('/erm/matrices/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/kris"
+            icon={<Activity size={16} />}
+            label="KRIs"
+            isActive={pathname === '/erm/kris' || pathname.startsWith('/erm/kris/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/tasks"
+            icon={<CheckSquare size={16} />}
+            label="Tasks"
+            isActive={pathname === '/erm/tasks' || pathname.startsWith('/erm/tasks/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/roles"
+            icon={<Shield size={16} />}
+            label="Roles & Permissions"
+            isActive={pathname === '/erm/roles' || pathname.startsWith('/erm/roles/')}
+            isCollapsed={isCollapsed}
+          />
+          <NavItem
+            href="/erm/settings"
+            icon={<Settings size={16} />}
+            label="Settings"
+            isActive={pathname === '/erm/settings' || pathname.startsWith('/erm/settings/')}
             isCollapsed={isCollapsed}
           />
         </NavGroup>

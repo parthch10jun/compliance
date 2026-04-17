@@ -154,7 +154,12 @@ export const mockCampaigns: Campaign[] = [
     assessmentCount: 8,
     completedCount: 8,
     progress: 100,
-    method: 'Qualitative'
+    method: 'Qualitative',
+    currentStep: 9,
+    workflowSteps: defaultWorkflowSteps,
+    requireReview: true,
+    notifyOnSubmission: true,
+    notifyOnApproval: true
   },
   {
     id: 'CAMP-2024-Q3',
@@ -168,7 +173,12 @@ export const mockCampaigns: Campaign[] = [
     assessmentCount: 20,
     completedCount: 0,
     progress: 0,
-    method: 'Qualitative'
+    method: 'Qualitative',
+    currentStep: 1,
+    workflowSteps: defaultWorkflowSteps,
+    requireReview: true,
+    notifyOnSubmission: true,
+    notifyOnApproval: true
   },
   {
     id: 'CAMP-2023-Q4',
@@ -182,7 +192,12 @@ export const mockCampaigns: Campaign[] = [
     assessmentCount: 20,
     completedCount: 20,
     progress: 100,
-    method: 'Qualitative'
+    method: 'Qualitative',
+    currentStep: 10,
+    workflowSteps: defaultWorkflowSteps,
+    requireReview: true,
+    notifyOnSubmission: true,
+    notifyOnApproval: true
   }
 ];
 

@@ -37,13 +37,16 @@ export default function NotificationSettings() {
   const [saved, setSaved] = useState(false);
 
   const handleToggle = (category: 'email' | 'inApp', key: string) => {
-    setPreferences(prev => ({
-      ...prev,
-      [category]: {
-        ...prev[category],
-        [key]: !prev[category][key as keyof typeof prev.email],
-      },
-    }));
+    setPreferences(prev => {
+      const currentCategory = prev[category];
+      return {
+        ...prev,
+        [category]: {
+          ...currentCategory,
+          [key]: !(currentCategory as any)[key],
+        },
+      };
+    });
     setSaved(false);
   };
 
