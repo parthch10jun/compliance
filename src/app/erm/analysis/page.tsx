@@ -39,20 +39,24 @@ export default function RiskAnalysisPage() {
 
   // Calculate trends and intensity for each risk
   const risksWithAnalysis = mockRisks.map(risk => {
+    // Calculate residual score
+    const residualScore = risk.residualLikelihood * risk.residualConsequence;
+
     // Calculate previous score for trend (simulate historical data)
-    const previousScore = risk.residualScore + (Math.floor(Math.random() * 5) - 2);
-    const trend = calculateTrend(risk.residualScore, previousScore);
+    const previousScore = residualScore + (Math.floor(Math.random() * 5) - 2);
+    const trend = calculateTrend(residualScore, previousScore);
 
     // Calculate treatment intensity based on controls
-    const controlsCount = risk.controls || 0;
+    const controlsCount = risk.linkedControlIds?.length || 0;
     const effectivenessAvg = 75; // Mock average effectiveness
     const treatmentIntensity = calculateTreatmentIntensity(controlsCount, effectivenessAvg);
 
     return {
       ...risk,
+      residualScore,
       trend,
       treatmentIntensity,
-      previousScore: previousScore > 0 ? previousScore : risk.residualScore + 2
+      previousScore: previousScore > 0 ? previousScore : residualScore + 2
     };
   });
 
