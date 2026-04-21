@@ -6,7 +6,7 @@ import { useSidebar } from '@/contexts/SidebarContext';
 import {
   LayoutDashboard, Shield, Target, Layers, Grid3X3, FlaskConical,
   TrendingUp, Activity, FileText, Library, Settings, ChevronsLeft,
-  ChevronsRight, ChevronRight, AlertTriangle, BarChart3, Bell, CheckCircle
+  ChevronsRight, ChevronRight, AlertTriangle, BarChart3, Bell, CheckCircle, Plug
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -162,6 +162,11 @@ export default function ERMSidebar() {
         {/* Library Section */}
         <NavGroup label="Library" isCollapsed={isCollapsed}>
           <NavItem href="/erm/library" icon={<Library size={18} />} label="Frameworks" isCollapsed={isCollapsed} />
+        </NavGroup>
+
+        {/* Integrations Section */}
+        <NavGroup label="Integrations" isCollapsed={isCollapsed}>
+          <NavItem href="/erm/integrations" icon={<Plug size={18} />} label="Integrations" isCollapsed={isCollapsed} />
         </NavGroup>
 
         {/* Back to Compliance Link */}
