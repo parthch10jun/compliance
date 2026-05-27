@@ -1,271 +1,571 @@
 'use client';
 
 /**
- * Delegation Detail View
- * View a specific delegation record
+ * Delegation Detail — reads from the rule store, drives all lifecycle actions.
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import { ArrowLeft, Edit, XCircle, CheckCircle, Calendar, User, AlertCircle } from 'lucide-react';
-import { mockDelegations } from '@/lib/doa/data';
+import { useParams, useRouter } from 'next/navigation';
+import {
+  ArrowLeft, CheckCircle2, XCircle, Send, ShieldCheck, Users, Calendar, Clock,
+  AlertTriangle, FileText, Activity, Trash2, Edit3,
+} from 'lucide-react';
+import {
+  getDelegationRuleById, saveDelegationRule, appendAuditEntry, generateAuditEntryId,
+} from '@/lib/doa/utils/delegation-rule-store';
+import { useCurrentUser } from '@/lib/doa/hooks/useCurrentUser';
+import { formatDate, formatDateTime, formatNumber } from '@/lib/doa/utils/format';
+import { StatusBadge } from '../page';
+import type { DelegationRule, AuditEntry, PendingModification } from '@/lib/doa/types/delegation-rule-types';
 
-export default function DelegationDetail() {
+const FIELD_LABELS: Record<string, string> = {
+  name: 'Name',
+  category: 'Category',
+  authorityType: 'Authority type',
+  description: 'Description',
+  justification: 'Justification',
+  scope: 'Scope / threshold',
+  chain: 'Approval chain',
+  complianceLinks: 'Compliance links',
+  type: 'Lifecycle type',
+  effectiveFrom: 'Effective from',
+  effectiveTo: 'Effective to',
+  approvalAuthorityUserId: 'Approval authority',
+};
+
+export default function DelegationDetailPage() {
   const params = useParams();
-  const delegationId = params.id as string;
-  
-  const delegation = mockDelegations.find(d => d.id === delegationId);
-  
-  if (!delegation) {
+  const router = useRouter();
+  const ruleId = params.id as string;
+  const { user: currentUser } = useCurrentUser();
+  const [rule, setRule] = useState<DelegationRule | undefined>();
+  const [actionComment, setActionComment] = useState('');
+  const [activeAction, setActiveAction] = useState<'approve' | 'reject' | 'revoke' | 'submit' | 'approveMod' | 'rejectMod' | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  useEffect(() => {
+    setRule(getDelegationRuleById(ruleId));
+  }, [ruleId, refreshKey]);
+
+  const isCreator = rule?.createdByUserId === currentUser.id;
+  const isApprovalAuthority = rule?.approvalAuthorityUserId === currentUser.id;
+  const isChainMember = rule?.chain.some(c => c.userId === currentUser.id);
+
+  const canSubmit = rule?.status === 'Draft' && isCreator;
+  const canApproveReject = rule?.status === 'PendingApproval' && isApprovalAuthority;
+  const canRevoke = rule?.status === 'Active' && currentUser.canCreateDelegations;
+  const canEdit = rule?.status === 'Active' && currentUser.canCreateDelegations;
+  const canApproveRejectMod =
+    rule?.status === 'PendingModification' &&
+    !!rule?.pendingModification &&
+    (rule?.pendingModification.routedTo?.userId ?? rule?.approvalAuthorityUserId) === currentUser.id;
+
+  if (!rule) {
     return (
-      <div className="flex items-center justify-center h-96">
-        <div className="text-center">
-          <h2 className="text-h2 font-semibold text-gray-900 mb-2">Delegation Not Found</h2>
-          <p className="text-gray-600 mb-4">The requested delegation could not be found.</p>
-          <Link href="/doa/delegations" className="text-[#F59E0B] hover:text-[#D97706]">
-            ← Back to Delegations
-          </Link>
-        </div>
+      <div className="max-w-3xl mx-auto mt-12 bg-white border border-gray-200 rounded-lg p-8 text-center">
+        <FileText className="w-10 h-10 text-gray-300 mx-auto mb-2" />
+        <h2 className="text-lg font-semibold text-gray-900 mb-1">Delegation not found</h2>
+        <p className="text-sm text-gray-500 mb-4">It may have been deleted or never existed.</p>
+        <Link href="/doa/delegations" className="text-sm text-amber-700 hover:underline">← Back to delegations</Link>
       </div>
     );
   }
-  
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'OOO':
-        return 'bg-blue-100 text-blue-800';
-      case 'Permanent':
-        return 'bg-green-100 text-green-800';
-      case 'Acting':
-      case 'Interim':
-        return 'bg-purple-100 text-purple-800';
-      case 'Project-Based':
-        return 'bg-orange-100 text-orange-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
+
+  // -- Lifecycle actions -------------------------------------------------
+  const recordAndSave = (next: DelegationRule, entry: Omit<AuditEntry, 'id' | 'timestamp' | 'actorUserId' | 'actorUserName'>) => {
+    const audit: AuditEntry = {
+      id: generateAuditEntryId(),
+      timestamp: new Date().toISOString(),
+      actorUserId: currentUser.id,
+      actorUserName: currentUser.name,
+      ...entry,
+    };
+    saveDelegationRule({ ...next, auditTrail: [...next.auditTrail, audit] });
+    setRefreshKey(k => k + 1);
+    setActiveAction(null);
+    setActionComment('');
   };
-  
-  const isExpiringSoon = delegation.endDate && 
-    new Date(delegation.endDate) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  
+
+  const doSubmit = () => {
+    if (!canSubmit) return;
+    const now = new Date().toISOString();
+    const next: DelegationRule = { ...rule, status: 'PendingApproval', submittedAt: now };
+    const audit: AuditEntry[] = [
+      { id: generateAuditEntryId(), timestamp: now, actorUserId: currentUser.id, actorUserName: currentUser.name, action: 'Submitted', comment: actionComment || undefined },
+      { id: generateAuditEntryId(), timestamp: now, actorUserId: currentUser.id, actorUserName: currentUser.name, action: 'Notified', comment: `Chain designees notified: ${rule.chain.map(c => c.userName).join(', ') || 'none'}.` },
+    ];
+    saveDelegationRule({ ...next, auditTrail: [...next.auditTrail, ...audit] });
+    setRefreshKey(k => k + 1);
+    setActiveAction(null);
+    setActionComment('');
+  };
+  const doApprove = () => {
+    if (!canApproveReject) return;
+    const now = new Date().toISOString();
+    recordAndSave(
+      { ...rule, status: 'Active', approvedAt: now, approvedComment: actionComment || undefined },
+      { action: 'Approved', comment: actionComment || undefined },
+    );
+  };
+  const doReject = () => {
+    if (!canApproveReject) return;
+    if (!actionComment.trim()) { alert('Rejection requires a comment.'); return; }
+    const now = new Date().toISOString();
+    recordAndSave(
+      { ...rule, status: 'Rejected', rejectedAt: now, rejectedComment: actionComment },
+      { action: 'Rejected', comment: actionComment },
+    );
+  };
+  const doRevoke = () => {
+    if (!canRevoke) return;
+    if (!actionComment.trim()) { alert('Revocation requires a reason.'); return; }
+    recordAndSave({ ...rule, status: 'Revoked' }, { action: 'Revoked', comment: actionComment });
+  };
+
+  const doApproveMod = () => {
+    if (!canApproveRejectMod || !rule.pendingModification) return;
+    const now = new Date().toISOString();
+    const proposed = rule.pendingModification.proposedRule;
+    // Merge proposed fields into rule, increment version, clear pending slot, return to Active.
+    const merged: DelegationRule = {
+      ...proposed,
+      id: rule.id,
+      createdByUserId: rule.createdByUserId,
+      createdByUserName: rule.createdByUserName,
+      createdAt: rule.createdAt,
+      submittedAt: rule.submittedAt,
+      approvedAt: rule.approvedAt,
+      version: rule.version + 1,
+      status: 'Active',
+      pendingModification: undefined,
+      auditTrail: [
+        ...rule.auditTrail,
+        {
+          id: generateAuditEntryId(), timestamp: now,
+          actorUserId: currentUser.id, actorUserName: currentUser.name,
+          action: 'ModificationApproved',
+          comment: actionComment || `Approved modification (changed: ${rule.pendingModification.criticalFields.join(', ')}).`,
+        },
+      ],
+    };
+    saveDelegationRule(merged);
+    setRefreshKey(k => k + 1);
+    setActiveAction(null);
+    setActionComment('');
+  };
+
+  const doRejectMod = () => {
+    if (!canApproveRejectMod || !rule.pendingModification) return;
+    if (!actionComment.trim()) { alert('Rejection requires a comment.'); return; }
+    const now = new Date().toISOString();
+    const reverted: DelegationRule = {
+      ...rule,
+      status: 'Active',
+      pendingModification: undefined,
+      auditTrail: [
+        ...rule.auditTrail,
+        {
+          id: generateAuditEntryId(), timestamp: now,
+          actorUserId: currentUser.id, actorUserName: currentUser.name,
+          action: 'ModificationRejected',
+          comment: actionComment,
+        },
+      ],
+    };
+    saveDelegationRule(reverted);
+    setRefreshKey(k => k + 1);
+    setActiveAction(null);
+    setActionComment('');
+  };
+
+  const thresholdParts: string[] = [];
+  if (rule.scope.monetaryCap) thresholdParts.push(`${formatNumber(rule.scope.monetaryCap.amount)} ${rule.scope.monetaryCap.currency}`);
+  if (rule.scope.percentageCap !== undefined) thresholdParts.push(`${rule.scope.percentageCap}%`);
+  if (rule.scope.quantityCap !== undefined) thresholdParts.push(`${rule.scope.quantityCap} units`);
+  const thresholdLine = thresholdParts.length ? `Up to ${thresholdParts.join(' · ')}` : 'No cap';
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Link
-            href="/doa/delegations"
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
+      <div className="flex items-start justify-between">
+        <div className="flex items-start gap-3">
+          <Link href="/doa/delegations" className="p-2 hover:bg-gray-100 rounded">
             <ArrowLeft className="w-5 h-5 text-gray-600" />
           </Link>
           <div>
-            <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-h1 font-semibold text-gray-900">Delegation #{delegation.id.slice(0, 8)}</h1>
-              <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getTypeColor(delegation.type)}`}>
-                {delegation.type}
-              </span>
-              {delegation.isActive ? (
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                  Active
-                </span>
-              ) : (
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
-                  Inactive
-                </span>
-              )}
+            <div className="flex items-center gap-2 mb-1">
+              <h1 className="text-xl font-semibold text-gray-900">{rule.name}</h1>
+              <StatusBadge status={rule.status} />
+              <span className="text-xs text-gray-400">v{rule.version} · {rule.id}</span>
             </div>
-            <p className="text-p2 text-gray-600">{delegation.authorityType}</p>
+            <p className="text-sm text-gray-600">{rule.authorityType} · {rule.category}</p>
           </div>
         </div>
-        
-        {delegation.isActive && (
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 border border-red-300 text-red-700 rounded-lg hover:bg-red-50 transition-colors">
-              <XCircle className="w-5 h-5" />
-              Revoke
-            </button>
+
+        {/* Action buttons */}
+        <div className="flex gap-2">
+          {canEdit && (
             <Link
-              href={`/doa/delegations/${delegation.id}/edit`}
-              className="flex items-center gap-2 px-4 py-2 bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-lg transition-colors font-medium"
+              href={`/doa/delegations/${rule.id}/edit`}
+              className="flex items-center gap-1.5 px-3 py-2 border border-gray-300 rounded text-sm hover:bg-gray-50"
             >
-              <Edit className="w-5 h-5" />
-              Edit
+              <Edit3 className="w-4 h-4" />Edit
             </Link>
-          </div>
-        )}
+          )}
+          {canSubmit && (
+            <button
+              onClick={() => setActiveAction('submit')}
+              className="flex items-center gap-1.5 px-3 py-2 bg-amber-500 text-white rounded text-sm hover:bg-amber-600"
+            >
+              <Send className="w-4 h-4" />Submit for approval
+            </button>
+          )}
+          {canApproveReject && (
+            <>
+              <button
+                onClick={() => setActiveAction('reject')}
+                className="flex items-center gap-1.5 px-3 py-2 border border-red-300 text-red-700 rounded text-sm hover:bg-red-50"
+              >
+                <XCircle className="w-4 h-4" />Reject
+              </button>
+              <button
+                onClick={() => setActiveAction('approve')}
+                className="flex items-center gap-1.5 px-3 py-2 bg-green-600 text-white rounded text-sm hover:bg-green-700"
+              >
+                <CheckCircle2 className="w-4 h-4" />Approve
+              </button>
+            </>
+          )}
+          {canApproveRejectMod && (
+            <>
+              <button
+                onClick={() => setActiveAction('rejectMod')}
+                className="flex items-center gap-1.5 px-3 py-2 border border-red-300 text-red-700 rounded text-sm hover:bg-red-50"
+              >
+                <XCircle className="w-4 h-4" />Reject modification
+              </button>
+              <button
+                onClick={() => setActiveAction('approveMod')}
+                className="flex items-center gap-1.5 px-3 py-2 bg-green-600 text-white rounded text-sm hover:bg-green-700"
+              >
+                <CheckCircle2 className="w-4 h-4" />Approve modification
+              </button>
+            </>
+          )}
+          {canRevoke && (
+            <button
+              onClick={() => setActiveAction('revoke')}
+              className="flex items-center gap-1.5 px-3 py-2 border border-red-300 text-red-700 rounded text-sm hover:bg-red-50"
+            >
+              <Trash2 className="w-4 h-4" />Revoke
+            </button>
+          )}
+        </div>
       </div>
-      
-      {/* Alert if expiring soon */}
-      {isExpiringSoon && delegation.isActive && (
-        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-          <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-orange-600 mt-0.5" />
-            <div className="flex-1">
-              <h3 className="font-medium text-orange-900">Delegation Expiring Soon</h3>
-              <p className="text-sm text-orange-700 mt-1">
-                This delegation will expire on {new Date(delegation.endDate!).toLocaleDateString()}.
-              </p>
-            </div>
+
+      {/* Banners by status / role */}
+      {rule.status === 'PendingApproval' && (
+        <Banner tone="amber" icon={<Clock className="w-5 h-5" />}>
+          <strong>Pending approval</strong> from {rule.approvalAuthorityUserName} ({rule.approvalAuthorityTitle}).
+          {isApprovalAuthority && ' You are the approval authority — use Approve or Reject above.'}
+        </Banner>
+      )}
+      {rule.status === 'Active' && (
+        <Banner tone="green" icon={<CheckCircle2 className="w-5 h-5" />}>
+          <strong>Active &amp; enforced.</strong> Approved by {rule.approvalAuthorityUserName} on {formatDate(rule.approvedAt)}.
+        </Banner>
+      )}
+      {rule.status === 'Draft' && isCreator && (
+        <Banner tone="gray" icon={<FileText className="w-5 h-5" />}>
+          <strong>Draft.</strong> Not yet submitted. Use the Submit button to send for approval.
+        </Banner>
+      )}
+      {rule.status === 'Rejected' && (
+        <Banner tone="red" icon={<XCircle className="w-5 h-5" />}>
+          <strong>Rejected</strong> by {rule.approvalAuthorityUserName}. Reason: {rule.rejectedComment || '—'}
+        </Banner>
+      )}
+      {rule.status === 'Revoked' && (
+        <Banner tone="red" icon={<Trash2 className="w-5 h-5" />}>
+          <strong>Revoked.</strong> Rule no longer enforced.
+        </Banner>
+      )}
+      {rule.status === 'PendingModification' && rule.pendingModification && (
+        <Banner tone="amber" icon={<AlertTriangle className="w-5 h-5" />}>
+          <strong>Pending modification.</strong> {rule.pendingModification.proposedByUserName} submitted critical
+          changes; routed to {rule.pendingModification.routedTo?.userName ?? rule.approvalAuthorityUserName} for re-approval.
+          The Active rule (v{rule.version}) is still being enforced. See the diff below.
+          {canApproveRejectMod && ' You are the approval authority for this modification.'}
+        </Banner>
+      )}
+
+      {/* Action prompt */}
+      {activeAction && (
+        <div className="bg-white border-2 border-amber-300 rounded-lg p-4">
+          <div className="text-sm font-semibold text-gray-900 mb-2">
+            {activeAction === 'submit' && 'Submit this delegation for approval'}
+            {activeAction === 'approve' && 'Approve this delegation'}
+            {activeAction === 'reject' && 'Reject this delegation'}
+            {activeAction === 'revoke' && 'Revoke this delegation'}
+            {activeAction === 'approveMod' && 'Approve the pending modification'}
+            {activeAction === 'rejectMod' && 'Reject the pending modification'}
+          </div>
+          <textarea
+            rows={2}
+            value={actionComment}
+            onChange={e => setActionComment(e.target.value)}
+            placeholder={activeAction === 'approve' ? 'Approval comment (optional)' : 'Reason (required)'}
+            className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 mb-2"
+          />
+          <div className="flex gap-2 justify-end">
+            <button onClick={() => { setActiveAction(null); setActionComment(''); }}
+              className="px-3 py-1.5 border border-gray-300 rounded text-sm hover:bg-gray-50">Cancel</button>
+            <button
+              onClick={() => {
+                if (activeAction === 'submit') doSubmit();
+                if (activeAction === 'approve') doApprove();
+                if (activeAction === 'reject') doReject();
+                if (activeAction === 'revoke') doRevoke();
+                if (activeAction === 'approveMod') doApproveMod();
+                if (activeAction === 'rejectMod') doRejectMod();
+              }}
+              className={`px-4 py-1.5 rounded text-sm text-white ${
+                activeAction === 'reject' || activeAction === 'revoke' || activeAction === 'rejectMod' ? 'bg-red-600 hover:bg-red-700' :
+                activeAction === 'approve' || activeAction === 'approveMod' ? 'bg-green-600 hover:bg-green-700' :
+                'bg-amber-500 hover:bg-amber-600'
+              }`}
+            >
+              Confirm
+            </button>
           </div>
         </div>
       )}
-      
-      {/* Delegation Details */}
-      <div className="grid grid-cols-3 gap-6">
-        {/* Main Details */}
-        <div className="col-span-2 space-y-6">
-          {/* Parties Involved */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-h3 font-semibold text-gray-900 mb-4">Parties Involved</h2>
-            <div className="grid grid-cols-2 gap-6">
-              <div className="p-4 bg-blue-50 rounded-lg">
-                <div className="text-sm text-blue-600 mb-2 font-medium">Delegator (From)</div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center">
-                    <User className="w-5 h-5 text-blue-700" />
+
+      {/* Two-column main */}
+      <div className="grid grid-cols-3 gap-5">
+        <div className="col-span-2 space-y-4">
+          {/* Proposed modification diff (top of page if pending) */}
+          {rule.pendingModification && (
+            <PendingModificationCard pending={rule.pendingModification} />
+          )}
+
+          {/* Authority + scope */}
+          <Card title="Authority & scope" icon={<ShieldCheck className="w-4 h-4" />}>
+            <Row label="Description" value={rule.description} multiline />
+            <Row label="Threshold" value={thresholdLine} />
+            {(rule.scope.regions ?? []).length > 0 && <Row label="Regions" value={rule.scope.regions!.join(', ')} />}
+            {(rule.scope.functions ?? []).length > 0 && <Row label="Functions" value={rule.scope.functions!.join(', ')} />}
+            {(rule.scope.businessUnits ?? []).length > 0 && <Row label="Business units" value={rule.scope.businessUnits!.join(', ')} />}
+            {(rule.scope.grades ?? []).length > 0 && <Row label="Grades" value={rule.scope.grades!.join(', ')} />}
+            {rule.scope.notes && <Row label="Notes" value={rule.scope.notes} multiline />}
+          </Card>
+
+          {/* Approval chain */}
+          <Card title="Approval chain (runtime)" icon={<Users className="w-4 h-4" />}>
+            <p className="text-xs text-gray-500 mb-3">
+              These designees approve <em>matching runtime requests</em> once the rule is active.
+              They were notified at rule creation; they do not gate the rule's approval.
+            </p>
+            <div className="space-y-2">
+              {rule.chain.map((c, idx) => (
+                <div key={c.userId} className="flex items-center gap-2 p-2 bg-gray-50 border border-gray-200 rounded">
+                  <div className="w-7 h-7 rounded-full bg-amber-100 text-amber-900 flex items-center justify-center text-xs font-bold">
+                    {c.position}
                   </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">{delegation.delegatorName}</div>
-                    <div className="text-sm text-gray-600">ID: {delegation.delegatorId}</div>
+                  <div className="flex-1">
+                    <div className="text-sm font-medium text-gray-900">{c.userName}</div>
+                    <div className="text-xs text-gray-500">{c.userTitle} · {c.label}</div>
                   </div>
+                  {idx < rule.chain.length - 1 && <span className="text-gray-300">→</span>}
                 </div>
-              </div>
-              
-              <div className="p-4 bg-green-50 rounded-lg">
-                <div className="text-sm text-green-600 mb-2 font-medium">Delegate (To)</div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-green-200 flex items-center justify-center">
-                    <User className="w-5 h-5 text-green-700" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">{delegation.delegateName}</div>
-                    <div className="text-sm text-gray-600">ID: {delegation.delegateId}</div>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
-          </div>
-          
-          {/* Authority Details */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-h3 font-semibold text-gray-900 mb-4">Authority Details</h2>
-            <div className="space-y-4">
-              <div>
-                <div className="text-sm text-gray-600 mb-1">Authority Type</div>
-                <div className="text-gray-900 font-medium">{delegation.authorityType}</div>
-              </div>
-              
-              <div>
-                <div className="text-sm text-gray-600 mb-1">Scope</div>
-                <div className="text-gray-900">{delegation.scope}</div>
-              </div>
-              
-              {delegation.limitations && delegation.limitations.length > 0 && (
-                <div>
-                  <div className="text-sm text-gray-600 mb-2">Limitations</div>
-                  <ul className="list-disc list-inside space-y-1">
-                    {delegation.limitations.map((limitation, index) => (
-                      <li key={index} className="text-sm text-gray-700">{limitation}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              
-              {delegation.reason && (
-                <div>
-                  <div className="text-sm text-gray-600 mb-1">Reason</div>
-                  <div className="text-gray-900">{delegation.reason}</div>
-                </div>
-              )}
-            </div>
-          </div>
-          
-          {/* Timeline */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-h3 font-semibold text-gray-900 mb-4">Timeline</h2>
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <Calendar className="w-5 h-5 text-gray-400 mt-0.5" />
-                <div>
-                  <div className="text-sm text-gray-600">Start Date</div>
-                  <div className="text-gray-900 font-medium">
-                    {new Date(delegation.startDate).toLocaleDateString()} at {new Date(delegation.startDate).toLocaleTimeString()}
-                  </div>
-                </div>
-              </div>
-              
-              {delegation.endDate && (
-                <div className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 text-gray-400 mt-0.5" />
-                  <div>
-                    <div className="text-sm text-gray-600">End Date</div>
-                    <div className="text-gray-900 font-medium">
-                      {new Date(delegation.endDate).toLocaleDateString()} at {new Date(delegation.endDate).toLocaleTimeString()}
+          </Card>
+
+          {/* Compliance */}
+          {rule.complianceLinks.length > 0 && (
+            <Card title="Compliance links" icon={<ShieldCheck className="w-4 h-4" />}>
+              <div className="space-y-2">
+                {rule.complianceLinks.map((l, idx) => (
+                  <div key={idx} className="p-2.5 bg-blue-50 border border-blue-200 rounded">
+                    <div className="text-sm font-medium text-gray-900">
+                      <span className="text-blue-700">{l.framework}</span> · {l.controlCode} — {l.controlName}
                     </div>
+                    {l.rationale && <div className="text-xs text-gray-600 mt-0.5">{l.rationale}</div>}
                   </div>
-                </div>
-              )}
-              
-              <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5" />
-                <div>
-                  <div className="text-sm text-gray-600">Created</div>
-                  <div className="text-gray-900">{new Date(delegation.createdAt).toLocaleString()}</div>
-                </div>
+                ))}
               </div>
-            </div>
-          </div>
+            </Card>
+          )}
+
+          {/* Justification */}
+          <Card title="Business justification" icon={<FileText className="w-4 h-4" />}>
+            <p className="text-sm text-gray-700 whitespace-pre-wrap">{rule.justification}</p>
+          </Card>
+
+          {/* Audit trail */}
+          <Card title="Audit trail" icon={<Activity className="w-4 h-4" />}>
+            <ul className="space-y-3">
+              {[...rule.auditTrail].reverse().map(e => (
+                <li key={e.id} className="flex gap-3 text-sm">
+                  <div className="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0 mt-2" />
+                  <div className="flex-1">
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-medium text-gray-900">{e.action}</span>
+                      <span className="text-xs text-gray-500">by {e.actorUserName}</span>
+                      <span className="text-xs text-gray-400">· {formatDateTime(e.timestamp)}</span>
+                    </div>
+                    {e.comment && <div className="text-xs text-gray-600 mt-0.5">{e.comment}</div>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Card>
         </div>
-        
+
         {/* Sidebar */}
-        <div className="space-y-6">
-          {/* Status Card */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="text-h4 font-semibold text-gray-900 mb-3">Status</h3>
-            <div className="space-y-3">
-              <div>
-                <div className="text-sm text-gray-600 mb-1">Current Status</div>
-                {delegation.isActive ? (
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span className="text-green-700 font-medium">Active</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <XCircle className="w-4 h-4 text-gray-600" />
-                    <span className="text-gray-700 font-medium">Inactive</span>
-                  </div>
-                )}
-              </div>
-              
-              <div>
-                <div className="text-sm text-gray-600 mb-1">Type</div>
-                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTypeColor(delegation.type)}`}>
-                  {delegation.type}
-                </span>
-              </div>
+        <div className="space-y-4">
+          <Card title="Approval authority" icon={<ShieldCheck className="w-4 h-4" />}>
+            <div className="p-2.5 bg-amber-50 border border-amber-200 rounded">
+              <div className="text-sm font-semibold text-gray-900">{rule.approvalAuthorityUserName}</div>
+              <div className="text-xs text-gray-600">{rule.approvalAuthorityTitle}</div>
             </div>
-          </div>
-          
-          {/* Approval Info */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="text-h4 font-semibold text-gray-900 mb-3">Approval</h3>
-            <div className="space-y-3">
-              <div>
-                <div className="text-sm text-gray-600 mb-1">Approved By</div>
-                <div className="text-gray-900">{delegation.approvedByName}</div>
+            {rule.approvalAuthoritySuggestionRationale && (
+              <p className="mt-2 text-xs text-gray-500 italic">{rule.approvalAuthoritySuggestionRationale}</p>
+            )}
+          </Card>
+
+          <Card title="Lifecycle" icon={<Calendar className="w-4 h-4" />}>
+            <Row label="Type" value={rule.type} />
+            <Row label="Effective from" value={formatDate(rule.effectiveFrom)} />
+            {rule.effectiveTo && <Row label="Effective to" value={formatDate(rule.effectiveTo)} />}
+            <Row label="Created" value={`${formatDate(rule.createdAt)} by ${rule.createdByUserName}`} />
+            {rule.submittedAt && <Row label="Submitted" value={formatDate(rule.submittedAt)} />}
+            {rule.approvedAt && <Row label="Approved" value={formatDate(rule.approvedAt)} />}
+          </Card>
+
+          {(isCreator || isApprovalAuthority || isChainMember) && (
+            <Card title="Your role here" icon={<Users className="w-4 h-4" />}>
+              <div className="space-y-1.5 text-xs">
+                {isCreator && <Tag color="blue">Creator</Tag>}
+                {isApprovalAuthority && <Tag color="amber">Approval authority</Tag>}
+                {isChainMember && <Tag color="green">Chain designee</Tag>}
               </div>
-              <div>
-                <div className="text-sm text-gray-600 mb-1">Approval Date</div>
-                <div className="text-gray-900">{new Date(delegation.approvedDate).toLocaleDateString()}</div>
-              </div>
-            </div>
-          </div>
+            </Card>
+          )}
         </div>
       </div>
     </div>
   );
+}
+
+function Card({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-1.5">
+        {icon}{title}
+      </h3>
+      <div className="space-y-1.5">{children}</div>
+    </div>
+  );
+}
+
+function Row({ label, value, multiline = false }: { label: string; value: string; multiline?: boolean }) {
+  return (
+    <div className={multiline ? 'space-y-0.5' : 'flex justify-between gap-3'}>
+      <span className="text-xs text-gray-500 flex-shrink-0">{label}</span>
+      <span className={`text-sm text-gray-900 ${multiline ? 'block' : 'text-right'} break-words`}>{value}</span>
+    </div>
+  );
+}
+
+function Tag({ color, children }: { color: 'blue' | 'amber' | 'green'; children: React.ReactNode }) {
+  const colors = {
+    blue: 'bg-blue-50 text-blue-700 border-blue-200',
+    amber: 'bg-amber-50 text-amber-700 border-amber-200',
+    green: 'bg-green-50 text-green-700 border-green-200',
+  };
+  return <span className={`inline-block px-2 py-0.5 text-xs rounded border ${colors[color]} mr-1`}>{children}</span>;
+}
+
+function Banner({ tone, icon, children }: { tone: 'amber' | 'green' | 'red' | 'gray'; icon: React.ReactNode; children: React.ReactNode }) {
+  const styles = {
+    amber: 'bg-amber-50 border-amber-200 text-amber-900',
+    green: 'bg-green-50 border-green-200 text-green-900',
+    red: 'bg-red-50 border-red-200 text-red-900',
+    gray: 'bg-gray-50 border-gray-200 text-gray-900',
+  }[tone];
+  return (
+    <div className={`flex items-start gap-2 p-3 border rounded text-sm ${styles}`}>
+      {icon}<div>{children}</div>
+    </div>
+  );
+}
+
+function PendingModificationCard({ pending }: { pending: PendingModification }) {
+  return (
+    <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-4">
+      <h3 className="text-sm font-semibold text-amber-900 mb-1 flex items-center gap-1.5">
+        <AlertTriangle className="w-4 h-4" />Proposed modification
+      </h3>
+      <p className="text-xs text-amber-800 mb-3">
+        Submitted by <strong>{pending.proposedByUserName}</strong> on {formatDateTime(pending.proposedAt)}.
+        Critical fields changed: <strong>{pending.criticalFields.map(f => FIELD_LABELS[f] ?? f).join(', ')}</strong>.
+      </p>
+      <ul className="space-y-2">
+        {pending.changes.map(c => {
+          const critical = pending.criticalFields.includes(c.field);
+          return (
+            <li key={c.field} className="bg-white border border-amber-200 rounded p-2.5 text-xs">
+              <div className="flex items-center gap-1.5 mb-1">
+                <span className={`inline-block w-1.5 h-1.5 rounded-full ${critical ? 'bg-red-500' : 'bg-green-500'}`} />
+                <span className="font-semibold text-gray-900">{FIELD_LABELS[c.field] ?? c.field}</span>
+                {critical && <span className="px-1.5 py-0.5 bg-red-100 text-red-700 text-[10px] font-medium rounded">critical</span>}
+              </div>
+              <div className="grid grid-cols-2 gap-3 ml-3">
+                <div>
+                  <div className="text-[10px] text-gray-500 uppercase tracking-wide mb-0.5">Current (v{pending.proposedRule.version})</div>
+                  <DiffValue value={c.oldValue} />
+                </div>
+                <div>
+                  <div className="text-[10px] text-amber-700 uppercase tracking-wide mb-0.5">Proposed</div>
+                  <DiffValue value={c.newValue} />
+                </div>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+function DiffValue({ value }: { value: unknown }) {
+  if (value === undefined || value === null || value === '') return <em className="text-gray-400">empty</em>;
+  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+    return <span className="text-gray-900">{String(value)}</span>;
+  }
+  if (Array.isArray(value)) {
+    if (value.length === 0) return <em className="text-gray-400">empty list</em>;
+    if (typeof value[0] === 'string') return <span className="text-gray-900">{(value as string[]).join(', ')}</span>;
+    const items = value as Array<{ userName?: string; controlCode?: string; framework?: string }>;
+    return (
+      <ul className="space-y-0.5">
+        {items.map((it, idx) => (
+          <li key={idx} className="text-gray-900">
+            {it.userName ?? (`${it.framework ?? ''} ${it.controlCode ?? ''}`.trim() || JSON.stringify(it))}
+          </li>
+        ))}
+      </ul>
+    );
+  }
+  if (typeof value === 'object') {
+    const v = value as { amount?: number; currency?: string };
+    if (typeof v.amount === 'number' && typeof v.currency === 'string') {
+      return <span className="text-gray-900">{formatNumber(v.amount)} {v.currency}</span>;
+    }
+    return <span className="text-gray-900 italic">{JSON.stringify(value).slice(0, 80)}</span>;
+  }
+  return null;
 }

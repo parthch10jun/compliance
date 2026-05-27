@@ -16,6 +16,9 @@ export const mockUsers: DoAUser[] = [
     department: 'Executive',
     businessUnit: 'Corporate',
     isActive: true,
+    seniorityLevel: 10,
+    canCreateDelegations: false,
+    canApproveDelegations: true,
   },
   {
     id: 'user-002',
@@ -28,6 +31,9 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-001',
     managerName: 'Sarah Chen',
     isActive: true,
+    seniorityLevel: 9,
+    canCreateDelegations: false,
+    canApproveDelegations: true,
   },
   {
     id: 'user-003',
@@ -40,8 +46,11 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-001',
     managerName: 'Sarah Chen',
     isActive: true,
+    seniorityLevel: 9,
+    canCreateDelegations: false,
+    canApproveDelegations: true,
   },
-  
+
   // Executive Level
   {
     id: 'user-004',
@@ -54,6 +63,9 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-002',
     managerName: 'Michael Rodriguez',
     isActive: true,
+    seniorityLevel: 7,
+    canCreateDelegations: false,
+    canApproveDelegations: true,
   },
   {
     id: 'user-005',
@@ -66,6 +78,9 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-003',
     managerName: 'Jennifer Park',
     isActive: true,
+    seniorityLevel: 7,
+    canCreateDelegations: true,
+    canApproveDelegations: true,
   },
   {
     id: 'user-006',
@@ -78,6 +93,9 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-002',
     managerName: 'Michael Rodriguez',
     isActive: true,
+    seniorityLevel: 7,
+    canCreateDelegations: false,
+    canApproveDelegations: true,
   },
   {
     id: 'user-007',
@@ -90,8 +108,11 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-003',
     managerName: 'Jennifer Park',
     isActive: true,
+    seniorityLevel: 7,
+    canCreateDelegations: false,
+    canApproveDelegations: true,
   },
-  
+
   // Senior Management
   {
     id: 'user-008',
@@ -104,6 +125,7 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-004',
     managerName: 'David Kim',
     isActive: true,
+    seniorityLevel: 5,
   },
   {
     id: 'user-009',
@@ -116,6 +138,7 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-005',
     managerName: 'Emma Thompson',
     isActive: true,
+    seniorityLevel: 5,
   },
   {
     id: 'user-010',
@@ -128,6 +151,7 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-006',
     managerName: 'Robert Singh',
     isActive: true,
+    seniorityLevel: 3,
   },
   {
     id: 'user-011',
@@ -140,8 +164,9 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-007',
     managerName: 'Lisa Anderson',
     isActive: true,
+    seniorityLevel: 3,
   },
-  
+
   // Management
   {
     id: 'user-012',
@@ -154,6 +179,7 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-008',
     managerName: 'James Wilson',
     isActive: true,
+    seniorityLevel: 2,
   },
   {
     id: 'user-013',
@@ -166,6 +192,7 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-009',
     managerName: 'Maria Garcia',
     isActive: true,
+    seniorityLevel: 2,
   },
   {
     id: 'user-014',
@@ -178,6 +205,7 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-010',
     managerName: 'Thomas Brown',
     isActive: true,
+    seniorityLevel: 2,
   },
   {
     id: 'user-015',
@@ -190,6 +218,151 @@ export const mockUsers: DoAUser[] = [
     manager: 'user-011',
     managerName: 'Sophie Martin',
     isActive: true,
+    seniorityLevel: 2,
+  },
+
+  // Demo cast — primary characters in DoA walkthroughs.
+  {
+    id: 'user-101',
+    name: 'Kundan Verma',
+    email: 'kundan.verma@company.com',
+    role: 'Chief Executive Officer',
+    grade: 'C1',
+    department: 'Executive',
+    businessUnit: 'Corporate',
+    isActive: true,
+    seniorityLevel: 10,
+    canApproveDelegations: true,
+    canCreateDelegations: false,
+  },
+  {
+    id: 'user-102',
+    name: 'Subhash Iyer',
+    email: 'subhash.iyer@company.com',
+    role: 'Chief Operating Officer',
+    grade: 'C1',
+    department: 'Operations',
+    businessUnit: 'Corporate',
+    manager: 'user-101',
+    managerName: 'Kundan Verma',
+    isActive: true,
+    seniorityLevel: 9,
+    canApproveDelegations: true,
+    canCreateDelegations: false,
+  },
+  {
+    id: 'user-103',
+    name: 'Anurag Kapoor',
+    email: 'anurag.kapoor@company.com',
+    role: 'Chief Technology Officer',
+    grade: 'C1',
+    department: 'Technology',
+    businessUnit: 'Corporate',
+    manager: 'user-101',
+    managerName: 'Kundan Verma',
+    isActive: true,
+    seniorityLevel: 8,
+    canApproveDelegations: true,
+    canCreateDelegations: false,
+  },
+  {
+    id: 'user-104',
+    name: 'Ritu Bansal',
+    email: 'ritu.bansal@company.com',
+    role: 'Chief Financial Officer',
+    grade: 'C1',
+    department: 'Finance',
+    businessUnit: 'Corporate',
+    manager: 'user-101',
+    managerName: 'Kundan Verma',
+    isActive: true,
+    seniorityLevel: 9,
+    canApproveDelegations: true,
+    canCreateDelegations: false,
+  },
+  {
+    id: 'user-105',
+    name: 'Vikram Joshi',
+    email: 'vikram.joshi@company.com',
+    role: 'Chief Human Resources Officer',
+    grade: 'C1',
+    department: 'HR',
+    businessUnit: 'Corporate',
+    manager: 'user-101',
+    managerName: 'Kundan Verma',
+    isActive: true,
+    seniorityLevel: 8,
+    canApproveDelegations: true,
+    canCreateDelegations: false,
+  },
+  {
+    id: 'user-106',
+    name: 'Deepak Sharma',
+    email: 'deepak.sharma@company.com',
+    role: 'Chief Information Security Officer',
+    grade: 'E1',
+    department: 'IT',
+    businessUnit: 'Corporate',
+    manager: 'user-103',
+    managerName: 'Anurag Kapoor',
+    isActive: true,
+    seniorityLevel: 7,
+    canApproveDelegations: true,
+    canCreateDelegations: false,
+  },
+  {
+    id: 'user-107',
+    name: 'Priya Nair',
+    email: 'priya.nair@company.com',
+    role: 'Head of Governance & Compliance',
+    grade: 'E1',
+    department: 'Compliance',
+    businessUnit: 'Corporate',
+    manager: 'user-101',
+    managerName: 'Kundan Verma',
+    isActive: true,
+    seniorityLevel: 6,
+    canCreateDelegations: true,
+    canApproveDelegations: false,
+  },
+  {
+    id: 'user-108',
+    name: 'Arjun Mehta',
+    email: 'arjun.mehta@company.com',
+    role: 'Finance Director',
+    grade: 'M1',
+    department: 'Finance',
+    businessUnit: 'Corporate',
+    manager: 'user-104',
+    managerName: 'Ritu Bansal',
+    isActive: true,
+    seniorityLevel: 5,
+  },
+  {
+    id: 'user-109',
+    name: 'Neha Reddy',
+    email: 'neha.reddy@company.com',
+    role: 'Procurement Director',
+    grade: 'M1',
+    department: 'Procurement',
+    businessUnit: 'Corporate',
+    manager: 'user-104',
+    managerName: 'Ritu Bansal',
+    isActive: true,
+    seniorityLevel: 5,
+  },
+  {
+    id: 'user-110',
+    name: 'Sanjay Gupta',
+    email: 'sanjay.gupta@company.com',
+    role: 'Head of Legal',
+    grade: 'E1',
+    department: 'Legal',
+    businessUnit: 'Corporate',
+    manager: 'user-101',
+    managerName: 'Kundan Verma',
+    isActive: true,
+    seniorityLevel: 7,
   },
 ];
 
@@ -208,4 +381,12 @@ export const getUsersByDepartment = (department: string): DoAUser[] => {
 
 export const getUsersByBusinessUnit = (businessUnit: string): DoAUser[] => {
   return mockUsers.filter(user => user.businessUnit === businessUnit);
+};
+
+export const getDelegationCreators = (): DoAUser[] => {
+  return mockUsers.filter(user => user.canCreateDelegations);
+};
+
+export const getDelegationApprovers = (): DoAUser[] => {
+  return mockUsers.filter(user => user.canApproveDelegations);
 };

@@ -76,6 +76,8 @@ const navigationItems: NavItem[] = [
     children: [
       { label: 'Active Delegations', href: '/doa/delegations', exact: true },
       { label: 'Create Delegation', href: '/doa/delegations/new' },
+      { label: 'Approval Requests', href: '/doa/requests', exact: true },
+      { label: 'Submit Request', href: '/doa/requests/new' },
       { label: 'Calendar View', href: '/doa/delegations/calendar' },
     ],
   },

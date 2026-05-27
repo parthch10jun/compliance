@@ -345,6 +345,15 @@ export interface DoAUser {
   manager?: string;
   managerName?: string;
   isActive: boolean;
+
+  // Capability flags driving who can do what in the DoA module.
+  // Title (`role`) is just a label; capabilities are the source of truth.
+  canCreateDelegations?: boolean;
+  canApproveDelegations?: boolean;
+
+  // 1 (most junior) → 10 (most senior). Used by the approval-authority
+  // suggester to pick the appropriate approver for a given threshold.
+  seniorityLevel?: number;
 }
 
 // ============================================================================

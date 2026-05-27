@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Bell, Search, ChevronRight } from 'lucide-react';
 import PersonaSwitcher from './PersonaSwitcher';
+import UserSwitcher from './UserSwitcher';
 
 export default function DOATopBar() {
   const pathname = usePathname();
@@ -66,6 +67,9 @@ export default function DOATopBar() {
 
         {/* Quick actions */}
         <div className="flex items-center gap-3">
+          {/* Acts-as User Switcher (for DoA demo) */}
+          <UserSwitcher />
+
           {/* Persona Switcher */}
           <PersonaSwitcher />
 
