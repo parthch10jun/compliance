@@ -96,6 +96,36 @@ export interface PendingModification {
   resolutionComment?: string;
 }
 
+/**
+ * Snapshot of a rule's state at a previous version. Pushed onto
+ * versionHistory whenever a critical modification is approved and supersedes
+ * the previous version.
+ */
+export interface VersionSnapshot {
+  version: number;
+  name: string;
+  description: string;
+  justification: string;
+  scope: DelegationScope;
+  chain: ChainDesignee[];
+  complianceLinks: ComplianceLink[];
+  type: DelegationLifecycleType;
+  effectiveFrom: string;
+  effectiveTo?: string;
+  approvalAuthorityUserId: string;
+  approvalAuthorityUserName: string;
+  approvalAuthorityTitle: string;
+  approvedAt?: string;
+  // When this version stopped being current.
+  supersededAt: string;
+  supersededByVersion: number;
+  // One-line summary of what changed when this version was superseded
+  // (e.g. "Cap raised from 1M AED to 1.5M AED + ISO 27701 A.6.1 linked").
+  changesSummary: string;
+  // Audit trail entries that occurred during this version's active life.
+  auditTrail: AuditEntry[];
+}
+
 export interface DelegationRule {
   id: string;
   version: number;
@@ -134,6 +164,9 @@ export interface DelegationRule {
   rejectedComment?: string;
 
   pendingModification?: PendingModification;
+
+  // Frozen snapshots of previous versions, oldest first.
+  versionHistory?: VersionSnapshot[];
 
   auditTrail: AuditEntry[];
 }

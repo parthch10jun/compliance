@@ -9,7 +9,8 @@ import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import {
   ArrowLeft, CheckCircle2, XCircle, Send, ShieldCheck, Users, Calendar, Clock,
-  AlertTriangle, FileText, Activity, Trash2, Edit3,
+  AlertTriangle, FileText, Activity, Trash2, Edit3, History, GitBranch, Bell,
+  PencilLine, Sparkles, Pause, MessageSquarePlus, Layers,
 } from 'lucide-react';
 import {
   getDelegationRuleById, saveDelegationRule, appendAuditEntry, generateAuditEntryId,
@@ -17,7 +18,7 @@ import {
 import { useCurrentUser } from '@/lib/doa/hooks/useCurrentUser';
 import { formatDate, formatDateTime, formatNumber } from '@/lib/doa/utils/format';
 import { StatusBadge } from '../page';
-import type { DelegationRule, AuditEntry, PendingModification } from '@/lib/doa/types/delegation-rule-types';
+import type { DelegationRule, AuditEntry, PendingModification, VersionSnapshot } from '@/lib/doa/types/delegation-rule-types';
 
 const FIELD_LABELS: Record<string, string> = {
   name: 'Name',
@@ -127,6 +128,38 @@ export default function DelegationDetailPage() {
     if (!canApproveRejectMod || !rule.pendingModification) return;
     const now = new Date().toISOString();
     const proposed = rule.pendingModification.proposedRule;
+    const fieldLabels: Record<string, string> = {
+      name: 'name', description: 'description', justification: 'justification',
+      scope: 'scope', chain: 'chain', complianceLinks: 'compliance links',
+      type: 'type', authorityType: 'authority type', category: 'category',
+      effectiveFrom: 'effective from', effectiveTo: 'effective to',
+      approvalAuthorityUserId: 'approval authority',
+    };
+    const changesSummary = rule.pendingModification.criticalFields
+      .map(f => fieldLabels[f] ?? f).join(', ');
+
+    // Freeze the current version into versionHistory before merging.
+    const snapshot: VersionSnapshot = {
+      version: rule.version,
+      name: rule.name,
+      description: rule.description,
+      justification: rule.justification,
+      scope: rule.scope,
+      chain: rule.chain,
+      complianceLinks: rule.complianceLinks,
+      type: rule.type,
+      effectiveFrom: rule.effectiveFrom,
+      effectiveTo: rule.effectiveTo,
+      approvalAuthorityUserId: rule.approvalAuthorityUserId,
+      approvalAuthorityUserName: rule.approvalAuthorityUserName,
+      approvalAuthorityTitle: rule.approvalAuthorityTitle,
+      approvedAt: rule.approvedAt,
+      supersededAt: now,
+      supersededByVersion: rule.version + 1,
+      changesSummary: `Superseded by v${rule.version + 1} — changed: ${changesSummary}.`,
+      auditTrail: rule.auditTrail,
+    };
+
     // Merge proposed fields into rule, increment version, clear pending slot, return to Active.
     const merged: DelegationRule = {
       ...proposed,
@@ -139,13 +172,14 @@ export default function DelegationDetailPage() {
       version: rule.version + 1,
       status: 'Active',
       pendingModification: undefined,
+      versionHistory: [...(rule.versionHistory ?? []), snapshot],
       auditTrail: [
         ...rule.auditTrail,
         {
           id: generateAuditEntryId(), timestamp: now,
           actorUserId: currentUser.id, actorUserName: currentUser.name,
           action: 'ModificationApproved',
-          comment: actionComment || `Approved modification (changed: ${rule.pendingModification.criticalFields.join(', ')}).`,
+          comment: actionComment || `Approved modification (changed: ${changesSummary}).`,
         },
       ],
     };
@@ -404,28 +438,16 @@ export default function DelegationDetailPage() {
             <p className="text-sm text-gray-700 whitespace-pre-wrap">{rule.justification}</p>
           </Card>
 
-          {/* Audit trail */}
-          <Card title="Audit trail" icon={<Activity className="w-4 h-4" />}>
-            <ul className="space-y-3">
-              {[...rule.auditTrail].reverse().map(e => (
-                <li key={e.id} className="flex gap-3 text-sm">
-                  <div className="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0 mt-2" />
-                  <div className="flex-1">
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-medium text-gray-900">{e.action}</span>
-                      <span className="text-xs text-gray-500">by {e.actorUserName}</span>
-                      <span className="text-xs text-gray-400">· {formatDateTime(e.timestamp)}</span>
-                    </div>
-                    {e.comment && <div className="text-xs text-gray-600 mt-0.5">{e.comment}</div>}
-                  </div>
-                </li>
-              ))}
-            </ul>
+          {/* History timeline */}
+          <Card title="History" icon={<History className="w-4 h-4" />}>
+            <HistoryTimeline audit={rule.auditTrail} />
           </Card>
         </div>
 
         {/* Sidebar */}
         <div className="space-y-4">
+          <VersionsPanel rule={rule} />
+
           <Card title="Approval authority" icon={<ShieldCheck className="w-4 h-4" />}>
             <div className="p-2.5 bg-amber-50 border border-amber-200 rounded">
               <div className="text-sm font-semibold text-gray-900">{rule.approvalAuthorityUserName}</div>
@@ -568,4 +590,237 @@ function DiffValue({ value }: { value: unknown }) {
     return <span className="text-gray-900 italic">{JSON.stringify(value).slice(0, 80)}</span>;
   }
   return null;
+}
+
+// ============================================================================
+// Versions panel
+// ============================================================================
+
+function VersionsPanel({ rule }: { rule: DelegationRule }) {
+  // Build a list ordered newest-first:
+  //  - DRAFT (pending modification, future version)
+  //  - ACTIVE (or whatever current status)
+  //  - past versions from versionHistory (newest first)
+  type Row = {
+    version: number;
+    status: 'DRAFT' | 'CURRENT' | 'SUPERSEDED';
+    statusLabel: string;
+    statusColor: string;
+    date: string;
+    summary: string;
+  };
+
+  const rows: Row[] = [];
+
+  if (rule.pendingModification) {
+    rows.push({
+      version: rule.version + 1,
+      status: 'DRAFT',
+      statusLabel: 'DRAFT',
+      statusColor: 'bg-blue-100 text-blue-700',
+      date: formatDate(rule.pendingModification.proposedAt),
+      summary: `Proposed by ${rule.pendingModification.proposedByUserName} — ${rule.pendingModification.criticalFields.join(', ')}.`,
+    });
+  }
+
+  rows.push({
+    version: rule.version,
+    status: 'CURRENT',
+    statusLabel: rule.status === 'Active' ? 'ACTIVE'
+      : rule.status === 'PendingModification' ? 'ACTIVE (mod pending)'
+      : rule.status.toUpperCase(),
+    statusColor: rule.status === 'Active' || rule.status === 'PendingModification'
+      ? 'bg-green-100 text-green-700'
+      : 'bg-gray-100 text-gray-700',
+    date: formatDate(rule.effectiveFrom),
+    summary: rule.versionHistory && rule.versionHistory.length > 0
+      ? `Current version. Effective from ${formatDate(rule.effectiveFrom)}.`
+      : 'Initial version.',
+  });
+
+  (rule.versionHistory ?? [])
+    .slice()
+    .reverse()
+    .forEach(snap => {
+      rows.push({
+        version: snap.version,
+        status: 'SUPERSEDED',
+        statusLabel: 'SUPERSEDED',
+        statusColor: 'bg-gray-100 text-gray-600',
+        date: formatDate(snap.effectiveFrom),
+        summary: snap.changesSummary,
+      });
+    });
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-1.5">
+          <Layers className="w-4 h-4" />Versions
+        </h3>
+        <span className="text-xs text-gray-400">{rows.length}</span>
+      </div>
+      <ul className="space-y-2">
+        {rows.map((r, idx) => (
+          <li key={`${r.version}-${r.status}`} className={`p-2.5 rounded border ${
+            r.status === 'CURRENT' ? 'bg-amber-50 border-amber-300' :
+            r.status === 'DRAFT' ? 'bg-blue-50 border-blue-200' :
+            'bg-gray-50 border-gray-200'
+          }`}>
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className={`w-3.5 h-3.5 rounded-full border-2 flex-shrink-0 ${
+                  r.status === 'CURRENT' ? 'border-amber-500 bg-amber-500' :
+                  r.status === 'DRAFT' ? 'border-blue-400 bg-white' :
+                  'border-gray-300 bg-white'
+                }`}>
+                  {r.status === 'CURRENT' && (
+                    <span className="block w-full h-full rounded-full ring-2 ring-amber-50 bg-white scale-50 origin-center"></span>
+                  )}
+                </span>
+                <span className="text-sm font-semibold text-gray-900">v{r.version}.0</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[10px] text-gray-500 whitespace-nowrap">{r.date}</span>
+                <span className={`px-1.5 py-0.5 text-[10px] font-semibold rounded ${r.statusColor}`}>
+                  {r.statusLabel}
+                </span>
+              </div>
+            </div>
+            <p className="mt-1 ml-5 text-xs text-gray-600">{r.summary}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// ============================================================================
+// History timeline
+// ============================================================================
+
+function HistoryTimeline({ audit }: { audit: AuditEntry[] }) {
+  // Group entries by date (UTC).
+  const grouped = new Map<string, AuditEntry[]>();
+  audit.forEach(e => {
+    const day = e.timestamp.slice(0, 10);
+    if (!grouped.has(day)) grouped.set(day, []);
+    grouped.get(day)!.push(e);
+  });
+  const dayKeys = Array.from(grouped.keys()).sort().reverse(); // newest day first
+
+  if (audit.length === 0) {
+    return <p className="text-xs text-gray-500 italic">No history yet.</p>;
+  }
+
+  return (
+    <div>
+      {dayKeys.map(day => {
+        const entries = grouped.get(day)!.slice().sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+        return (
+          <div key={day} className="mb-5 last:mb-0">
+            <div className="flex items-center gap-2 mb-3 ml-12">
+              <div className="h-px flex-1 bg-gray-200" />
+              <span className="text-xs font-semibold text-gray-700">{formatHumanDate(day)}</span>
+              <div className="h-px flex-1 bg-gray-200" />
+            </div>
+            <ul className="space-y-3">
+              {entries.map(e => (
+                <TimelineEntry key={e.id} entry={e} />
+              ))}
+            </ul>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function TimelineEntry({ entry }: { entry: AuditEntry }) {
+  const { icon, color, verb } = getActionStyle(entry.action);
+  const time = entry.timestamp.slice(11, 16);
+
+  return (
+    <li className="flex items-start gap-3">
+      <div className="w-10 flex-shrink-0 text-[10px] text-gray-400 text-right pt-1.5">{time} UTC</div>
+      <div className={`w-7 h-7 rounded-full ${color} flex items-center justify-center flex-shrink-0 mt-0.5`}>
+        {icon}
+      </div>
+      <div className="flex-1 min-w-0 pt-0.5">
+        <div className="text-sm">
+          <span className="font-medium text-gray-900">{entry.actorUserName}</span>{' '}
+          <span className="text-gray-600">{verb}</span>
+        </div>
+        {entry.comment && (
+          <div className="mt-1 p-2 bg-gray-50 border border-gray-200 rounded text-xs text-gray-700">
+            {entry.comment}
+          </div>
+        )}
+        {entry.fieldChanges && entry.fieldChanges.length > 0 && (
+          <div className="mt-1.5 space-y-1">
+            {entry.fieldChanges.map((c, idx) => (
+              <FieldDiff key={idx} field={c.field} oldValue={c.oldValue} newValue={c.newValue} />
+            ))}
+          </div>
+        )}
+      </div>
+    </li>
+  );
+}
+
+function FieldDiff({ field, oldValue, newValue }: { field: string; oldValue: unknown; newValue: unknown }) {
+  return (
+    <div className="text-xs text-gray-700 p-2 bg-gray-50 border border-gray-200 rounded">
+      <span className="text-gray-500">Changed </span>
+      <span className="font-medium text-gray-900">{FIELD_LABELS[field] ?? field}</span>
+      <span className="text-gray-500"> from </span>
+      <span className="line-through text-red-600 decoration-red-400">
+        <DiffValue value={oldValue} />
+      </span>
+      <span className="text-gray-500"> to </span>
+      <span className="text-green-700 font-medium">
+        <DiffValue value={newValue} />
+      </span>
+    </div>
+  );
+}
+
+function getActionStyle(action: AuditEntry['action']): { icon: React.ReactNode; color: string; verb: string } {
+  const sized = 'w-3.5 h-3.5 text-white';
+  switch (action) {
+    case 'Created':
+      return { icon: <Sparkles className={sized} />, color: 'bg-purple-500', verb: 'created the delegation' };
+    case 'Submitted':
+      return { icon: <Send className={sized} />, color: 'bg-blue-500', verb: 'submitted for approval' };
+    case 'Approved':
+      return { icon: <CheckCircle2 className={sized} />, color: 'bg-green-600', verb: 'approved the delegation' };
+    case 'Rejected':
+      return { icon: <XCircle className={sized} />, color: 'bg-red-600', verb: 'rejected the delegation' };
+    case 'ModificationSubmitted':
+      return { icon: <PencilLine className={sized} />, color: 'bg-blue-500', verb: 'submitted a critical modification' };
+    case 'ModificationApproved':
+      return { icon: <CheckCircle2 className={sized} />, color: 'bg-green-600', verb: 'approved the modification' };
+    case 'ModificationRejected':
+      return { icon: <XCircle className={sized} />, color: 'bg-red-600', verb: 'rejected the modification' };
+    case 'AutoAppliedNonCritical':
+      return { icon: <PencilLine className={sized} />, color: 'bg-amber-500', verb: 'made changes' };
+    case 'Revoked':
+      return { icon: <Trash2 className={sized} />, color: 'bg-red-600', verb: 'revoked the delegation' };
+    case 'Suspended':
+      return { icon: <Pause className={sized} />, color: 'bg-orange-500', verb: 'suspended the delegation' };
+    case 'Expired':
+      return { icon: <Clock className={sized} />, color: 'bg-gray-400', verb: 'expired' };
+    case 'Notified':
+      return { icon: <Bell className={sized} />, color: 'bg-gray-400', verb: 'notified chain designees' };
+    default:
+      return { icon: <GitBranch className={sized} />, color: 'bg-gray-500', verb: action };
+  }
+}
+
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function formatHumanDate(iso: string): string {
+  // iso = YYYY-MM-DD
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${MONTHS[(m - 1) % 12]} ${d}, ${y}`;
 }

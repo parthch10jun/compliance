@@ -13,22 +13,22 @@ import type { DelegationRule } from '../types/delegation-rule-types';
 const isoAt = (date: string, time: string) => `${date}T${time}:00.000Z`;
 
 export const seedDelegationRules: DelegationRule[] = [
-  // -------- Financial 1 — Pay Hike up to 10% (Active) --------
+  // -------- Financial 1 — Pay Hike (v3 Active; v1 + v2 in history) ⭐ demo --------
   {
     id: 'dr-001',
-    version: 1,
+    version: 3,
     name: 'Salary Increase Approval — up to 10%',
     category: 'Financial',
     authorityType: 'Salary Increase Approval',
     description:
-      'Authority to approve individual salary increases up to 10% of current base salary, with a cumulative annual cap.',
+      'Authority to approve individual salary increases up to 10% of current base salary, with a cumulative annual cap. Privacy-notice acknowledgement required at the L1 step.',
     justification:
-      'Decouples routine merit and retention adjustments from CEO sign-off while keeping CHRO and CFO in the loop on cost impact.',
+      'Decouples routine merit and retention adjustments from CEO sign-off while keeping CHRO and CFO in the loop on cost impact. Cap raised from 1M to 1.5M in May 2026 to accommodate expanded headcount in EMEA.',
     scope: {
-      monetaryCap: { amount: 1_000_000, currency: 'AED' },
+      monetaryCap: { amount: 1_500_000, currency: 'AED' },
       percentageCap: 10,
       businessUnits: ['Corporate'],
-      notes: 'Annual cumulative impact across all increases under this rule capped at 1M AED.',
+      notes: 'Annual cumulative impact across all increases under this rule capped at 1.5M AED.',
     },
     chain: [
       { userId: 'user-105', userName: 'Vikram Joshi', userTitle: 'CHRO', position: 1, label: 'L1' },
@@ -46,9 +46,15 @@ export const seedDelegationRules: DelegationRule[] = [
         controlCode: 'FIN-AUTH-01',
         controlName: 'Financial Authority Matrix — Compensation',
       },
+      {
+        framework: 'ISO 27701',
+        controlCode: 'A.6.1',
+        controlName: 'Privacy obligations in employment terms',
+        rationale: 'Pay-hike processing involves personal data; chain handlers must acknowledge privacy obligations.',
+      },
     ],
     type: 'Permanent',
-    effectiveFrom: isoAt('2026-04-01', '00:00'),
+    effectiveFrom: isoAt('2026-05-15', '00:00'),
     status: 'Active',
     createdByUserId: 'user-107',
     createdByUserName: 'Priya Nair',
@@ -57,15 +63,122 @@ export const seedDelegationRules: DelegationRule[] = [
     approvalAuthorityUserName: 'Kundan Verma',
     approvalAuthorityTitle: 'CEO',
     approvalAuthoritySuggestionRationale:
-      'Cumulative cap of 1M AED falls within executive tier; CEO is the highest-seniority eligible approver.',
+      'Cumulative cap of 1.5M AED falls within executive tier; CEO is the highest-seniority eligible approver.',
     submittedAt: isoAt('2026-03-22', '09:30'),
     approvedAt: isoAt('2026-03-25', '11:45'),
     approvedComment: 'Approved. Quarterly review required after Q3.',
+    versionHistory: [
+      {
+        version: 1,
+        name: 'Salary Increase Approval — up to 10%',
+        description:
+          'Authority to approve individual salary increases up to 10% of current base salary, with a cumulative annual cap.',
+        justification:
+          'Decouples routine merit and retention adjustments from CEO sign-off while keeping CHRO and CFO in the loop on cost impact.',
+        scope: {
+          monetaryCap: { amount: 1_000_000, currency: 'AED' },
+          percentageCap: 10,
+          businessUnits: ['Corporate'],
+          notes: 'Annual cumulative impact across all increases under this rule capped at 1M AED.',
+        },
+        chain: [
+          { userId: 'user-105', userName: 'Vikram Joshi', userTitle: 'CHRO', position: 1, label: 'L1' },
+          { userId: 'user-104', userName: 'Ritu Bansal', userTitle: 'CFO', position: 2, label: 'L2' },
+        ],
+        complianceLinks: [
+          { framework: 'SOC 2', controlCode: 'CC1.4', controlName: 'Control Environment — Personnel' },
+          { framework: 'Internal', controlCode: 'FIN-AUTH-01', controlName: 'Financial Authority Matrix — Compensation' },
+        ],
+        type: 'Permanent',
+        effectiveFrom: isoAt('2026-04-01', '00:00'),
+        approvalAuthorityUserId: 'user-101',
+        approvalAuthorityUserName: 'Kundan Verma',
+        approvalAuthorityTitle: 'CEO',
+        approvedAt: isoAt('2026-03-25', '11:45'),
+        supersededAt: isoAt('2026-04-20', '14:30'),
+        supersededByVersion: 2,
+        changesSummary: 'Superseded by v2 — description and justification clarified to reference privacy obligations (non-critical, auto-applied).',
+        auditTrail: [
+          { id: 'au-001-1', timestamp: isoAt('2026-03-20', '10:14'), actorUserId: 'user-107', actorUserName: 'Priya Nair', action: 'Created' },
+          { id: 'au-001-2', timestamp: isoAt('2026-03-22', '09:30'), actorUserId: 'user-107', actorUserName: 'Priya Nair', action: 'Submitted', comment: 'Submitted for CEO approval.' },
+          { id: 'au-001-3', timestamp: isoAt('2026-03-22', '09:31'), actorUserId: 'user-107', actorUserName: 'Priya Nair', action: 'Notified', comment: 'Chain designees (Vikram, Ritu) notified of designation.' },
+          { id: 'au-001-4', timestamp: isoAt('2026-03-25', '11:45'), actorUserId: 'user-101', actorUserName: 'Kundan Verma', action: 'Approved', comment: 'Approved. Quarterly review required after Q3.' },
+        ],
+      },
+      {
+        version: 2,
+        name: 'Salary Increase Approval — up to 10%',
+        description:
+          'Authority to approve individual salary increases up to 10% of current base salary, with a cumulative annual cap. Privacy-notice acknowledgement required at the L1 step.',
+        justification:
+          'Decouples routine merit and retention adjustments from CEO sign-off while keeping CHRO and CFO in the loop on cost impact.',
+        scope: {
+          monetaryCap: { amount: 1_000_000, currency: 'AED' },
+          percentageCap: 10,
+          businessUnits: ['Corporate'],
+          notes: 'Annual cumulative impact across all increases under this rule capped at 1M AED.',
+        },
+        chain: [
+          { userId: 'user-105', userName: 'Vikram Joshi', userTitle: 'CHRO', position: 1, label: 'L1' },
+          { userId: 'user-104', userName: 'Ritu Bansal', userTitle: 'CFO', position: 2, label: 'L2' },
+        ],
+        complianceLinks: [
+          { framework: 'SOC 2', controlCode: 'CC1.4', controlName: 'Control Environment — Personnel' },
+          { framework: 'Internal', controlCode: 'FIN-AUTH-01', controlName: 'Financial Authority Matrix — Compensation' },
+        ],
+        type: 'Permanent',
+        effectiveFrom: isoAt('2026-04-20', '14:30'),
+        approvalAuthorityUserId: 'user-101',
+        approvalAuthorityUserName: 'Kundan Verma',
+        approvalAuthorityTitle: 'CEO',
+        approvedAt: isoAt('2026-03-25', '11:45'),
+        supersededAt: isoAt('2026-05-15', '10:00'),
+        supersededByVersion: 3,
+        changesSummary: 'Superseded by v3 — monetary cap raised from 1M to 1.5M AED and ISO 27701 A.6.1 linked (critical, CEO-approved).',
+        auditTrail: [
+          { id: 'au-001-1', timestamp: isoAt('2026-03-20', '10:14'), actorUserId: 'user-107', actorUserName: 'Priya Nair', action: 'Created' },
+          { id: 'au-001-2', timestamp: isoAt('2026-03-22', '09:30'), actorUserId: 'user-107', actorUserName: 'Priya Nair', action: 'Submitted' },
+          { id: 'au-001-3', timestamp: isoAt('2026-03-22', '09:31'), actorUserId: 'user-107', actorUserName: 'Priya Nair', action: 'Notified' },
+          { id: 'au-001-4', timestamp: isoAt('2026-03-25', '11:45'), actorUserId: 'user-101', actorUserName: 'Kundan Verma', action: 'Approved' },
+          {
+            id: 'au-001-5', timestamp: isoAt('2026-04-20', '14:30'),
+            actorUserId: 'user-107', actorUserName: 'Priya Nair',
+            action: 'AutoAppliedNonCritical',
+            comment: 'Non-critical edit auto-applied. Description and justification clarified to reference privacy-notice acknowledgement.',
+            fieldChanges: [
+              { field: 'description', oldValue: 'Authority to approve individual salary increases up to 10% of current base salary, with a cumulative annual cap.', newValue: 'Authority to approve individual salary increases up to 10% of current base salary, with a cumulative annual cap. Privacy-notice acknowledgement required at the L1 step.' },
+            ],
+          },
+          { id: 'au-001-6', timestamp: isoAt('2026-04-20', '14:30'), actorUserId: 'user-107', actorUserName: 'Priya Nair', action: 'Notified', comment: 'Chain designees notified of v2.' },
+        ],
+      },
+    ],
     auditTrail: [
       { id: 'au-001-1', timestamp: isoAt('2026-03-20', '10:14'), actorUserId: 'user-107', actorUserName: 'Priya Nair', action: 'Created' },
       { id: 'au-001-2', timestamp: isoAt('2026-03-22', '09:30'), actorUserId: 'user-107', actorUserName: 'Priya Nair', action: 'Submitted', comment: 'Submitted for CEO approval.' },
       { id: 'au-001-3', timestamp: isoAt('2026-03-22', '09:31'), actorUserId: 'user-107', actorUserName: 'Priya Nair', action: 'Notified', comment: 'Chain designees (Vikram, Ritu) notified of designation.' },
       { id: 'au-001-4', timestamp: isoAt('2026-03-25', '11:45'), actorUserId: 'user-101', actorUserName: 'Kundan Verma', action: 'Approved', comment: 'Approved. Quarterly review required after Q3.' },
+      {
+        id: 'au-001-5', timestamp: isoAt('2026-04-20', '14:30'),
+        actorUserId: 'user-107', actorUserName: 'Priya Nair',
+        action: 'AutoAppliedNonCritical',
+        comment: 'Non-critical edit auto-applied. Description and justification clarified to reference privacy-notice acknowledgement.',
+        fieldChanges: [
+          { field: 'description', oldValue: 'Authority to approve individual salary increases up to 10% of current base salary, with a cumulative annual cap.', newValue: 'Authority to approve individual salary increases up to 10% of current base salary, with a cumulative annual cap. Privacy-notice acknowledgement required at the L1 step.' },
+        ],
+      },
+      { id: 'au-001-6', timestamp: isoAt('2026-04-20', '14:30'), actorUserId: 'user-107', actorUserName: 'Priya Nair', action: 'Notified', comment: 'Chain designees notified of v2.' },
+      {
+        id: 'au-001-7', timestamp: isoAt('2026-05-10', '09:15'),
+        actorUserId: 'user-107', actorUserName: 'Priya Nair',
+        action: 'ModificationSubmitted',
+        comment: 'Critical modification submitted. Changed: scope (cap raise) and compliance links (added ISO 27701 A.6.1). Routed to Kundan Verma for re-approval.',
+        fieldChanges: [
+          { field: 'scope', oldValue: { monetaryCap: { amount: 1_000_000, currency: 'AED' } }, newValue: { monetaryCap: { amount: 1_500_000, currency: 'AED' } } },
+          { field: 'complianceLinks', oldValue: 2, newValue: 3 },
+        ],
+      },
+      { id: 'au-001-8', timestamp: isoAt('2026-05-15', '10:00'), actorUserId: 'user-101', actorUserName: 'Kundan Verma', action: 'ModificationApproved', comment: 'Approved. EMEA headcount expansion justifies the cap increase; ISO 27701 linkage strengthens privacy posture.' },
     ],
   },
 

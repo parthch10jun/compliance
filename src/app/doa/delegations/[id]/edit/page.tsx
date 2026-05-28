@@ -30,6 +30,7 @@ import {
 import type {
   AuditEntry, ChainDesignee, ComplianceLink, DelegationCategory,
   DelegationLifecycleType, DelegationRule, DelegationScope, PendingModification,
+  VersionSnapshot,
 } from '@/lib/doa/types/delegation-rule-types';
 
 const FINANCIAL_AUTHORITIES = [
@@ -264,16 +265,39 @@ export default function EditDelegationPage() {
       saveDelegationRule(updated);
       router.push(`/doa/delegations/${rule.id}`);
     } else {
+      // Snapshot the current version before applying the auto-applied edit.
+      const changedNonCritical = (analysis?.nonCriticalFields ?? []).map(f => FIELD_LABELS[f] ?? f).join(', ');
+      const snapshot: VersionSnapshot = {
+        version: rule.version,
+        name: rule.name,
+        description: rule.description,
+        justification: rule.justification,
+        scope: rule.scope,
+        chain: rule.chain,
+        complianceLinks: rule.complianceLinks,
+        type: rule.type,
+        effectiveFrom: rule.effectiveFrom,
+        effectiveTo: rule.effectiveTo,
+        approvalAuthorityUserId: rule.approvalAuthorityUserId,
+        approvalAuthorityUserName: rule.approvalAuthorityUserName,
+        approvalAuthorityTitle: rule.approvalAuthorityTitle,
+        approvedAt: rule.approvedAt,
+        supersededAt: now,
+        supersededByVersion: rule.version + 1,
+        changesSummary: `Superseded by v${rule.version + 1} — non-critical update to ${changedNonCritical}.`,
+        auditTrail: rule.auditTrail,
+      };
       const applied: DelegationRule = {
         ...proposed,
         version: rule.version + 1,
+        versionHistory: [...(rule.versionHistory ?? []), snapshot],
         auditTrail: [
           ...rule.auditTrail,
           {
             id: generateAuditEntryId(), timestamp: now,
             actorUserId: currentUser.id, actorUserName: currentUser.name,
             action: 'AutoAppliedNonCritical',
-            comment: `Non-critical edit auto-applied. Changed: ${(analysis?.nonCriticalFields ?? []).map(f => FIELD_LABELS[f] ?? f).join(', ')}.`,
+            comment: `Non-critical edit auto-applied. Changed: ${changedNonCritical}.`,
             fieldChanges: analysis?.changes.map(c => ({ field: c.field, oldValue: c.oldValue, newValue: c.newValue })),
           },
           {
