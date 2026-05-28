@@ -20,8 +20,8 @@ function ShellContent({ children }: ShellProps) {
   const pathname = usePathname();
   const { isCollapsed } = useSidebar();
 
-  // Check if we're on ERM routes - if so, don't render Shell
-  if (pathname.startsWith('/erm')) {
+  // Check if we're on ERM or DoA routes - if so, don't render Shell
+  if (pathname.startsWith('/erm') || pathname.startsWith('/doa')) {
     return <>{children}</>;
   }
 
