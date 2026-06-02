@@ -29,8 +29,30 @@ export interface ModificationAnalysis {
   changes: FieldChange[];
 }
 
+/**
+ * Stable stringify — sorts object keys at every depth so the resulting
+ * string compares equal regardless of insertion order. Without this, a
+ * scope object built freshly by the edit form differs from the seed
+ * object's serialised form merely because the form inserts keys in a
+ * different order than the seed defines them — producing phantom
+ * "critical change" warnings on initial load.
+ */
+function stableStringify(value: unknown): string {
+  return JSON.stringify(value, (_key, v) => {
+    if (v && typeof v === 'object' && !Array.isArray(v)) {
+      return Object.keys(v as Record<string, unknown>)
+        .sort()
+        .reduce<Record<string, unknown>>((acc, k) => {
+          acc[k] = (v as Record<string, unknown>)[k];
+          return acc;
+        }, {});
+    }
+    return v;
+  });
+}
+
 function deepEqual(a: unknown, b: unknown): boolean {
-  return JSON.stringify(a) === JSON.stringify(b);
+  return stableStringify(a) === stableStringify(b);
 }
 
 const TRACKED_FIELDS: Array<keyof DelegationRule> = [

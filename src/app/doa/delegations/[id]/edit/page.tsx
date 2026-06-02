@@ -584,9 +584,22 @@ function DiffValue({ value }: { value: unknown }) {
     return <span className="text-gray-900">{value.length} item{value.length === 1 ? '' : 's'}</span>;
   }
   if (typeof value === 'object') {
-    const v = value as { amount?: number; currency?: string };
+    const v = value as Record<string, unknown>;
     if (typeof v.amount === 'number' && typeof v.currency === 'string') {
-      return <span className="text-gray-900">{formatNumber(v.amount)} {v.currency}</span>;
+      return <span className="text-gray-900">{formatNumber(v.amount as number)} {v.currency as string}</span>;
+    }
+    // Scope-like object — render a compact summary of present caps and scope hints.
+    if ('monetaryCap' in v || 'percentageCap' in v || 'quantityCap' in v || 'regions' in v || 'businessUnits' in v || 'grades' in v) {
+      const parts: string[] = [];
+      const cap = v.monetaryCap as { amount?: number; currency?: string } | undefined;
+      if (cap?.amount) parts.push(`cap ${formatNumber(cap.amount)} ${cap.currency ?? ''}`.trim());
+      if (typeof v.percentageCap === 'number') parts.push(`${v.percentageCap}%`);
+      if (typeof v.quantityCap === 'number') parts.push(`${v.quantityCap} units`);
+      if (Array.isArray(v.regions) && v.regions.length) parts.push(`regions: ${(v.regions as string[]).join(', ')}`);
+      if (Array.isArray(v.businessUnits) && v.businessUnits.length) parts.push(`BUs: ${(v.businessUnits as string[]).join(', ')}`);
+      if (Array.isArray(v.functions) && v.functions.length) parts.push(`fns: ${(v.functions as string[]).join(', ')}`);
+      if (Array.isArray(v.grades) && v.grades.length) parts.push(`grades: ${(v.grades as string[]).join(', ')}`);
+      return <span className="text-gray-900">{parts.join(' · ') || '—'}</span>;
     }
     return <span className="text-gray-900 italic">[object]</span>;
   }
