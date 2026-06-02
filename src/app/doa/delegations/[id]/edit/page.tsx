@@ -133,13 +133,20 @@ const FIELD_LABELS: Record<string, string> = {
   authorityType: 'Authority type',
   description: 'Description',
   justification: 'Justification',
-  scope: 'Scope / threshold',
   chain: 'Approval chain',
   complianceLinks: 'Compliance links',
   type: 'Lifecycle type',
   effectiveFrom: 'Effective from',
   effectiveTo: 'Effective to',
   approvalAuthorityUserId: 'Approval authority',
+  'scope.monetaryCap': 'Monetary cap',
+  'scope.percentageCap': 'Percentage cap',
+  'scope.quantityCap': 'Quantity cap',
+  'scope.regions': 'Regions',
+  'scope.functions': 'Functions',
+  'scope.businessUnits': 'Business units',
+  'scope.grades': 'Grades',
+  'scope.notes': 'Scope notes',
 };
 
 export default function EditDelegationPage() {
