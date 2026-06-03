@@ -47,15 +47,25 @@ const navigationItems: NavItem[] = [
   },
   {
     label: 'Authority Matrix',
-    href: '/doa/authority-matrix',
+    href: '/doa/matrix',
     icon: <FileText className="w-5 h-5" />,
     children: [
-      { label: 'All Matrices', href: '/doa/authority-matrix', exact: true },
-      { label: 'Create Matrix', href: '/doa/authority-matrix/new' },
-      { label: 'Visual Designer', href: '/doa/authority-matrix/designer' },
-      { label: 'Simulator', href: '/doa/authority-matrix/simulate' },
-      { label: 'Advanced Thresholds', href: '/doa/authority-matrix/thresholds' },
-      { label: 'Templates', href: '/doa/authority-matrix/templates' },
+      { label: 'Browse Matrix', href: '/doa/matrix', exact: true },
+      { label: 'By Role', href: '/doa/matrix/by-role' },
+      { label: 'Transaction Lookup', href: '/doa/matrix/transaction' },
+      { label: 'Versions', href: '/doa/matrix/versions' },
+      { label: 'Glossary', href: '/doa/matrix/glossary' },
+      { label: 'References', href: '/doa/matrix/references' },
+    ],
+  },
+  {
+    label: 'Change Requests',
+    href: '/doa/change-request',
+    icon: <FileText className="w-5 h-5" />,
+    children: [
+      { label: 'Inbox', href: '/doa/change-request', exact: true },
+      { label: 'Submit CR', href: '/doa/change-request/new' },
+      { label: 'My CRs', href: '/doa/change-request/mine' },
     ],
   },
   {

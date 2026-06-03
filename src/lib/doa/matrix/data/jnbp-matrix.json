@@ -1,0 +1,4253 @@
+{
+  "matrixName": "JERA Nex bp DoA Matrix",
+  "roles": [
+    {
+      "id": "role-shareholders",
+      "name": "Shareholders",
+      "sortOrder": 0
+    },
+    {
+      "id": "role-bod",
+      "name": "BoD",
+      "sortOrder": 1
+    },
+    {
+      "id": "role-nomination-remuneration-committee",
+      "name": "Nomination & Remuneration Committee",
+      "sortOrder": 2
+    },
+    {
+      "id": "role-ceo",
+      "name": "CEO",
+      "sortOrder": 3
+    },
+    {
+      "id": "role-cfo",
+      "name": "CFO",
+      "sortOrder": 4
+    },
+    {
+      "id": "role-head-of-finance-operations-deputy-cfo",
+      "name": "Head of Finance Operations / Deputy CFO",
+      "sortOrder": 5
+    },
+    {
+      "id": "role-head-of-uk-ireland-usa-portfolio-finance",
+      "name": "Head of UK, Ireland, USA Portfolio Finance",
+      "sortOrder": 6
+    },
+    {
+      "id": "role-head-of-europe-and-australia-portfolio-finance",
+      "name": "Head of Europe and Australia Portfolio Finance",
+      "sortOrder": 7
+    },
+    {
+      "id": "role-head-of-finance-japan",
+      "name": "Head of Finance (Japan)",
+      "sortOrder": 8
+    },
+    {
+      "id": "role-head-of-operating-assets-finance",
+      "name": "Head of Operating Assets Finance",
+      "sortOrder": 9
+    },
+    {
+      "id": "role-head-of-accounting",
+      "name": "Head of Accounting",
+      "sortOrder": 10
+    },
+    {
+      "id": "role-head-of-planning-control",
+      "name": "Head of Planning & Control",
+      "sortOrder": 11
+    },
+    {
+      "id": "role-head-of-risk-audit",
+      "name": "Head of Risk / Audit",
+      "sortOrder": 12
+    },
+    {
+      "id": "role-head-of-treasury",
+      "name": "Head of Treasury",
+      "sortOrder": 13
+    },
+    {
+      "id": "role-head-of-tax",
+      "name": "Head of Tax",
+      "sortOrder": 14
+    },
+    {
+      "id": "role-cio",
+      "name": "CIO",
+      "sortOrder": 15
+    },
+    {
+      "id": "role-head-of-strategy-m-a",
+      "name": "Head of Strategy & M&A",
+      "sortOrder": 16
+    },
+    {
+      "id": "role-head-of-commercialization-and-energy-portfolio",
+      "name": "Head of Commercialization and Energy Portfolio",
+      "sortOrder": 17
+    },
+    {
+      "id": "role-head-of-investment-governance-and-ir",
+      "name": "Head of Investment Governance and IR",
+      "sortOrder": 18
+    },
+    {
+      "id": "role-head-of-transition-integration",
+      "name": "Head of Transition & Integration",
+      "sortOrder": 19
+    },
+    {
+      "id": "role-cdo",
+      "name": "CDO",
+      "sortOrder": 20
+    },
+    {
+      "id": "role-portfolio-director-uk-ireland-and-usa",
+      "name": "Portfolio Director (UK, Ireland and USA)",
+      "sortOrder": 21
+    },
+    {
+      "id": "role-portfolio-director-europe-and-australia",
+      "name": "Portfolio Director (Europe and Australia)",
+      "sortOrder": 22
+    },
+    {
+      "id": "role-portfolio-director-japan",
+      "name": "Portfolio Director (Japan)",
+      "sortOrder": 23
+    },
+    {
+      "id": "role-head-of-global-development-support",
+      "name": "Head of Global Development Support",
+      "sortOrder": 24
+    },
+    {
+      "id": "role-head-of-global-business-development",
+      "name": "Head of Global Business Development",
+      "sortOrder": 25
+    },
+    {
+      "id": "role-project-directors",
+      "name": "Project Directors",
+      "sortOrder": 26
+    },
+    {
+      "id": "role-cto",
+      "name": "CTO",
+      "sortOrder": 27
+    },
+    {
+      "id": "role-head-of-epci-management",
+      "name": "Head of EPCI Management",
+      "sortOrder": 28
+    },
+    {
+      "id": "role-head-of-wtg",
+      "name": "Head of WTG",
+      "sortOrder": 29
+    },
+    {
+      "id": "role-head-of-foundations",
+      "name": "Head of Foundations",
+      "sortOrder": 30
+    },
+    {
+      "id": "role-head-of-transmission",
+      "name": "Head of Transmission",
+      "sortOrder": 31
+    },
+    {
+      "id": "role-head-of-procurement",
+      "name": "Head of Procurement",
+      "sortOrder": 32
+    },
+    {
+      "id": "role-head-of-technical-japan",
+      "name": "Head of Technical Japan",
+      "sortOrder": 33
+    },
+    {
+      "id": "role-project-procurement-managers",
+      "name": "Project Procurement Managers",
+      "sortOrder": 34
+    },
+    {
+      "id": "role-category-procurement-manager",
+      "name": "Category Procurement Manager",
+      "sortOrder": 35
+    },
+    {
+      "id": "role-procurement-analyst",
+      "name": "Procurement Analyst",
+      "sortOrder": 36
+    },
+    {
+      "id": "role-coo",
+      "name": "COO",
+      "sortOrder": 37
+    },
+    {
+      "id": "role-head-of-global-o-m",
+      "name": "Head of Global O&M",
+      "sortOrder": 38
+    },
+    {
+      "id": "role-head-of-o-m-readiness",
+      "name": "Head of O&M Readiness",
+      "sortOrder": 39
+    },
+    {
+      "id": "role-head-of-digital-it",
+      "name": "Head of Digital / IT",
+      "sortOrder": 40
+    },
+    {
+      "id": "role-head-of-qhsse",
+      "name": "Head of QHSSE",
+      "sortOrder": 41
+    },
+    {
+      "id": "role-head-of-facilities-workplace",
+      "name": "Head of Facilities & Workplace",
+      "sortOrder": 42
+    },
+    {
+      "id": "role-senior-advisor",
+      "name": "Senior Advisor",
+      "sortOrder": 43
+    },
+    {
+      "id": "role-svp-legal-general-counsel",
+      "name": "SVP Legal / General Counsel",
+      "sortOrder": 44
+    },
+    {
+      "id": "role-deputy-general-counsel",
+      "name": "Deputy General Counsel",
+      "sortOrder": 45
+    },
+    {
+      "id": "role-head-of-legal",
+      "name": "Head of Legal",
+      "sortOrder": 46
+    },
+    {
+      "id": "role-svp-hr",
+      "name": "SVP HR",
+      "sortOrder": 47
+    },
+    {
+      "id": "role-head-of-hr",
+      "name": "Head of HR",
+      "sortOrder": 48
+    },
+    {
+      "id": "role-hr-business-partners",
+      "name": "HR Business Partners",
+      "sortOrder": 49
+    },
+    {
+      "id": "role-svp-comms-public-affairs-sustainability",
+      "name": "SVP Comms, Public Affairs, Sustainability",
+      "sortOrder": 50
+    },
+    {
+      "id": "role-head-of-communications",
+      "name": "Head of Communications",
+      "sortOrder": 51
+    },
+    {
+      "id": "role-head-of-sustainability",
+      "name": "Head of Sustainability",
+      "sortOrder": 52
+    },
+    {
+      "id": "role-svp-head-of-japan",
+      "name": "SVP Head of Japan",
+      "sortOrder": 53
+    }
+  ],
+  "sections": [
+    {
+      "id": "A",
+      "title": "STRATEGY & GOVERNANCE",
+      "sortOrder": 0
+    },
+    {
+      "id": "B",
+      "title": "CORPORATE STRUCTURE AND TRANSACTIONS",
+      "sortOrder": 1
+    },
+    {
+      "id": "C",
+      "title": "CAPITAL STRUCTURE AND FINANCE",
+      "sortOrder": 2
+    },
+    {
+      "id": "D",
+      "title": "CORE BUSINESS MANAGEMENT",
+      "sortOrder": 3
+    }
+  ],
+  "subsections": [
+    {
+      "id": "A1",
+      "sectionId": "A",
+      "title": "Company fundamentals (change in nature of the business, change in articles, winding up, etc.)",
+      "sortOrder": 0
+    },
+    {
+      "id": "A2",
+      "sectionId": "A",
+      "title": "Business Plan / Annual Budget",
+      "sortOrder": 1
+    },
+    {
+      "id": "A3",
+      "sectionId": "A",
+      "title": "Governance (Committees, Management Team, DoAs, policies, etc.)",
+      "sortOrder": 2
+    },
+    {
+      "id": "B1",
+      "sectionId": "B",
+      "title": "Corporate structure",
+      "sortOrder": 3
+    },
+    {
+      "id": "B2",
+      "sectionId": "B",
+      "title": "Transactions",
+      "sortOrder": 4
+    },
+    {
+      "id": "C1",
+      "sectionId": "C",
+      "title": "Debt / Borrowing",
+      "sortOrder": 5
+    },
+    {
+      "id": "C2",
+      "sectionId": "C",
+      "title": "Distributions",
+      "sortOrder": 6
+    },
+    {
+      "id": "C3",
+      "sectionId": "C",
+      "title": "Loans, Guarantees, and Credit",
+      "sortOrder": 7
+    },
+    {
+      "id": "C4",
+      "sectionId": "C",
+      "title": "Shares",
+      "sortOrder": 8
+    },
+    {
+      "id": "D1",
+      "sectionId": "D",
+      "title": "Commercial / Project Investment decisions",
+      "sortOrder": 9
+    },
+    {
+      "id": "D2",
+      "sectionId": "D",
+      "title": "Procurement",
+      "sortOrder": 10
+    },
+    {
+      "id": "D3",
+      "sectionId": "D",
+      "title": "Treasury, Accounting  & Tax",
+      "sortOrder": 11
+    },
+    {
+      "id": "D4",
+      "sectionId": "D",
+      "title": "Legal",
+      "sortOrder": 12
+    },
+    {
+      "id": "D5",
+      "sectionId": "D",
+      "title": "People",
+      "sortOrder": 13
+    },
+    {
+      "id": "D6",
+      "sectionId": "D",
+      "title": "Communications and stakeholder engagement",
+      "sortOrder": 14
+    }
+  ],
+  "subSubsections": [
+    {
+      "id": "D3.1",
+      "subsectionId": "D3",
+      "title": "Treasury",
+      "sortOrder": 0
+    },
+    {
+      "id": "D3.2",
+      "subsectionId": "D3",
+      "title": "Accounting",
+      "sortOrder": 1
+    },
+    {
+      "id": "D3.3",
+      "subsectionId": "D3",
+      "title": "Tax",
+      "sortOrder": 2
+    }
+  ],
+  "delegations": [
+    {
+      "id": "A.1.1",
+      "subsectionId": "A1",
+      "subSubsectionId": null,
+      "description": "Any material change in the nature of the Business.",
+      "explanatoryNotes": "The Business (see definition) restricts JERA Nex bp to activities related to offshore wind. You should seek advice if asked to undertake any activity not related to the portfolio of offshore wind projects.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 8",
+      "sortOrder": 0
+    },
+    {
+      "id": "A.1.2",
+      "subsectionId": "A1",
+      "subSubsectionId": null,
+      "description": "Any amendment to the articles of association (or equivalent constitutional document) of a Group Company or the adoption of new articles of association (or equivalent constitutional document) of a Group Company.",
+      "explanatoryNotes": "Includes any amendment to articles, regardless of how minor the proposed change, although for minor changes this would be a simple formality via written Shareholder Resolution. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 1",
+      "sortOrder": 1
+    },
+    {
+      "id": "A.1.3",
+      "subsectionId": "A1",
+      "subSubsectionId": null,
+      "description": "Any decision or passing of any resolution to wind up a Group Company or the making of or any arrangement with creditors generally or any application for an administration order or appointment of an administrator, receiver or monitor to a Group Company.",
+      "explanatoryNotes": "The need to seek Shareholder approval applies even if a Group Company is being dissolved in the ordinary course of business (for instance because it is simply not needed anymore) - this can be achieved via written Shareholder Resolution. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 9",
+      "sortOrder": 2
+    },
+    {
+      "id": "A.1.4",
+      "subsectionId": "A1",
+      "subSubsectionId": null,
+      "description": "Approving any change to the name of the Company or any Subsidiary.",
+      "explanatoryNotes": "The Company (see definition) refers to JERA Nex bp (i.e. the TopCo, formally 'Snowmass Holdings Limited'). Subsidiary (see definition) is the commonly used definition - i.e. a majority of voting rights/control.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 33",
+      "sortOrder": 3
+    },
+    {
+      "id": "A.2.1",
+      "subsectionId": "A2",
+      "subSubsectionId": null,
+      "description": "The approval of any Updated Business Plan as the Business Plan in accordance with clause 4.",
+      "explanatoryNotes": "The Shareholders approve the updated (multi-year) Business Plan each year, this is referred to as the Updated Business Plan. The required contents of the Business Plan can be found in the References tab.",
+      "referenceDocText": "Shareholders' Agreement\nClause 4 \nSchedule 2, Part A, para 13",
+      "sortOrder": 4
+    },
+    {
+      "id": "A.2.1a",
+      "subsectionId": "A2",
+      "subSubsectionId": null,
+      "description": "The approval of any amendments to or deviations from the matters stated in any Business Plan that would: (a) modify the list of Projects that are designated Committed Projects; or (b) require Funding from the Shareholders as a result of which the Available Funding Commitment Amount of any of the Shareholders would be exceeded; or (c) require more Funding than the Funding the Shareholders have approved for the then current Financial Year; or (d) require any other approval from the Shareholders per Part A of Schedule 2.",
+      "explanatoryNotes": "This authority covers the scenarios where amendments to, or deviations from, the Business Plan require Shareholder approval. Note that Part A of Schedule 2 is a reference to the full list of Shareholder Reserved Matters in the Shareholders' Agreement (the Shareholder Reserved Matters are also included in this Management DoA file).",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 14",
+      "sortOrder": 5
+    },
+    {
+      "id": "A.2.1b",
+      "subsectionId": "A2",
+      "subSubsectionId": null,
+      "description": "Any amendments to or deviations from the latest Business Plan (as approved by the Shareholders), except where such changes would:\n(a) require approval as a Shareholder Reserved Matter pursuant to paragraph 14 of Part A of Schedule 2; or (b) result in the aggregate operating expenditure, capital expenditure or other costs or liabilities of the Group for the current financial year as set out in the Annual Budget (as approved by the Shareholders) being increased by less than five per cent. (5%).",
+      "explanatoryNotes": "This authority covers the scenarios where amendments to, or deviations from, the Business Plan require Board approval. Note that Part A of Schedule 2 is a reference to the full list of Shareholder Reserved Matters in the Shareholders' Agreement (the Shareholder Reserved Matters are also included in this Management DoA file).",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 9",
+      "sortOrder": 6
+    },
+    {
+      "id": "A.2.2",
+      "subsectionId": "A2",
+      "subSubsectionId": null,
+      "description": "Increase the aggregate operating expenditure, capital expenditure or other costs or liabilities of the Group for the current financial year as set out in the Annual Budget (as approved as part of the Business Plan by the Shareholders) by less than five per cent. (5%).",
+      "explanatoryNotes": "This approval is for increases to the Annual Budget in aggregate at Group level. The Annual Budget is part of the Business Plan. The Group (see definition) also includes entities not wholly owned by JERA Nex bp. This authority only applies to the extent separate Board or Shareholders approvals are not triggered (for instance, if the Funding from Shareholders for the current Financial Year is required to increase, this is a matter for the Shareholders to approve).",
+      "referenceDocText": null,
+      "sortOrder": 7
+    },
+    {
+      "id": "A.3.1",
+      "subsectionId": "A3",
+      "subSubsectionId": null,
+      "description": "Approval of and any amendment to the Policies.",
+      "explanatoryNotes": "The list of Policies (see definition) at the time of approval of this Management DoA is:\n(a) the Digital Security Framework;\n(b) the accounting policies and accounting procedures (including an audit policy);\n(c) the health, safety, environmental and security policy;\n(d) the treasury policy;\n(e) the code of conduct and compliance standards of the Group; \n(f) the communications and press policy; and\n(g) the ethics and compliance policy (including the anti-bribery and corruption policy, the anti-money laundering policy, the tax transparency and anti-tax evasion policy, the conflicts of interest policy, the gifts, hospitality and entertainment policy and the speak up policy).\n\nThe Board may change this list at any time by notifying the Management Team in writing. Please note that the Board also separately approves the remuneration policy (see People section).",
+      "referenceDocText": "Shareholders' Agreement\nClause 1.1 (Definitions)\nSchedule 2, Part B, para 15",
+      "sortOrder": 8
+    },
+    {
+      "id": "A.3.2",
+      "subsectionId": "A3",
+      "subSubsectionId": null,
+      "description": "Approval of and any amendment of any policies which are not for the Board or Shareholders to approve.",
+      "explanatoryNotes": "Any policy which is not for the Board or Shareholders to approve can be approved by the appropriate member of the Management Team. The CEO will determine which Management Team member is authorised to approve which policies and may retain the right to approve certain policies directly. The policy approver cannot be the same person as the policy owner. Any policy ownership should be clearly aligned to role accountability (policy owners do not have to be on the Management Team).",
+      "referenceDocText": null,
+      "sortOrder": 9
+    },
+    {
+      "id": "A.3.4",
+      "subsectionId": "A3",
+      "subSubsectionId": null,
+      "description": "Establishing, dissolving, determining the composition of, adopting (or amending) the relevant terms of reference in relation to any committee of the Board.",
+      "explanatoryNotes": "The Board determines which Board committees are established and sets the Terms of Reference for those committees.",
+      "referenceDocText": "Shareholders' Agreement\nClause 5.26 \nSchedule 2, Part B, para 18",
+      "sortOrder": 10
+    },
+    {
+      "id": "A.3.5",
+      "subsectionId": "A3",
+      "subSubsectionId": null,
+      "description": "Any amendments to the Management DoA unless such amendments are of a nature expressly permitted in the Management DoA to be made by the Management Team.",
+      "explanatoryNotes": "This refers to changes to this Management DoA file. The Board retains overall authority over modifications to this Management DoA file. The CEO has limited authority to make changes, in order to add and remove delegations below the Management Team level in the normal course of business. The CEO's authority in modifying the Management DoA is limited as follows: (1) no person can be given delegations that exceed the delegations already delegated down by the Board, (2) no changes can be made to the delegations of the Management Team, (3) any delegations added or removed should be consistent with Company policies, should not breach any segregation of duties and should be appropriate given the accountability of the person to whom the delegation is being granted (or from whom the delegation is being removed).",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 24",
+      "sortOrder": 11
+    },
+    {
+      "id": "A.3.6",
+      "subsectionId": "A3",
+      "subSubsectionId": null,
+      "description": "The removal or, subject to the Management Selection Criteria, appointment of a member of the Management Team, except to the extent any authority to do so has been delegated to a committee established by the Board.",
+      "explanatoryNotes": "The Management Team are the CxOs and SVPs (the CEO and the CEO's direct reports). The Board determines the appointment and removal of the Management Team members.",
+      "referenceDocText": "Shareholders' Agreement\nClause 5.25\nSchedule 2, Part B, para 1",
+      "sortOrder": 12
+    },
+    {
+      "id": "A.3.7",
+      "subsectionId": "A3",
+      "subSubsectionId": null,
+      "description": "The amendment of the roles and responsibilities comprised in the Management Team.",
+      "explanatoryNotes": "The Board determines any changes to the scope / responsibilities of the Management Team roles (which is separate from the decision on which individual is appointed to each Management Team role).",
+      "referenceDocText": "Shareholders' Agreement\nClause 5.25\nSchedule 2, Part B, para 2",
+      "sortOrder": 13
+    },
+    {
+      "id": "A.3.8",
+      "subsectionId": "A3",
+      "subSubsectionId": null,
+      "description": "Approval of any amendments to the remuneration, incentives or benefits package of the Management Team, except to the extent any authority to do so has been delegated to a committee established by the Board.",
+      "explanatoryNotes": "The Board determines how the Management Team members are compensated.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 22",
+      "sortOrder": 14
+    },
+    {
+      "id": "A.3.9",
+      "subsectionId": "A3",
+      "subSubsectionId": null,
+      "description": "Appointment of Directors/Officers to all Subsidiaries & JV Companies.",
+      "explanatoryNotes": "This refers to the relevant appointments below the level of the Company (see definition), i.e. below JERA Nex bp (TopCo).",
+      "referenceDocText": "Shareholders' Agreement\nClause 5.28",
+      "sortOrder": 15
+    },
+    {
+      "id": "A.3.10",
+      "subsectionId": "A3",
+      "subSubsectionId": null,
+      "description": "Management of Transition Cost spend against the budget.",
+      "explanatoryNotes": "This authority refers to the approval of Transition Cost spend within the approved budget. Members of the Management Team can each authorise spend against the budget allocated to each of them and the Head of Transition & Integration can authorise spend against the budget allocated to the Head of Transition & Integration.",
+      "referenceDocText": null,
+      "sortOrder": 16
+    },
+    {
+      "id": "A.3.11",
+      "subsectionId": "A3",
+      "subSubsectionId": null,
+      "description": "Below CEO level, approve Management Team selection, contracts/compensation, performance evaluation (based on CEO recommendation / proposal).",
+      "explanatoryNotes": "",
+      "referenceDocText": null,
+      "sortOrder": 17
+    },
+    {
+      "id": "B.1.1",
+      "subsectionId": "B1",
+      "subSubsectionId": null,
+      "description": "The passing of any resolution (whether pursuant to Part 7 CA 2006 or otherwise) whereby the classification or status of a Group Company may change (including the tax classification or status of a Group Company) or any change to a Group Company\u2019s place of tax residence.",
+      "explanatoryNotes": "Changes including the classification, status or tax residence of these legal entities requires approval. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 5",
+      "sortOrder": 18
+    },
+    {
+      "id": "B.1.2",
+      "subsectionId": "B1",
+      "subSubsectionId": null,
+      "description": "The reorganisation of a Group Company or its business, whether by merger, consolidation, division or otherwise.",
+      "explanatoryNotes": "This relates to any form of legal entity re-structuring. Group Company (see definition) includes entities not wholly owned by JERA Nex bp. Please seek advice from Legal and Finance before considering any such activity.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 7",
+      "sortOrder": 19
+    },
+    {
+      "id": "B.1.3",
+      "subsectionId": "B1",
+      "subSubsectionId": null,
+      "description": "Approving any decision to proceed with an initial public offering of the shares of a Group Company.",
+      "explanatoryNotes": "Initial public offering refers to raising capital by offering shares to the public. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 10",
+      "sortOrder": 20
+    },
+    {
+      "id": "B.2.1",
+      "subsectionId": "B2",
+      "subSubsectionId": null,
+      "description": "The participation by the Company in any partnership, joint venture (incorporated or not), consortium or other similar arrangement or any revenue sharing or profit sharing agreement.",
+      "explanatoryNotes": "The Company (see definition) refers to JERA Nex bp (i.e. TopCo). Note that there is a separate approval required for entry into Project SHAs (see definition), i.e. joint venture shareholders' agreements. There is also a separate approval required for the acquisition of any shares.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 23",
+      "sortOrder": 21
+    },
+    {
+      "id": "B.2.2",
+      "subsectionId": "B2",
+      "subSubsectionId": null,
+      "description": "The acquisition or disposal of any shares in any body corporate (including a Group Company but other than between Group Companies) in each case to the extent that the aggregate consideration for such acquisition or disposal is within the thresholds indicated (or local currency equivalent).",
+      "explanatoryNotes": "This relates to acquisition or disposal of shares. Note that there is a separate approval required for Project SHAs (joint venture shareholders' agreements), or entry by the Company (see definition) into any partnership. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 19;\nPart B, para 5",
+      "sortOrder": 22
+    },
+    {
+      "id": "B.2.3",
+      "subsectionId": "B2",
+      "subSubsectionId": null,
+      "description": "The acquisition or disposal of any assets or series of linked assets of a Group Company, whether in a single transaction or a series of related transactions in each case to the extent that the aggregate consideration in respect of any such transaction (or series of related transactions) is within the thresholds indicated (or local currency equivalent).",
+      "explanatoryNotes": "This relates to the acquisition or disposal of assets. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 18;\nPart B, para 4",
+      "sortOrder": 23
+    },
+    {
+      "id": "B.2.4",
+      "subsectionId": "B2",
+      "subSubsectionId": null,
+      "description": "The entry into a Project SHA, or the amendment, variation, waiver of any material rights under, or termination of any Project SHA in a manner that would adversely affect the rights of any Group Company or the Shareholders (in their capacity as such).",
+      "explanatoryNotes": "Note there are also separate approvals for acquisition and disposal of shares related to the entry into or exit from a Project SHA (see definition). Also, if the intent is to enter any form of partnership (instead of a Project SHA) there are separate approvals required for that. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 24",
+      "sortOrder": 24
+    },
+    {
+      "id": "B.2.5",
+      "subsectionId": "B2",
+      "subSubsectionId": null,
+      "description": "Authority to submit (1) for any pre-qualification ahead of a bid, or (2) a non-binding offer (e.g. M&A transaction).",
+      "explanatoryNotes": "This authority is limited by the assumption that the pre-qualification or non-binding offer does not create any binding obligations. Seek Legal advice if you are unsure.",
+      "referenceDocText": null,
+      "sortOrder": 25
+    },
+    {
+      "id": "B.2.6",
+      "subsectionId": "B2",
+      "subSubsectionId": null,
+      "description": "Approve boundary conditions for substantive negotiation of business development or M&A transactions, for both:\n1) non-binding agreements, including non-binding offers / term sheets / MoUs, and \n2) binding agreements, including binding offers, exclusivity agreements, joint development agreements, shareholders' agreements, etc.)",
+      "explanatoryNotes": "This refers to when you have had initial discussions with a potential partner for a transaction / bid and you are ready to enter into negotiations on an agreement. Please note this authority is limited by the Business Plan and confers no right whatsoever to enter into any agreements (only to negotiate them).",
+      "referenceDocText": null,
+      "sortOrder": 26
+    },
+    {
+      "id": "B.2.7",
+      "subsectionId": "B2",
+      "subSubsectionId": null,
+      "description": "Entry below Company level into a partnership or consortium, including memorandums of understanding (MoUs), joint development agreements (JDAs) or any similar commercial agreements (but excluding Project SHAs).",
+      "explanatoryNotes": "The Company (see definition) refers to JERA Nex bp (i.e. TopCo), so this refers to entry into commercial agreements for legal entities below the Company in the legal entity tree. There is a separate approval required for entry into Project SHAs (joint venture shareholders' agreements). There is also a separate approval required for the acquisition of any shares. Please note this authority is limited by the Business Plan and may therefore trigger additional authorities before the agreement can be entered into. Finally, this authority is limited by the person's general authority to enter into contracts (see D.1.3 and specifically the USD limits).",
+      "referenceDocText": null,
+      "sortOrder": 27
+    },
+    {
+      "id": "C.1.1",
+      "subsectionId": "C1",
+      "subSubsectionId": null,
+      "description": "Approval of any Group Company: (a) incurring any indebtedness, excluding any drawdown under any existing finance facility or the receipt of trade credit in the ordinary course of business of the relevant Group Company; (b) guaranteeing any indebtedness or other obligations not included in the Business Plan (as approved by the Shareholders); (c) granting any indemnities; (d) raising finance by way of any debt capital source (including any off-balance sheet financing arrangements or the issuance of debt security or project finance) not included in the Business Plan (as approved by the Shareholders); or (e) restructuring, rescheduling, refinancing, voluntarily prepaying or repaying early any such indebtedness before its stated maturity to the extent not already included in the Business Plan (as approved by the Shareholders), in each case with the value indicated.",
+      "explanatoryNotes": "In summary, this approval relates to any decisions (which have not otherwise been approved or agreed to) about debt, or the guaranteeing of debt / obligations, or the granting of indemnities. Please note that this authority includes, in relation to indebtedness, trade financing type facilities, including facilities for letters of credit.\n\nAn indemnity refers to a contractual agreement (which could be part of a broader agreement) where one party agrees to compensate another for losses or damages incurred. It serves as a form of insurance protection against financial liability, ensuring that the indemnified party is reimbursed for any losses they suffer due to the actions of the indemnifying party or other specified events. \n\nNote the differing approval thresholds for the CFO, Board and Shareholders. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 26; \nPart B para 3",
+      "sortOrder": 28
+    },
+    {
+      "id": "C.1.2",
+      "subsectionId": "C1",
+      "subSubsectionId": null,
+      "description": "Borrowing any money from a Shareholder or a member of a Shareholder\u2019s Group, other than in accordance with the Shareholders' Agreement or the Framework Agreement.",
+      "explanatoryNotes": "The Shareholders' Agreement and Framework Agreement specify how the Shareholders will provide funding / loans - if the borrowing falls within what is already agreed in the Shareholders' Agreement or Framework Agreement, no approval is required.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 27",
+      "sortOrder": 29
+    },
+    {
+      "id": "C.1.3",
+      "subsectionId": "C1",
+      "subSubsectionId": null,
+      "description": "The creation of any mortgage, charge, lien (other than a lien arising in the ordinary course of the Company\u2019s business) or other encumbrance on any assets, undertaking or uncalled capital of the Company.",
+      "explanatoryNotes": "An encumbrance is legal claim on an asset / property that can reduce its value or restrict its free use. An encumbrance can impact the transferability of the asset / property (until it is lifted). The Company (see definition) refers to JERA Nex bp (i.e. TopCo).",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 29",
+      "sortOrder": 30
+    },
+    {
+      "id": "C.1.4",
+      "subsectionId": "C1",
+      "subSubsectionId": null,
+      "description": "The redemption of any mortgage, charge, lien (other than a lien arising in the ordinary course of the Company\u2019s business) or other encumbrance on any assets, undertaking or uncalled capital of the Company.",
+      "explanatoryNotes": "An encumbrance is legal claim on an asset / property that can reduce its value or restrict its free use. An encumbrance can impact the transferability of the asset / property (until it is lifted). The Company (see definition) refers to JERA Nex bp (i.e. TopCo).",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 17",
+      "sortOrder": 31
+    },
+    {
+      "id": "C.2.1",
+      "subsectionId": "C2",
+      "subSubsectionId": null,
+      "description": "The adoption of a new Distribution Policy or any amendment to the Distribution Policy.",
+      "explanatoryNotes": "The Distribution Policy (see definition) concerns the distribution of cash (available to the Group) in excess of the Minimum Cash Reserve. The Group (see definition) also includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nClause 16; \nSchedule 2, Part A, para 12",
+      "sortOrder": 32
+    },
+    {
+      "id": "C.2.2",
+      "subsectionId": "C2",
+      "subSubsectionId": null,
+      "description": "Approval of any distributions made in accordance with the Distribution Policy in clause 16.1 of the Shareholders' Agreement.",
+      "explanatoryNotes": "Distributions are governed in accordance with clause 16 of the Shareholders' Agreement.",
+      "referenceDocText": "Shareholders' Agreement\nClause 16; \nSchedule 2, Part B, para 14",
+      "sortOrder": 33
+    },
+    {
+      "id": "C.3.1",
+      "subsectionId": "C3",
+      "subSubsectionId": null,
+      "description": "The granting by the Shareholders or members of the Shareholders\u2019 Group of any guarantee in respect of the obligations of a Group Company including in accordance with clause 14 (Shareholder Support) of the Shareholders' Agreement, save in respect of the Existing Project Guarantees.",
+      "explanatoryNotes": "Existing Project Guarantees (see definition) refers to those guarantees already in place. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nClause 14; \nSchedule 2, Part A, para 17",
+      "sortOrder": 34
+    },
+    {
+      "id": "C.3.2",
+      "subsectionId": "C3",
+      "subSubsectionId": null,
+      "description": "The granting by any Group Company of any guarantee in respect of the obligations of another Group Company.",
+      "explanatoryNotes": "Group Company (see definition) includes entities not wholly owned by JERA Nex bp. This authority includes credit support to 3rd parties in the form of (1) parent company guarantees required from Snowmass Holdings Limited and (2) letters of credit required from Snowmass Holdings Limited. The schedule of such planned credit support must be shared with the Board in advance, to ensure timely approval, by written Board resolution if required (depending on the timing of the Board Meetings).",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 16",
+      "sortOrder": 35
+    },
+    {
+      "id": "C.3.3",
+      "subsectionId": "C3",
+      "subSubsectionId": null,
+      "description": "Granting loans or credit to third parties, or other financial activity which falls outside that which might reasonably be expected during the development, construction and operation of an offshore wind farm.",
+      "explanatoryNotes": "Restrictions on financial activity not related to offshore wind.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 28",
+      "sortOrder": 36
+    },
+    {
+      "id": "C.4.1",
+      "subsectionId": "C4",
+      "subSubsectionId": null,
+      "description": "The variation of the rights attaching to any class of shares of a Group Company.",
+      "explanatoryNotes": "This provision is broadly applicable to any shares of a Group Company. Please in particular seek governance advice for any change that could impact Shareholders' shareholdings and their rights under those shares. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 4",
+      "sortOrder": 37
+    },
+    {
+      "id": "C.4.2",
+      "subsectionId": "C4",
+      "subSubsectionId": null,
+      "description": "Any reduction, consolidation, sub division, conversion or cancellation of any share capital of a Group Company.",
+      "explanatoryNotes": "This provision is broadly applicable to any shares of a Group Company. Please in particular seek governance advice for any change that could impact Shareholders' shareholdings and their rights under those shares. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 2",
+      "sortOrder": 38
+    },
+    {
+      "id": "C.4.3",
+      "subsectionId": "C4",
+      "subSubsectionId": null,
+      "description": "The capitalisation, repayment or other form of distribution of any amount standing to the credit of any reserve of a Group Company or the redemption or purchase of any of its own shares or any other reorganisation or reduction of its share capital (excluding for these purposes the payment of any dividend).",
+      "explanatoryNotes": "This provision is broadly applicable to any shares of a Group Company. Please in particular seek governance advice for any change that could impact Shareholders' shareholdings and their rights under those shares. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 3",
+      "sortOrder": 39
+    },
+    {
+      "id": "C.4.4",
+      "subsectionId": "C4",
+      "subSubsectionId": null,
+      "description": "Any change in share capital or the creation, allotment or the issue of any shares (except where such share issue is made in accordance with clause 12 of the Shareholders' Agreement or any issue of Deferred Shares in accordance with clauses 2.5, 2.7 or 14.3 of the Framework Agreement) or any grant of or agreement to grant any options over or interests in or right to be issued any other securities (in the form of obligations convertible into shares or otherwise), or any uncalled capital of the Company.",
+      "explanatoryNotes": "This provision is broadly applicable to shares of the Company. Please in particular seek governance advice for any change that could impact Shareholders' shareholdings and their rights under those shares. The Company (see definition) refers to JERA Nex bp (i.e. TopCo).",
+      "referenceDocText": "Shareholders' Agreement\nClause 12;\nSchedule 2, Part A, para 6",
+      "sortOrder": 40
+    },
+    {
+      "id": "D.1.0",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "Approval for any Project that is not already designated a Committed Project to be designated as a Committed Project.",
+      "explanatoryNotes": "The Shareholders use the 'Committed Project' designation to restrict the amount that can be spent on projects they have not designated as Committed Projects in the Business Plan. See D.1.1 for further details.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 16",
+      "sortOrder": 41
+    },
+    {
+      "id": "D.1.1",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "Save as contemplated by the Business Plan (as approved by the Shareholders), incurring more than US$25 million of aggregate expenses in relation to a New Project or Project which is not a Committed Project.",
+      "explanatoryNotes": "This is to control spending on projects which are not Committed Projects (see definition), except where otherwise agreed in the Business Plan.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 15",
+      "sortOrder": 42
+    },
+    {
+      "id": "D.1.2",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "The entry into, amendment, variation, waiver of any material rights under, or termination of any contracts (including Project Contracts) which commit the Group to an aggregate capital expenditure, operating expenditure or other costs or liabilities in excess of:\n(a) in respect of Project Contracts in the period prior to DG1, US$50 million; or (b) otherwise, US$250 million.",
+      "explanatoryNotes": "The term Project Contract (see definition) is broad and covers agreements in connection with the ownership, development, construction, commissioning, testing, operation, maintenance, decommissioning and financing of projects. The Group (see definition) also includes entities not wholly owned by JERA Nex bp. \n\nPlease note that separate approvals may be triggered if the contract pushes the Project outside its aggregate budget in the Business Plan (see D.1.4). This approval is not required if the contract has already been approved as part of a Project Decision Gate approval. For assistance in interpreting 'aggregate liability', please refer to the Definitions tab.\n\nFinally please note that only Procurement have final commitment authority (this applies to all contracts for goods and services), once this approval is given.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 12",
+      "sortOrder": 43
+    },
+    {
+      "id": "D.1.2a",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "The:\n(a) entry into any agreement or contract by a Group Company, which includes a provision; or \n(b) amendment, variation or inclusion of a provision in any agreement or contract entered into by a Group Company,\nwhich entitles the counterparty to terminate such contract, or which obliges the relevant Group Company to make any payment or dispose of or acquire any assets, in each case as a consequence of a change in the direct or indirect ownership of such Group Company.",
+      "explanatoryNotes": "This approval concerns contracts where there are consequences from any future change in the direct or indirect ownership of a Group Company. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 13",
+      "sortOrder": 44
+    },
+    {
+      "id": "D.1.3",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "The entry into, amendment, variation, waiver of any material rights under, or termination of any contracts (including Project Contracts) which commit the Group to an aggregate capital expenditure, operating expenditure or other costs or liabilities below the threshold for Board approval in D.1.2 (and in line with the USD limit indicated for each role).",
+      "explanatoryNotes": "The term Project Contract (see definition) is broad and covers agreements in connection with the ownership, development, construction, commissioning, testing, operation, maintenance, decommissioning and financing of projects. The Group (see definition) also includes entities not wholly owned by JERA Nex bp.\n\nPlease note that separate approvals may be triggered if the contract pushes the Project outside its aggregate budget in the Business Plan (see D.1.4). This approval is not required if the contract has already been approved as part of a Project Decision Gate approval. For assistance in interpreting 'aggregate liability', please refer to the Definitions tab.\n\nFinally please note that only Procurement have final commitment authority (this applies to all contracts for goods and services), once this approval is given.",
+      "referenceDocText": null,
+      "sortOrder": 45
+    },
+    {
+      "id": "D.1.4",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "In respect of any Project, approving an increase in the aggregate capital expenditure, operating expenditure or other costs or liabilities of such Project by more than:\n(a) prior to DG1, the lower of ten per cent. (10%) and US$20 million; and  \n(b) after DG1, the lower of ten per cent. (10%) and US$100 million, \nagainst the amount as set out in the latest Business Plan (as approved by the Shareholders).",
+      "explanatoryNotes": "This is to control aggregate increases in Project spending. The intent being that the CDO/COO need to seek approval before exceeding their aggregate Project budget in the Business Plan.\n\nWhere a Project requires an aggregate increase in spend beyond the budget in the Business Plan, it requires approval of the CEO (if below the threshold for Board approval) and if the increase is substantial (it meets the threshold for Board approval) it goes to the Board. \n\nPlease note that an increase in Project spending may trigger other approvals, for instance if the Project no longer meets the Investment Approval Criteria, approval is required from the Shareholders.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 10",
+      "sortOrder": 46
+    },
+    {
+      "id": "D.1.5",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "Approval of any matter which constitutes a Project Decision Gate (and the resulting amendments to the Project budget and work program), other than an approval which may be made as a Board Reserved Matter.",
+      "explanatoryNotes": "The Project Decision Gates are listed in the References tab. All the Decision Gates come to the Shareholders for approval, unless the conditions in D.1.6. are met. Note that DG1 always comes to the Shareholders for approval.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 21",
+      "sortOrder": 47
+    },
+    {
+      "id": "D.1.5a",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "Approval, in the case of any Project for which DG1 approval has already been provided, of any matter, other than a Project Decision Gate, which would: (i) result in the Investment Approval Criteria no longer being satisfied, or (ii) if the Shareholders had previously agreed to deviate from the Investment Approval Criteria, result in any of the conditions specified by the Shareholders in agreeing to the deviation no longer being satisfied.",
+      "explanatoryNotes": "Projects come back to the Shareholders for approval, where they deviate from the boundary conditions the Shareholders have set. This is to ensure the Shareholders control any deviation from the Investment Approval Criteria.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 22",
+      "sortOrder": 48
+    },
+    {
+      "id": "D.1.6",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "Approval of any Project Decision Gate decision in respect of a Committed Project (excluding DG1): \n(a) which satisfies the assumptions as set out in the Investment Approval Criteria (as relevant) for the respective Project Decision Gate (and in respect of DG1(b) and DG2, based on a business case which is confirmed by a third-party technical consultant and commercial consultant); and\n(b) which involves financial commitments that are consistent with the Financial Plan and does not require Funding from the Shareholders which would cause the Available Funding Commitment Amount of any of the Shareholders to be exceeded.",
+      "explanatoryNotes": "The Project Decision Gates are listed in the References tab. Apart from DG1, the Board can approve all Project Decision Gates (for Committed Projects), but only if the conditions in a) and b) are satisfied.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 25",
+      "sortOrder": 49
+    },
+    {
+      "id": "D.1.7",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "Any amendment (including any change to the scope or geographical area of the Business) to the Investment Approval Criteria.",
+      "explanatoryNotes": "The Investment Approval Criteria document outlines, amongst other things, the minimum expectations around Project returns.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 11",
+      "sortOrder": 50
+    },
+    {
+      "id": "D.1.10",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "Issuances of any default or similar notice to any counterparty under any Material Contract.",
+      "explanatoryNotes": "This is where the intent is to notify a counterparty of a default under a Material Contract (see definition), as required under the terms of that Material Contract.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 23",
+      "sortOrder": 51
+    },
+    {
+      "id": "D.1.11",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "Approval of DG0 (additional decision gate at front end of project lifecycle, not defined in the Shareholders' Agreement).",
+      "explanatoryNotes": "DG0 is the gate to approve bid preparation for a Project (not to approve the bid itself).",
+      "referenceDocText": null,
+      "sortOrder": 52
+    },
+    {
+      "id": "D.1.12",
+      "subsectionId": "D1",
+      "subSubsectionId": null,
+      "description": "Authority to abandon a Project.",
+      "explanatoryNotes": "This authority concerns abandoning projects before they reach the next Project Decision Gate. The CEO can abandon Projects before DG1, even if they are in the Business Plan, if there is a sound commercial rationale for doing so.",
+      "referenceDocText": null,
+      "sortOrder": 53
+    },
+    {
+      "id": "D.2.1",
+      "subsectionId": "D2",
+      "subSubsectionId": null,
+      "description": "Engaging 3rd party consultant or advisor - appointment, remuneration, removal of any consultant",
+      "explanatoryNotes": "This refers to 3rd party consultants or advisors hired to deliver a specified scope (not the hiring of contractors / temp staff to fill a specific role) - the authority holder is empowered to hire such consultants within their approved budgets for work that falls within their accountabilities (see the References tab for further specific limitations).\n\nThis authority is designed to restrict who in the organisation can hire consultants and this authority is strictly limited by the general authority required for approving contracts (if you don't have explicit authority up to the required USD limit to generally approve contracts, you have no authority to engage the 3rd party consultant). \n\nFinally please note that only Procurement have final commitment authority (this applies to all contracts for goods and services), once this approval is given.",
+      "referenceDocText": null,
+      "sortOrder": 54
+    },
+    {
+      "id": "D.2.2",
+      "subsectionId": "D2",
+      "subSubsectionId": null,
+      "description": "The entry into an agreement by a Group Company with a third party on non-arm\u2019s length terms.",
+      "explanatoryNotes": "All contracts should normally be on arm's length terms. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 32",
+      "sortOrder": 55
+    },
+    {
+      "id": "D.2.3",
+      "subsectionId": "D2",
+      "subSubsectionId": null,
+      "description": "Requisition of goods and services",
+      "explanatoryNotes": "The budget holder is responsible for defining the need for the required goods or services. The request must align with the approved budget, ensuring that sufficient funds are available to cover the costs.",
+      "referenceDocText": null,
+      "sortOrder": 56
+    },
+    {
+      "id": "D.2.4",
+      "subsectionId": "D2",
+      "subSubsectionId": null,
+      "description": "Sourcing authority, including approval of new suppliers",
+      "explanatoryNotes": "This covers going to market to select the appropriate provider usually by soliciting proposals. The sourcing process concludes just before entering into a commitment, at which point the intended supplier has been selected. This includes conducting counterparty due diligence (CDD) and issuing RFPs, among other activities. \n\nThis authority resides with Procurement only to ensure proper segregation of duties. However, for tactical, low risk spend below US$ 75k, the person raising the requisition can go direct to the supplier(s) for a quote without any approvals from Procurement.",
+      "referenceDocText": null,
+      "sortOrder": 57
+    },
+    {
+      "id": "D.2.5",
+      "subsectionId": "D2",
+      "subSubsectionId": null,
+      "description": "Commitment authority (ordering of any goods or services)  - entering into contracts or raising Purchase Orders (POs).",
+      "explanatoryNotes": "This authority only applies to the supply of goods and services. This stage involves formally entering into the contract or raising the PO, to formalize the commitment to order goods or services, which may include signing a framework agreement with a supplier. \n\nThis authority is assigned to Procurement only to ensure proper segregation of duties.\n\nPLEASE NOTE -  this is the final commitment authority and prior to this other authorities may be required, for instance under D.1.2, D.1.2a, D.1.3, D.2.1, or D.2.2.",
+      "referenceDocText": null,
+      "sortOrder": 58
+    },
+    {
+      "id": "D.2.6",
+      "subsectionId": "D2",
+      "subSubsectionId": null,
+      "description": "Invoice and payment approval.",
+      "explanatoryNotes": "This authority permits the budget holder to approve invoices for payment, where the invoice is not automatically matched to a Purchase Order, such as utility bills and similar expenses (incl. travel agency, fleet, credit cards). It is crucial for the budget holder to ensure that these payments align with the approved budget and the goods or services which were expected.",
+      "referenceDocText": null,
+      "sortOrder": 59
+    },
+    {
+      "id": "D.2.8",
+      "subsectionId": "D2",
+      "subSubsectionId": null,
+      "description": "Disputes and claims under 3rd party contracts, excluding any items that require separate approval under D.1.10 or D.4.1.",
+      "explanatoryNotes": "This authority allows Procurement to deal with day to day disputes and claims that arise under contracts with third parties, until a point is reached where other approvals are required. Please seek advice from Legal on D.4.1. as required.",
+      "referenceDocText": null,
+      "sortOrder": 60
+    },
+    {
+      "id": "D.3.1.1",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.1",
+      "description": "Authorising the opening or closing of any bank accounts, or approving or changing the authorised signatories for bank accounts.",
+      "explanatoryNotes": "This authority must be exercised in line with the Treasury policy. In this context, approving 'authorised signatories' refers to approving the people with supervisory control over each bank account and who have the authority (as relevant) to (1) add and remove users from the bank account, or (2) change what each user can do against the bank account, or (3) vary the services provided by the bank for each bank account.",
+      "referenceDocText": null,
+      "sortOrder": 61
+    },
+    {
+      "id": "D.3.1.2",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.1",
+      "description": "Approval of the scope of insurance programme coverage.",
+      "explanatoryNotes": "This is about approving the overall insurances required in principle, in line with the requirements for insurance in section 26 of the Shareholders' Agreement, etc. (including the requirement to adhere to any Applicable Laws).",
+      "referenceDocText": null,
+      "sortOrder": 62
+    },
+    {
+      "id": "D.3.1.3",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.1",
+      "description": "Appointment of (or changes to) insurers, brokers, agents and surety bond providers, including approval of insurance policies, contracts and claim settlements.",
+      "explanatoryNotes": "This is about execution of the agreed insurance approach, including dealing with brokers and getting the required insurance policies in place. It also covers making any claims under the insurances.\n\nInsurance providers can provide surety bonds to back performance obligations under certain contracts (the obligations don\u2019t need to be insurance related).\n\nPlease note this authority is further limited by D.1.2 and D.1.3.",
+      "referenceDocText": null,
+      "sortOrder": 63
+    },
+    {
+      "id": "D.3.1.4",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.1",
+      "description": "Approve award of (or changes to) cash management mandates.",
+      "explanatoryNotes": "This relates to the strategic relationships with banks. The opening of an individual bank account (subject to a separate authority) would then be a call-off against the relevant strategic agreement with the relevant bank.\n\nPlease note this authority is further limited by D.1.2 and D.1.3.",
+      "referenceDocText": null,
+      "sortOrder": 64
+    },
+    {
+      "id": "D.3.1.5",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.1",
+      "description": "Approve creation of new legal entities.",
+      "explanatoryNotes": "Only the authority holder can approve the creation of new legal entities. Please note that the wind-up of entities, or entity re-structuring are subject to separate authorities.",
+      "referenceDocText": null,
+      "sortOrder": 65
+    },
+    {
+      "id": "D.3.1.6",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.1",
+      "description": "Approve the injection of funds into a legal entity.",
+      "explanatoryNotes": "This is separate to the budgeting process, this is to ensure there are controls on the flow of funds from Top Co down into the Group legal entities and that the appropriate treatment of such funding is approved from a Treasury and Tax perspective (equity injection, shareholder loan, etc.) before the funds are injected.",
+      "referenceDocText": null,
+      "sortOrder": 66
+    },
+    {
+      "id": "D.3.1.8a",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.1",
+      "description": "Approve any hedging / risk management arrangements for FX, interest rates and commodities.",
+      "explanatoryNotes": "Excludes any offtake hedging. Please note this authority is further limited by D.1.2 and D.1.3.",
+      "referenceDocText": null,
+      "sortOrder": 67
+    },
+    {
+      "id": "D.3.1.8b",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.1",
+      "description": "Approve hedging / risk management arrangements for offtake.",
+      "explanatoryNotes": "This authority is limited by what requires separate approval under DG1(b). Please note this authority is further limited by D.1.2 and D.1.3.",
+      "referenceDocText": null,
+      "sortOrder": 68
+    },
+    {
+      "id": "D.3.1.9",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.1",
+      "description": "Management of investment of Group cash and short term positioning including setting up the credit limits for banks and financial institutions.",
+      "explanatoryNotes": "This is about the active management / investment of cash. The credit limits here refer to the fact that exposure to each financial institution is set and controlled (not all cash kept with one bank).",
+      "referenceDocText": null,
+      "sortOrder": 69
+    },
+    {
+      "id": "D.2.7",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.1",
+      "description": "Release of any manual payment from any bank accounts (once other approvals are in place for the payment).",
+      "explanatoryNotes": "This authority is the approval to release any payment manually from any bank account, in the absence of an automated process, for instance a payment under an M&A transaction. The holder of this authority cannot approve the manual payment unless appropriate supporting documentation is provided and any relevant prior approvals are in place (for instance a payment under an M&A transaction cannot be made unless the separate approvals for that transaction including the payment are in place).\n\nFor the avoidance of doubt, this authority also includes any release of payment where the funds are being transferred from one bank account of the Group to another.",
+      "referenceDocText": null,
+      "sortOrder": 70
+    },
+    {
+      "id": "D.3.1.10",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.1",
+      "description": "Approve the implementation of individual letters of credit or parent company guarantees (not to be confused with Shareholder parent company guarantees under C.3.1), issued pursuant to approvals already granted under C.1.1 or C.3.2.",
+      "explanatoryNotes": "C.1.1 includes approval of the facilities against which the letters of credit are issued and includes approval for guaranteeing any indebtedness or other obligations not included in the Business Plan. C.3.2 covers the approval for a Group Company providing a guarantee in respect of the obligations of another Group Company.",
+      "referenceDocText": null,
+      "sortOrder": 71
+    },
+    {
+      "id": "D.3.2.1",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.2",
+      "description": "Approving any change to the principal accounting standards of any Group Company.",
+      "explanatoryNotes": "Accounts are to be prepared in line with IFRS, unless otherwise agreed. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 20",
+      "sortOrder": 72
+    },
+    {
+      "id": "D.3.2.2",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.2",
+      "description": "Decision for accounting treatment of non-routine or unusual transactions (e.g. impairments, other write-offs and provisions).",
+      "explanatoryNotes": "Specific approval is required for non-routine or unusual transactions, to ensure the correct accounting treatment, especially where the numbers are material.",
+      "referenceDocText": null,
+      "sortOrder": 73
+    },
+    {
+      "id": "D.3.2.3",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.2",
+      "description": "Establishment and interpretation of local accounting policies for local statutory accounts (i.e. local GAAP).",
+      "explanatoryNotes": "This is to ensure any locally required accounts are prepared to the required standards.",
+      "referenceDocText": null,
+      "sortOrder": 74
+    },
+    {
+      "id": "D.3.2.4",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.2",
+      "description": "Appointment and removal of external auditor.",
+      "explanatoryNotes": "This is the main external auditor for the consolidated financial accounts of JERA Nex bp.",
+      "referenceDocText": null,
+      "sortOrder": 75
+    },
+    {
+      "id": "D.3.2.6",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.2",
+      "description": "Release of any accounts to the Board / Shareholders.",
+      "explanatoryNotes": "This is to ensure there are controls over the release of any accounts to the Board / Shareholders of JERA Nex bp.",
+      "referenceDocText": null,
+      "sortOrder": 76
+    },
+    {
+      "id": "D.3.2.7",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.2",
+      "description": "Filing of statutory financial statements / accounts.",
+      "explanatoryNotes": "This is the Company Secretary authority to file the accounts with Companies House or the equivalent authority in the relevant jurisdiction, for all relevant entities (which is separate from any authority to approve the accounts themselves).",
+      "referenceDocText": null,
+      "sortOrder": 77
+    },
+    {
+      "id": "D.3.2.8",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.2",
+      "description": "Approving the annual financial statements and other financial statements of the Company and the annual consolidated financial statements and other consolidated financial statements of the Group.",
+      "explanatoryNotes": "This is the formal approval of the accounts by the Board.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 19",
+      "sortOrder": 78
+    },
+    {
+      "id": "D.3.3.1",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.3",
+      "description": "Making any agreement with any Tax Authority or making any claim, disclaimer, election or consent which results in a liability (whether tax or otherwise) to a Shareholder, in line with the threshold indicated.",
+      "explanatoryNotes": "Dealings with Tax authorities, where there is a liability to a Shareholder.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 7",
+      "sortOrder": 79
+    },
+    {
+      "id": "D.3.3.2",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.3",
+      "description": "Making any irrevocable election, claim or consent to a Tax Authority that might reasonably be expected to have an impact on the Tax position of any Shareholder or any member of a Shareholder\u2019s Group.",
+      "explanatoryNotes": "Dealings with Tax authorities, where there is likely to be a liability to a Shareholder or any member of the Shareholder's Group.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 8",
+      "sortOrder": 80
+    },
+    {
+      "id": "D.3.3.3",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.3",
+      "description": "Making any agreement with any Tax Authority or making any claim, disclaimer, election or consent which results in a liability (whether tax or otherwise) to a Group Company of the stated amount.",
+      "explanatoryNotes": "Dealings with Tax authorities, where there is a liability to a Group Company. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 31; \nPart B, para 6",
+      "sortOrder": 81
+    },
+    {
+      "id": "D.3.3.4",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.3",
+      "description": "Approve tax returns / filings.",
+      "explanatoryNotes": "This is the approval of the tax return itself and the authority to file it with the tax authority.",
+      "referenceDocText": null,
+      "sortOrder": 82
+    },
+    {
+      "id": "D.3.3.5",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.3",
+      "description": "Approve any payment to a tax authority.",
+      "explanatoryNotes": "This relates to approval in principle for any tax payment to any tax authority. This is separate to any subsequent manual payment authority required to release such payment from the bank accounts.",
+      "referenceDocText": null,
+      "sortOrder": 83
+    },
+    {
+      "id": "D.3.3.6",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.3",
+      "description": "Making any agreement with any Tax Authority, excluding matters under D.3.3.1, D.3.3.2 and D.3.3.3.",
+      "explanatoryNotes": "This provides authority to enter into agreements with Tax Authorities, where such matters are not covered by the other delegations listed.",
+      "referenceDocText": null,
+      "sortOrder": 84
+    },
+    {
+      "id": "D.3.3.7",
+      "subsectionId": "D3",
+      "subSubsectionId": "D3.3",
+      "description": "Approve value of tax liabilities.",
+      "explanatoryNotes": "Tax are responsible for approving tax liability values.",
+      "referenceDocText": null,
+      "sortOrder": 85
+    },
+    {
+      "id": "D.4.1",
+      "subsectionId": "D4",
+      "subSubsectionId": null,
+      "description": "The commencement, enforcement, settlement or waiver of any other action regarding any litigation, arbitration, mediation or other form of dispute resolution relating to a Group Company and carrying a financial risk as indicated.",
+      "explanatoryNotes": "Please take advice from Legal on when and whether any dispute would trigger this clause. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 30; \nPart B, para 11",
+      "sortOrder": 86
+    },
+    {
+      "id": "D.5.0",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "Set and make any changes to the Remuneration policy, except to the extent any authority to do so has been delegated to a committee established by the Board.",
+      "explanatoryNotes": "This is the authority to set the overall Renumeration policy for JERA Nex bp.",
+      "referenceDocText": null,
+      "sortOrder": 87
+    },
+    {
+      "id": "D.5.0a",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "Approve minor changes to the applicable Remuneration policy.",
+      "explanatoryNotes": "For example, alignment of bonus structures across the legacy organisations.",
+      "referenceDocText": null,
+      "sortOrder": 88
+    },
+    {
+      "id": "D.5.1",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "Approve severance and promotion decisions for individuals below Management Team.",
+      "explanatoryNotes": "Changes to individuals only, not the wider organisation. Management Team have severance and promotion authority (within the agreed people policies and processes) for their respective teams.",
+      "referenceDocText": null,
+      "sortOrder": 89
+    },
+    {
+      "id": "D.5.2",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "Approve wider organisational changes below Management Team, including any severance or grading changes, except to the extent any authority to do so has been delegated to a committee established by the Board.",
+      "explanatoryNotes": "This is for setting changes to the organisational structure below the Management Team.",
+      "referenceDocText": null,
+      "sortOrder": 90
+    },
+    {
+      "id": "D.5.2a",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "Approve organisation structure changes below Management Team level, in line with the overall targets/end state agreed by the Board.",
+      "explanatoryNotes": "",
+      "referenceDocText": null,
+      "sortOrder": 91
+    },
+    {
+      "id": "D.5.3",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "Changes to the employee handbook (all people policies other than the Policies and Remuneration policy).",
+      "explanatoryNotes": "This refers to the people policies for staff, excluding any Policies (see definition) set by the Board and the Remuneration policy (also set by the Board).",
+      "referenceDocText": null,
+      "sortOrder": 92
+    },
+    {
+      "id": "D.5.4",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "New hiring decisions (employees) within approved budget.",
+      "explanatoryNotes": "The Management Team have the authority to hire within their respective organisations, within their approved budget for hiring, subject to the agreed organisation structure.",
+      "referenceDocText": null,
+      "sortOrder": 93
+    },
+    {
+      "id": "D.5.5",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "New hiring decisions (employees), or contracting of temporary staff outside of approved budget.",
+      "explanatoryNotes": "For decisions outside the approved people budgets of each Management Team member, the CEO will make any decisions, subject to the agreed organisation structure. There are separate limits to what the CEO can approve, if it exceeds the CEO's aggregate authority to exceed the Annual Budget (separate approval required).",
+      "referenceDocText": null,
+      "sortOrder": 94
+    },
+    {
+      "id": "D.5.6",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "Compensation and bonus decisions below Management Team level for individuals.",
+      "explanatoryNotes": "The Management Team make final decisions relating to the  compensation / bonus for individuals in their teams, as part of the annual pay / performance review cycle (within the agreed people policies and processes).",
+      "referenceDocText": null,
+      "sortOrder": 95
+    },
+    {
+      "id": "D.5.7",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "Compensation structure and bonus decisions below Management Team level for the wider organisation",
+      "explanatoryNotes": "This relates to the wider decisions on compensation and bonus (impacting the wider organisation below Management Team level). This includes the annual decisions on the aggregate size of the compensation increases or bonus pool across JERA Nex bp and structural changes to the compensation or bonus approach. Note that separate approvals are required for any defined benefit schemes or share schemes. This is also linked to the setting of Remuneration policy by the Board.",
+      "referenceDocText": null,
+      "sortOrder": 96
+    },
+    {
+      "id": "D.5.8",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "Contracting of temporary staff within the budget.",
+      "explanatoryNotes": "The Management Team have authority within their agreed people budgets, subject to the agreed organisation structure, to hire contractors / temporary staff to perform a specific role in their organisation for a limited time (not to be confused with hiring consultants to deliver a specific scope of work, which is subject to separate approval).",
+      "referenceDocText": null,
+      "sortOrder": 97
+    },
+    {
+      "id": "D.5.9",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "The adoption or establishment of any defined benefit pension or retirement plan, including any post-employment health benefit.",
+      "explanatoryNotes": "Restriction on defined benefit arrangements.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 25",
+      "sortOrder": 98
+    },
+    {
+      "id": "D.5.10",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "The creation of any employee share scheme for the benefit of employees of any Group Company.",
+      "explanatoryNotes": "Restriction on share schemes. Group Company (see definition) includes entities not wholly owned by JERA Nex bp.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part A, para 20",
+      "sortOrder": 99
+    },
+    {
+      "id": "D.5.13",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "Approve disciplinary or grievance process outcome concerning Management Team.",
+      "explanatoryNotes": "Issues relating to a member of the Management Team are dealt with by the Board.",
+      "referenceDocText": null,
+      "sortOrder": 100
+    },
+    {
+      "id": "D.5.14",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "Approve disciplinary or grievance process outcome concerning individuals below the Management Team.",
+      "explanatoryNotes": "Authority to make final decisions on disciplinary and grievance matters (within the agreed people policies and processes) for individuals below the Management Team. This includes the initiation of Personal Improvement Plans (PIP).",
+      "referenceDocText": null,
+      "sortOrder": 101
+    },
+    {
+      "id": "D.5.15",
+      "subsectionId": "D5",
+      "subSubsectionId": null,
+      "description": "Authorise payroll runs.",
+      "explanatoryNotes": "This authority provides approval (where required) for the payroll runs to be executed for each applicable period, in any jurisdiction.",
+      "referenceDocText": null,
+      "sortOrder": 102
+    },
+    {
+      "id": "D.6.1",
+      "subsectionId": "D6",
+      "subSubsectionId": null,
+      "description": "Approve community investment projects and social sponsorships.",
+      "explanatoryNotes": "This covers any spend on community investment projects and social sponsorships, including any investments managed centrally and those investments relating to individual offshore wind projects. This approval to spend must be obtained prior to any commitments being made externally and must comply with all relevant ethics & compliance policies, including the Code of Conduct.",
+      "referenceDocText": null,
+      "sortOrder": 103
+    },
+    {
+      "id": "D.6.2",
+      "subsectionId": "D6",
+      "subSubsectionId": null,
+      "description": "Approve external media communications - disclosures, press releases, etc.",
+      "explanatoryNotes": "Where a material adverse impact is expected to the Shareholders, they must approve, otherwise the Board approves material announcements and the Management Team deal with routine day to day matters in the normal course of business. \n\nAll communications must be in compliance with the communications and press policy. Note that, if you are attending an industry event and presenting on behalf of JERA Nex bp, you need to align beforehand with the Communications team.",
+      "referenceDocText": null,
+      "sortOrder": 104
+    },
+    {
+      "id": "D.6.3",
+      "subsectionId": "D6",
+      "subSubsectionId": null,
+      "description": "Authority to formally represent JERA Nex bp externally on substantive strategic in country issues, in dealing with governments or their agencies, regulatory bodies or industry bodies.",
+      "explanatoryNotes": "Not required for routine, day to day transactional tasks, such as submitting paperwork (e.g. for permits on a project) in the normal course of business. Not required for generally attending industry events / conferences (although if you are attending an industry event and presenting on behalf of JERA Nex bp you need to align beforehand with the Communications team).\n\nIMPORTANT - anyone exercising this authority must follow any relevant company policy relating to external engagement and must act in co-ordination with the SVP Comms, Public Affairs \nand Sustainability and, where relevant, the SVP Japan.",
+      "referenceDocText": null,
+      "sortOrder": 105
+    },
+    {
+      "id": "D.6.4",
+      "subsectionId": "D6",
+      "subSubsectionId": null,
+      "description": "Making of gifts, charitable donations or political contributions (i) of any amounts or nature prior to the Group having adopted a gifts and hospitality Policy, or (ii) once the Group has adopted a gifts and hospitality Policy, to the extent that such gifts, charitable donations or political contributions require approval of the Board pursuant to the then-current gifts and hospitality Policy.",
+      "explanatoryNotes": "Please refer to the latest gifts and hospitality policy to confirm what requires Board approval.",
+      "referenceDocText": "Shareholders' Agreement\nSchedule 2, Part B, para 21",
+      "sortOrder": 106
+    }
+  ],
+  "authorities": [
+    {
+      "delegationId": "A.1.1",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.1.2",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.1.3",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.1.4",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.2.1",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.2.1a",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.2.1b",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.2.2",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.1",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.2",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.2",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.2",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.2",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.2",
+      "roleId": "role-cto",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.2",
+      "roleId": "role-coo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.2",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.2",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.2",
+      "roleId": "role-svp-comms-public-affairs-sustainability",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.2",
+      "roleId": "role-svp-head-of-japan",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.4",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.5",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.5",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": false,
+      "conditions": "X [within the limitations outlined]"
+    },
+    {
+      "delegationId": "A.3.6",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.7",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.8",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.9",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.10",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.10",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.10",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.10",
+      "roleId": "role-head-of-transition-integration",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.10",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.10",
+      "roleId": "role-cto",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.10",
+      "roleId": "role-coo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.10",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.10",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.10",
+      "roleId": "role-svp-comms-public-affairs-sustainability",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.10",
+      "roleId": "role-svp-head-of-japan",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "A.3.11",
+      "roleId": "role-nomination-remuneration-committee",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.1.1",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.1.2",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.1.3",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.2.1",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.2.2",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      },
+      "conditions": "exceeds"
+    },
+    {
+      "delegationId": "B.2.2",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      },
+      "conditions": "up to"
+    },
+    {
+      "delegationId": "B.2.3",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      },
+      "conditions": "exceeds"
+    },
+    {
+      "delegationId": "B.2.3",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      },
+      "conditions": "up to"
+    },
+    {
+      "delegationId": "B.2.4",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.2.5",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.2.5",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.2.5",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.2.5",
+      "roleId": "role-head-of-global-business-development",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.2.6",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.2.6",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.2.6",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.2.7",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.2.7",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "B.2.7",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "C.1.1",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 100000000,
+        "currency": "USD"
+      },
+      "conditions": "in excess of ."
+    },
+    {
+      "delegationId": "C.1.1",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      },
+      "conditions": "more than  and up to US$ 100m."
+    },
+    {
+      "delegationId": "C.1.1",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      },
+      "conditions": "up to ."
+    },
+    {
+      "delegationId": "C.1.2",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "C.1.3",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "C.1.4",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "C.2.1",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "C.2.2",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "C.3.1",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "C.3.2",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "C.3.3",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "C.4.1",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "C.4.2",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "C.4.3",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "C.4.4",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.1.0",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.1.1",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.1.1",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 5000000,
+        "currency": "USD"
+      },
+      "conditions": "From  to US$ 25m"
+    },
+    {
+      "delegationId": "D.1.1",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 5000000,
+        "currency": "USD"
+      },
+      "conditions": "Up to"
+    },
+    {
+      "delegationId": "D.1.2",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.1.2a",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 250000000,
+        "currency": "USD"
+      },
+      "conditions": "prior to DG1   US$ 50m"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 250000000,
+        "currency": "USD"
+      },
+      "conditions": "Offtake only, subject to DG1(b) requirements / other US$ 50m"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-commercialization-and-energy-portfolio",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      },
+      "conditions": "Offtake only, subject to DG1(b) requirements"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 250000000,
+        "currency": "USD"
+      },
+      "conditions": "prior to DG1   US$ 50m)\n[up to COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-portfolio-director-uk-ireland-and-usa",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      },
+      "conditions": "[up to COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-portfolio-director-europe-and-australia",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      },
+      "conditions": "[up to COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-portfolio-director-japan",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      },
+      "conditions": "[up to COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-global-development-support",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "pre & post COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-global-business-development",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      },
+      "conditions": "[up to COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-project-directors",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "[up to COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-cto",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      },
+      "conditions": "[up to COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-epci-management",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "[up to COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-wtg",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "[up to COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-foundations",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "[up to COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-transmission",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "[up to COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-technical-japan",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "[up to COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-coo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 100000000,
+        "currency": "USD"
+      },
+      "conditions": "post COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-global-o-m",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      },
+      "conditions": "post COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-o-m-readiness",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      },
+      "conditions": "post COD"
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-digital-it",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-qhsse",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-deputy-general-counsel",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-head-of-legal",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-svp-comms-public-affairs-sustainability",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.1.3",
+      "roleId": "role-svp-head-of-japan",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.1.4",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.1.4",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": false,
+      "conditions": "X [any increases to aggregate project spend below the Board approval threshold]"
+    },
+    {
+      "delegationId": "D.1.5",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.1.5a",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.1.6",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.1.7",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.1.10",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.1.11",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.1.12",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": false,
+      "conditions": "X \n[post DG1]"
+    },
+    {
+      "delegationId": "D.1.12",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": false,
+      "conditions": "X\n[prior to DG1]"
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-portfolio-director-uk-ireland-and-usa",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-portfolio-director-europe-and-australia",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-portfolio-director-japan",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-head-of-global-development-support",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-head-of-global-business-development",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-cto",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-coo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-head-of-global-o-m",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 100000,
+        "currency": "USD"
+      },
+      "conditions": "X \n[up to"
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-head-of-o-m-readiness",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 100000,
+        "currency": "USD"
+      },
+      "conditions": "X \n[up to"
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-head-of-digital-it",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 100000,
+        "currency": "USD"
+      },
+      "conditions": "X \n[up to"
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-head-of-qhsse",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 100000,
+        "currency": "USD"
+      },
+      "conditions": "X \n[up to"
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-deputy-general-counsel",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      },
+      "conditions": "X\n[up to"
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-head-of-legal",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      },
+      "conditions": "X\n[up to"
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-svp-comms-public-affairs-sustainability",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.1",
+      "roleId": "role-svp-head-of-japan",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.2",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": false,
+      "conditions": "Unlimited"
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-uk-ireland-usa-portfolio-finance",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-europe-and-australia-portfolio-finance",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-finance-japan",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-operating-assets-finance",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-accounting",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-planning-control",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-risk-audit",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-treasury",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-tax",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-commercialization-and-energy-portfolio",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 2000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-investment-governance-and-ir",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 2000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-transition-integration",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 2000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 200000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-portfolio-director-uk-ireland-and-usa",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-portfolio-director-europe-and-australia",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-portfolio-director-japan",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-global-development-support",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-global-business-development",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-project-directors",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-cto",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-epci-management",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-wtg",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-foundations",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-transmission",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-procurement",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-technical-japan",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-coo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 100000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-global-o-m",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-o-m-readiness",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-digital-it",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 5000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-qhsse",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 5000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-facilities-workplace",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 2000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-deputy-general-counsel",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-legal",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-hr",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 100000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-svp-comms-public-affairs-sustainability",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-communications",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-head-of-sustainability",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.3",
+      "roleId": "role-svp-head-of-japan",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.4",
+      "roleId": "role-head-of-procurement",
+      "hasUnlimitedAuthority": false,
+      "conditions": "Unlimited within approved plans - Max Contracting Duration 15+ years"
+    },
+    {
+      "delegationId": "D.2.4",
+      "roleId": "role-project-procurement-managers",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "within approved plans - Max Contracting Duration 5 years"
+    },
+    {
+      "delegationId": "D.2.4",
+      "roleId": "role-category-procurement-manager",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "within approved plans - Max Contracting Duration 5 years"
+    },
+    {
+      "delegationId": "D.2.4",
+      "roleId": "role-procurement-analyst",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      },
+      "conditions": "within approved plans - Max Contracting Duration 3 years"
+    },
+    {
+      "delegationId": "D.2.5",
+      "roleId": "role-head-of-procurement",
+      "hasUnlimitedAuthority": false,
+      "conditions": "Unlimited within approved plans - Max Contracting Duration 15+ years"
+    },
+    {
+      "delegationId": "D.2.5",
+      "roleId": "role-project-procurement-managers",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "within approved plans - Max Contracting Duration 5 years"
+    },
+    {
+      "delegationId": "D.2.5",
+      "roleId": "role-category-procurement-manager",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "within approved plans - Max Contracting Duration 5 years"
+    },
+    {
+      "delegationId": "D.2.5",
+      "roleId": "role-procurement-analyst",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      },
+      "conditions": "within approved plans - Max Contracting Duration 3 years"
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": false,
+      "conditions": "Unlimited"
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-uk-ireland-usa-portfolio-finance",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-europe-and-australia-portfolio-finance",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-finance-japan",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-operating-assets-finance",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-accounting",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-planning-control",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-risk-audit",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-treasury",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-tax",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-commercialization-and-energy-portfolio",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 2000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-investment-governance-and-ir",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 2000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-transition-integration",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 2000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 200000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-portfolio-director-uk-ireland-and-usa",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-portfolio-director-europe-and-australia",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-portfolio-director-japan",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-global-development-support",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-global-business-development",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-project-directors",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-cto",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-epci-management",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-wtg",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-foundations",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-transmission",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-procurement",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-technical-japan",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-coo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 100000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-global-o-m",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-o-m-readiness",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-digital-it",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 5000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-qhsse",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 5000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-facilities-workplace",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 2000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-deputy-general-counsel",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-legal",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-hr",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 100000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-svp-comms-public-affairs-sustainability",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-communications",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-head-of-sustainability",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 1000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.6",
+      "roleId": "role-svp-head-of-japan",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      }
+    },
+    {
+      "delegationId": "D.2.8",
+      "roleId": "role-head-of-procurement",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.8",
+      "roleId": "role-project-procurement-managers",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.1",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.1",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.2",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.2",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.3",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.3",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.3",
+      "roleId": "role-head-of-treasury",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.4",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.4",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.5",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.5",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.6",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.6",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.6",
+      "roleId": "role-head-of-treasury",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.8a",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.8a",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.8b",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.9",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.9",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.9",
+      "roleId": "role-head-of-treasury",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.7",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.7",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.2.7",
+      "roleId": "role-head-of-treasury",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 50000000,
+        "currency": "USD"
+      },
+      "conditions": "Up to"
+    },
+    {
+      "delegationId": "D.3.1.10",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.10",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.1.10",
+      "roleId": "role-head-of-treasury",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.2.1",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.2.2",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": false,
+      "conditions": "X [above $50m]"
+    },
+    {
+      "delegationId": "D.3.2.2",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": false,
+      "conditions": "X\n[up to $50m]"
+    },
+    {
+      "delegationId": "D.3.2.2",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": false,
+      "conditions": "X\n[up to $50m]"
+    },
+    {
+      "delegationId": "D.3.2.3",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.2.3",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.2.4",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.2.6",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.2.7",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.2.8",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.1",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      },
+      "conditions": "Over"
+    },
+    {
+      "delegationId": "D.3.3.1",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      },
+      "conditions": "Up to"
+    },
+    {
+      "delegationId": "D.3.3.1",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      },
+      "conditions": "Up to"
+    },
+    {
+      "delegationId": "D.3.3.1",
+      "roleId": "role-head-of-tax",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 20000000,
+        "currency": "USD"
+      },
+      "conditions": "Up to"
+    },
+    {
+      "delegationId": "D.3.3.2",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.3",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 100000000,
+        "currency": "USD"
+      },
+      "conditions": "Over"
+    },
+    {
+      "delegationId": "D.3.3.3",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "to US$ 100m"
+    },
+    {
+      "delegationId": "D.3.3.3",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "Below"
+    },
+    {
+      "delegationId": "D.3.3.3",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "Below"
+    },
+    {
+      "delegationId": "D.3.3.3",
+      "roleId": "role-head-of-tax",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "Below"
+    },
+    {
+      "delegationId": "D.3.3.4",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.4",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.4",
+      "roleId": "role-head-of-tax",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.5",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.5",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.5",
+      "roleId": "role-head-of-tax",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.6",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.6",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.6",
+      "roleId": "role-head-of-tax",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.7",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.7",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.3.3.7",
+      "roleId": "role-head-of-tax",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.4.1",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 100000000,
+        "currency": "USD"
+      },
+      "conditions": "Over"
+    },
+    {
+      "delegationId": "D.4.1",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "to US$ 100m (or any process involving a Governmental Authority US$ 0 to US$ 100m"
+    },
+    {
+      "delegationId": "D.4.1",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 10000000,
+        "currency": "USD"
+      },
+      "conditions": "Below  [except where involves a Governmental Authority"
+    },
+    {
+      "delegationId": "D.5.0",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.0a",
+      "roleId": "role-nomination-remuneration-committee",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.1",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.1",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.1",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.1",
+      "roleId": "role-cto",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.1",
+      "roleId": "role-coo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.1",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.1",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.1",
+      "roleId": "role-svp-comms-public-affairs-sustainability",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.1",
+      "roleId": "role-svp-head-of-japan",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.2",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.2a",
+      "roleId": "role-nomination-remuneration-committee",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.3",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.3",
+      "roleId": "role-head-of-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.3",
+      "roleId": "role-hr-business-partners",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.4",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.4",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.4",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.4",
+      "roleId": "role-cto",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.4",
+      "roleId": "role-coo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.4",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.4",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.4",
+      "roleId": "role-svp-comms-public-affairs-sustainability",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.4",
+      "roleId": "role-svp-head-of-japan",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.5",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.6",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.6",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.6",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.6",
+      "roleId": "role-cto",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.6",
+      "roleId": "role-coo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.6",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.6",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.6",
+      "roleId": "role-svp-comms-public-affairs-sustainability",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.6",
+      "roleId": "role-svp-head-of-japan",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.7",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.8",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.8",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.8",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.8",
+      "roleId": "role-cto",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.8",
+      "roleId": "role-coo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.8",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.8",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.8",
+      "roleId": "role-svp-comms-public-affairs-sustainability",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.8",
+      "roleId": "role-svp-head-of-japan",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.9",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.10",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.13",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.14",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.14",
+      "roleId": "role-head-of-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.14",
+      "roleId": "role-hr-business-partners",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.15",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.15",
+      "roleId": "role-head-of-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.5.15",
+      "roleId": "role-hr-business-partners",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.1",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 5000000,
+        "currency": "USD"
+      },
+      "conditions": "Over"
+    },
+    {
+      "delegationId": "D.6.1",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": false,
+      "monetaryCap": {
+        "amount": 5000000,
+        "currency": "USD"
+      },
+      "conditions": "Up to"
+    },
+    {
+      "delegationId": "D.6.2",
+      "roleId": "role-shareholders",
+      "hasUnlimitedAuthority": false,
+      "conditions": "X [if material adverse impact to Shareholders]"
+    },
+    {
+      "delegationId": "D.6.2",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": false,
+      "conditions": "X [material announcements, excluding what the Shareholders approve]"
+    },
+    {
+      "delegationId": "D.6.2",
+      "roleId": "role-svp-comms-public-affairs-sustainability",
+      "hasUnlimitedAuthority": false,
+      "conditions": "X [routine day to day matters, in the normal course of business]"
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-ceo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-head-of-finance-operations-deputy-cfo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-cio",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-cdo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-portfolio-director-uk-ireland-and-usa",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-portfolio-director-europe-and-australia",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-portfolio-director-japan",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-head-of-global-development-support",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-head-of-global-business-development",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-project-directors",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-cto",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-coo",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-svp-legal-general-counsel",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-svp-hr",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-svp-comms-public-affairs-sustainability",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.3",
+      "roleId": "role-svp-head-of-japan",
+      "hasUnlimitedAuthority": true
+    },
+    {
+      "delegationId": "D.6.4",
+      "roleId": "role-bod",
+      "hasUnlimitedAuthority": true
+    }
+  ],
+  "terms": [
+    {
+      "id": "term-aggregate-liability",
+      "name": "aggregate liability",
+      "definition": "In relation to a contract for the supply of goods or services, the net share (i.e. proportionate shareholding) of the total price of a contract, irrespective of any break clauses or termination provisions",
+      "notes": ""
+    },
+    {
+      "id": "term-annual-budget",
+      "name": "Annual Budget",
+      "definition": "The budget setting out the funding requirements of the Group for a given year and forming part of the Business Plan, as amended or revised from time to time",
+      "notes": ""
+    },
+    {
+      "id": "term-applicable-law",
+      "name": "Applicable Law",
+      "definition": "All laws (including all laws, regulations, statutes, subordinate legislation, common law, civil codes, treaties and directives and all judgments, orders, notices, decisions and awards of any court or any Governmental Authority) in force in any relevant jurisdiction (including the European Union)",
+      "notes": ""
+    },
+    {
+      "id": "term-available-funding-commitment-amount",
+      "name": "Available Funding Commitment Amount",
+      "definition": "For each Shareholder, the Shareholder's Starting Commitment Amount minus what they have contributed in funding to the Company",
+      "notes": "This is a simplified definition and the Starting Commitment Amount is broadly what each Shareholder committed in funding to the Company"
+    },
+    {
+      "id": "term-board",
+      "name": "Board",
+      "definition": "The board of directors of the Company",
+      "notes": ""
+    },
+    {
+      "id": "term-board-reserved-matters",
+      "name": "Board Reserved Matters",
+      "definition": "The decisions specifically reserved for the Board as detailed in the Shareholders' Agreement in Part B of Schedule 2",
+      "notes": ""
+    },
+    {
+      "id": "term-business",
+      "name": "Business",
+      "definition": "The development, construction, management and operation of the Projects, the marketing of the output of such Projects and assets, all activities reasonably ancillary thereto and/or necessary in relation thereto and such other activities as the Shareholders may agree from time to time in accordance with the Shareholders' Agreement",
+      "notes": ""
+    },
+    {
+      "id": "term-business-plan",
+      "name": "Business Plan",
+      "definition": "The business plan of the Group, incorporating the Annual Budget, as amended or revised from time to time and, where required, approved as a Shareholder Reserved Matter",
+      "notes": "See References tab for detailed contents of the Business Plan"
+    },
+    {
+      "id": "term-committed-project",
+      "name": "Committed Project",
+      "definition": "This is, in simplified terms, the list of projects the Shareholders have determined are committed projects",
+      "notes": "This is a simplified definition"
+    },
+    {
+      "id": "term-company",
+      "name": "Company",
+      "definition": "Snowmass Holdings Limited",
+      "notes": "This is the legal name of the TopCo entity, i.e. JERA Nex bp"
+    },
+    {
+      "id": "term-dg1",
+      "name": "DG1",
+      "definition": "One of the Project Decision Gates",
+      "notes": "Approval to make an application, bid, tender, offer, indication of intent or similar submission in relation to a Project which requires a Group Company to provide or procure credit support, resources, a statement of commitment and/or a letter of intention (or any equivalent) in favour of any Governmental Authority or third party"
+    },
+    {
+      "id": "term-dg1-a",
+      "name": "DG1(a)",
+      "definition": "One of the Project Decision Gates",
+      "notes": "Approval of the technical design for a Project"
+    },
+    {
+      "id": "term-dg1-b",
+      "name": "DG1(b)",
+      "definition": "One of the Project Decision Gates",
+      "notes": "Approval of the entry by a Group Company into one or more offtake arrangements, including any power purchase agreements or contract for difference or other similar arrangement"
+    },
+    {
+      "id": "term-dg1-c",
+      "name": "DG1(c)",
+      "definition": "One of the Project Decision Gates",
+      "notes": "Approval of any works or capital expenditure and commitments prior to FID in connection with a relevant Group Company\u2019s obligations under any Material Contracts"
+    },
+    {
+      "id": "term-dg2",
+      "name": "DG2",
+      "definition": "One of the Project Decision Gates",
+      "notes": "Approval of FID"
+    },
+    {
+      "id": "term-dg3",
+      "name": "DG3",
+      "definition": "One of the Project Decision Gates",
+      "notes": "In respect of a Project, any approval of: (i) the replacement of all or a material number of its wind turbine generators (together with replacements or other enhancements to associated assets and infrastructure); or (ii) the termination, removal and disposal of all or a material part of the facilities, installations and cables relating to such Project and any other decommissioning works required to be carried out pursuant to Applicable Law"
+    },
+    {
+      "id": "term-distribution-policy",
+      "name": "Distribution Policy",
+      "definition": "Determines the conditions under which a distribution (whether by way of dividend, repayment of share premium or otherwise) to the Shareholders is allowed",
+      "notes": "This is a simplified definition"
+    },
+    {
+      "id": "term-existing-project-guarantees",
+      "name": "Existing Project Guarantees",
+      "definition": "Means the Project Guarantees entered into prior to JERA Nex bp being formed",
+      "notes": "This is a simplified definition"
+    },
+    {
+      "id": "term-financial-plan",
+      "name": "Financial Plan",
+      "definition": "The financial plan forming part of the Business Plan, which shall include a liquidity outlook and a funding plan for the Group for the period until 31 December 2030 (taking into account, amongst other things, any expected proceeds from disposals and farm-downs by the Group), including the agreed target (non-binding) debt:equity funding ratio for the Company",
+      "notes": ""
+    },
+    {
+      "id": "term-framework-agreement",
+      "name": "Framework Agreement",
+      "definition": "The framework agreement between BP and Jera governing the terms of the combination of BP and Jera\u2019s offshore wind businesses",
+      "notes": ""
+    },
+    {
+      "id": "term-funding",
+      "name": "Funding",
+      "definition": "Funding that may be requested from the Shareholders (and is required to be provided by them)",
+      "notes": ""
+    },
+    {
+      "id": "term-gaap",
+      "name": "GAAP",
+      "definition": "Generally Accepted Accounting Principles",
+      "notes": ""
+    },
+    {
+      "id": "term-governmental-authority",
+      "name": "Governmental Authority",
+      "definition": "Any governmental authority of the United Kingdom, or any jurisdiction in which any Party or Group Company operates or conducts business, and any local, national or supranational political subdivision, agency, department, commission, board, bureau, court or other authority, or any quasi-governmental or private body exercising, or purporting to exercise, any executive, legislative, judicial, administrative, police, regulatory or Tax Authority or power of any nature",
+      "notes": ""
+    },
+    {
+      "id": "term-group",
+      "name": "Group",
+      "definition": "The Company together with the Subsidiaries and the JV Companies, and Group Company means any one of them",
+      "notes": ""
+    },
+    {
+      "id": "term-group-company",
+      "name": "Group Company",
+      "definition": "See definition of Group",
+      "notes": ""
+    },
+    {
+      "id": "term-investment-approval-criteria",
+      "name": "Investment Approval Criteria",
+      "definition": "The Agreed Investment Criteria under and as defined in the Framework Agreement as amended by agreement of the Shareholders",
+      "notes": "This determines the criteria for approving project investments"
+    },
+    {
+      "id": "term-jv-company",
+      "name": "JV Company",
+      "definition": "Any company in which the Company owns a direct or indirect interest which is not a Subsidiary",
+      "notes": ""
+    },
+    {
+      "id": "term-management-doa",
+      "name": "Management DoA",
+      "definition": "The delegation of executive authority of the Group, as may be amended from time to time",
+      "notes": "This is a reference to this Excel file, i.e. the delegation by the Board of executive authority to the organisation (delegation of authority)"
+    },
+    {
+      "id": "term-management-selection-criteria",
+      "name": "Management Selection Criteria",
+      "definition": "The criteria under which a candidate is considered and ultimately selected for appointment to a role in the Management Team",
+      "notes": ""
+    },
+    {
+      "id": "term-management-team",
+      "name": "Management Team",
+      "definition": "The management team of the Company",
+      "notes": "This is the C[X]Os and the SVPs (unless the Board decides otherwise)"
+    },
+    {
+      "id": "term-material-contract",
+      "name": "Material Contract",
+      "definition": "The Project Contracts and any New Material Contracts",
+      "notes": "Please note the New Material Contract definition is no longer in use as far as this Management DoA is concerned"
+    },
+    {
+      "id": "term-new-project",
+      "name": "New Project",
+      "definition": "Any Offshore Wind Project which is not yet a Project and which is being considered as a potential Project",
+      "notes": ""
+    },
+    {
+      "id": "term-policies",
+      "name": "Policies",
+      "definition": "A minimum set of internal guidelines that a group of a similar size and standing and operating within an industry which is the same or similar to that within which the Group is operating would adopt, and shall include the policies listed in A.3.1, as shall be adopted or amended from time to time by approval of the Board as a Board Reserved Matter",
+      "notes": ""
+    },
+    {
+      "id": "term-project",
+      "name": "Project",
+      "definition": "An Offshore Wind Project being developed, constructed, managed and/or operated by a Group Company, or in which a Group Company has an ownership interest from time to time",
+      "notes": ""
+    },
+    {
+      "id": "term-project-contract",
+      "name": "Project Contract",
+      "definition": "All contracts to be entered into by the Group (or a Group Company) for:\n(a)\tO&M contracts\n(b)\tgrid connection agreements; \n(c)\twind turbines, including any initial period of service, supply and warranty agreements and material spare parts and tools supply agreements; \n(d)\tturbine foundations or substantial portions thereof, such as monopiles, jackets, transition pieces, transport and/or installation services therefor;\n(e)\texport cables;\n(f)\tinter-array cables; \n(g)\telectrical balance of plant;\n(h)\tonshore substations or substantial portions thereof, such as civil works or electrical works;\n(i)\townership of, or rights to use of the seabed, including leases, options and agreements for lease;\n(j)\toffshore substations or substantial portions thereof, such as foundations, topsides, electrical equipment or transport and installation services thereof; \n(k)\tkey transport and/or installation services, vessel charters and operations and maintenance vessel charters;\n(l)\taccess and use of port facilities for the operation and construction phases, including real estate contracts; \n(m)\tcoordination between offshore windfarm projects;\n(n)\tcable crossing agreements;\n(o)\tthe sale and purchase, trading and/or marketing of power (including renewable energy certificates, however described in the relevant jurisdiction) and any associated contracts or contracts for difference relating to the offtake of power, including any bid awards relating to the same;\n(p)\tany other contract designated as a Project Contract in a Business Plan (as approved by the Shareholders); or \n(q)\tany other document entered into by a Group Company in connection with the ownership, development, construction, commissioning, testing, operation, maintenance, decommissioning and financing of a Project approved in a Business Plan (as approved by the Shareholders)",
+      "notes": ""
+    },
+    {
+      "id": "term-project-decision-gate",
+      "name": "Project Decision Gate",
+      "definition": "A decision made at specified milestones in the development, construction and operation of any Project to proceed with its development, construction or operation (as the case may be), as listed in Schedule 4 of the Shareholders' Agreement",
+      "notes": ""
+    },
+    {
+      "id": "term-project-sha",
+      "name": "Project SHA",
+      "definition": "The shareholders\u2019 agreements and related documents governing the JV Companies and Subsidiaries and such other agreements as may be resolved by the Board to be treated as Project SHAs, each as amended or restated from time to time",
+      "notes": ""
+    },
+    {
+      "id": "term-shareholders",
+      "name": "Shareholders",
+      "definition": "The shareholders of Snowmass Holdings Limited (JERA Nex bp), being (at the time this Management DoA is initially approved) BP Gamma Holdings Limited and JERA Nex Limited",
+      "notes": ""
+    },
+    {
+      "id": "term-shareholders-agreement",
+      "name": "Shareholders' Agreement",
+      "definition": "The shareholders' agreement relating to Snowmass Holdings Limited (JERA Nex bp)",
+      "notes": ""
+    },
+    {
+      "id": "term-shareholder-s-group",
+      "name": "Shareholder's Group",
+      "definition": "In relation to a Shareholder, that Shareholder and its Related Undertakings, other than any Group Company (a Related Undertaking in relation to any company means any subsidiary or holding company of that company or any subsidiary of any such holding company)",
+      "notes": ""
+    },
+    {
+      "id": "term-subsidiary-not-capitalised",
+      "name": "subsidiary (not capitalised)",
+      "definition": "A subsidiary undertaking (as defined in section 1162 CA 2006) or a subsidiary (as defined by section 1159 CA 2006) and in interpreting those sections, a company is to be treated as a member of a subsidiary or a subsidiary undertaking as the case may be even if its shares are registered in the name of (i) a nominee, or (ii) any party holding security over those shares, or that secured party\u2019s nominee",
+      "notes": "This is the commonly used definition - i.e. a majority of voting rights/control. Some of these entities will be wholly owned, others not."
+    },
+    {
+      "id": "term-subsidiary-capitalised",
+      "name": "Subsidiary (capitalised)",
+      "definition": "A subsidiary of the Company from time to time",
+      "notes": ""
+    },
+    {
+      "id": "term-tax-authority",
+      "name": "Tax Authority",
+      "definition": "Any revenue, customs, fiscal, governmental, statutory, state or provincial authority, body or person, whether of the United Kingdom or elsewhere which is responsible for the administration, collection or enforcement of Taxes",
+      "notes": ""
+    },
+    {
+      "id": "term-updated-business-plan",
+      "name": "Updated Business Plan",
+      "definition": "Prepared by the Management Team and presented to the Board and the Shareholders prior to 30 October each year",
+      "notes": ""
+    }
+  ],
+  "references": [
+    {
+      "id": "ref-references-further-guidance-referenced-in-the-management-doa",
+      "name": "References & further guidance referenced in the Management DoA",
+      "description": ""
+    },
+    {
+      "id": "ref-item",
+      "name": "Item",
+      "description": "Reference or guidance"
+    },
+    {
+      "id": "ref-business-plan-contents-of",
+      "name": "Business Plan (contents of)",
+      "description": "Each Business Plan shall include the following:\n(a)\ta description of the Group\u2019s strategy and strategic priorities;\n(b)\ta Work Plan of the Group; \n(c)\tthe Annual Budget;\n(d)\ta financial forecast of the Group for the next five years (the Forecast) containing the following (as a minimum): \n(i)\tin respect of the Committed Projects (which have not been abandoned), a project by project financial forecast;\n(ii)\tin respect of the New Projects or Projects other than the Committed Projects a project by project financial forecast if, in relation to such New Project or Project the Group has committed or expects to commit greater than USD$25 million in total as part of the Annual Budget; and\n(iii)\tGroup profit and loss account and cash flow statement; and\n(e)\tan indicative (and non-binding) financial forecast for the Group for five years following the end of the Forecast period, in the same form and containing similar details as is included in the Forecast;\n(f)\tthe Financial Plan;\n(g)\ta list of Project Contracts (being those with an aggregate liability per contract of more than US$50 million), and details of the relevant counterparty or counterparties to such Project Contracts; and \n(h)\tdetails of the actual or contingent commitments of the Group during the next two (2) year period, including those that are guaranteed under a Project Guarantee (and, if applicable, details of the tenor, quantum and beneficiary under such Project Guarantees), \ntogether with a description of the current status of the work programme and other activities in respect of each Project to which the Business Plan relates."
+    },
+    {
+      "id": "ref-project-decision-gates-full-list-from-sha",
+      "name": "Project Decision Gates - full list from SHA",
+      "description": "DG1 means approval to make an application, bid, tender, offer, indication of intent or similar submission in relation to a Project which requires a Group Company to provide or procure credit support, resources, a statement of commitment and/or a letter of intention (or any equivalent) in favour of any Governmental Authority or third party.\nDG1(a) means the approval of the technical design for a Project.\nDG1(b) means approval of the entry by a Group Company into one or more offtake arrangements, including any power purchase agreements or contract for difference or other similar arrangement.\nDG1(c) means approval of any works or capital expenditure and commitments prior to FID in connection with a relevant Group Company\u2019s obligations under any Material Contracts.\nDG2 means the approval of FID.\nDG3 means in respect of a Project, any approval of: (i) the replacement of all or a material number of its wind turbine generators (together with replacements or other enhancements to associated assets and infrastructure); or (ii) the termination, removal and disposal of all or a material part of the facilities, installations and cables relating to such Project and any other decommissioning works required to be carried out pursuant to Applicable Law."
+    },
+    {
+      "id": "ref-3rd-party-consultants-or-advisors-limitations",
+      "name": "3rd party consultants or advisors - limitations",
+      "description": "This guidance note is intended to provide further clarity on who is authorised in relation to 3rd party consultants or advisors. The list is not intended to be exhaustive:\n\nCEO - strategy / management consultants (McKinsey, Bain, etc.) - for any scope of work\n\nCIO - consultants to review document packages for Decision Gates and external advisors for M&A deals.\n\nCFO - any appointment of public accounting firms (Deloitte, etc.) for any scope of work (other than external auditor).\n\nCDO - consultants for bid support, or project development support (e.g. ESIA consultants).\n\nLegal - any appointment of external counsel."
+    }
+  ],
+  "versions": [
+    {
+      "version": "1",
+      "date": "Day 1 of JERA Nex bp",
+      "description": "Initial final version, approved by the Board for day 1"
+    },
+    {
+      "version": "1.1",
+      "date": "2025-11-01 00:00:00",
+      "description": "Fast-track update D.2.3 (cascading down), approved by Nathalie Oosterlinck"
+    },
+    {
+      "version": "1.2",
+      "date": "2025-12-04 00:00:00",
+      "description": "NRC delegations, approved by the Board (Nov. 2025)"
+    },
+    {
+      "version": "1.3",
+      "date": "2025-12-12 00:00:00",
+      "description": "4Q25 update cycle - CEO flow, approved by Nathalie Oosterlinck"
+    },
+    {
+      "version": "1.4",
+      "date": "2026-01-01 00:00:00",
+      "description": "Interim Project Director for Project Beacon, approved by Nathalie Oosterlinck"
+    }
+  ]
+}
