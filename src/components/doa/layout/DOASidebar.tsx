@@ -68,25 +68,12 @@ const navigationItems: NavItem[] = [
     ],
   },
   {
-    label: 'Approvals',
-    href: '/doa/approvals',
-    icon: <CheckCircle2 className="w-5 h-5" />,
-    children: [
-      { label: 'Approver Inbox', href: '/doa/approvals-inbox', exact: true },
-      { label: 'My Approvals', href: '/doa/approvals', exact: true },
-      { label: 'Submit Request', href: '/doa/approvals/new' },
-      { label: 'Workflows', href: '/doa/workflows', exact: true },
-    ],
-  },
-  {
     label: 'Delegations',
     href: '/doa/delegations',
     icon: <Repeat className="w-5 h-5" />,
     children: [
       { label: 'Active Delegations', href: '/doa/delegations', exact: true },
       { label: 'Create Delegation', href: '/doa/delegations/new' },
-      { label: 'Approval Requests', href: '/doa/requests', exact: true },
-      { label: 'Submit Request', href: '/doa/requests/new' },
       { label: 'Calendar View', href: '/doa/delegations/calendar' },
     ],
   },
@@ -192,32 +179,14 @@ export default function DOASidebar() {
     return navigationItems.map(item => {
       // Filter children based on permissions
       const filteredChildren = item.children?.filter(child => {
-        // Authority Matrix children
-        if (child.href === '/doa/authority-matrix/new') {
-          return hasPermission('createMatrix');
-        }
-        if (child.href === '/doa/authority-matrix/templates') {
-          return hasPermission('viewMatrix');
-        }
-
-        // Approvals children
-        if (child.href === '/doa/approvals/new') {
-          return hasPermission('submitRequests');
-        }
-        if (child.href === '/doa/workflows') {
-          return hasPermission('viewAllApprovals');
-        }
-
         // Delegations children
         if (child.href === '/doa/delegations/new') {
           return hasPermission('createDelegation');
         }
-
         // SoD children
         if (child.href.includes('/sod/rules')) {
           return hasPermission('viewSoDRules');
         }
-
         // Default: show
         return true;
       });

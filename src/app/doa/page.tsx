@@ -70,18 +70,18 @@ export default function DoADashboard() {
         </div>
 
         <Link
-          href="/doa/approvals/new"
+          href="/doa/delegations"
           className="flex items-center gap-2 px-4 py-2 bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-lg transition-colors font-medium"
         >
-          <Plus className="w-5 h-5" />
-          New Request
+          <Repeat className="w-5 h-5" />
+          Active Delegations
         </Link>
       </div>
 
       {/* KPI Cards - Redesigned with trends */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Pending Approvals - Needs Action */}
-        <Link href="/doa/approvals/my-approvals" className="bg-white rounded-lg p-6 border-2 border-blue-200 hover:border-blue-400 transition-all shadow-sm hover:shadow-md">
+        <Link href="/doa/change-request" className="bg-white rounded-lg p-6 border-2 border-blue-200 hover:border-blue-400 transition-all shadow-sm hover:shadow-md">
           <div className="flex items-start justify-between mb-4">
             <div className="p-3 bg-blue-50 rounded-lg">
               <Clock className="w-6 h-6 text-blue-600" />
@@ -181,7 +181,7 @@ export default function DoADashboard() {
                   <p className="text-sm text-gray-600 mt-1">5 requests pending your review</p>
                 </div>
                 <Link
-                  href="/doa/approvals/my-approvals"
+                  href="/doa/change-request"
                   className="text-sm text-[#F59E0B] hover:text-[#D97706] font-medium flex items-center gap-1"
                 >
                   View All
@@ -291,15 +291,15 @@ export default function DoADashboard() {
             <h3 className="text-h4 font-semibold text-gray-900 mb-4">Quick Actions</h3>
             <div className="space-y-3">
               <Link
-                href="/doa/approvals/new"
+                href="/doa/delegations"
                 className="flex items-center gap-3 p-3 bg-amber-50 hover:bg-amber-100 rounded-lg transition-colors group"
               >
                 <div className="p-2 bg-[#F59E0B] rounded-lg">
-                  <Plus className="w-4 h-4 text-white" />
+                  <Repeat className="w-4 h-4 text-white" />
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm font-medium text-gray-900">New Request</div>
-                  <div className="text-xs text-gray-600">Submit for approval</div>
+                  <div className="text-sm font-medium text-gray-900">Active Delegations</div>
+                  <div className="text-xs text-gray-600">View delegation calendar</div>
                 </div>
                 <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-[#F59E0B]" />
               </Link>
@@ -363,7 +363,7 @@ export default function DoADashboard() {
                   <div className="flex-1">
                     <div className="text-sm font-medium text-gray-900 mb-1">3 Approvals Overdue</div>
                     <p className="text-xs text-gray-600 mb-2">Exceeded SLA threshold</p>
-                    <Link href="/doa/approvals" className="text-xs text-amber-600 hover:text-amber-700 font-medium">
+                    <Link href="/doa/change-request" className="text-xs text-amber-600 hover:text-amber-700 font-medium">
                       View Approvals →
                     </Link>
                   </div>
@@ -460,7 +460,7 @@ export default function DoADashboard() {
               ))}
             </div>
             <div className="p-4 border-t border-gray-200">
-              <Link href="/doa/approvals" className="text-sm text-[#F59E0B] hover:text-[#D97706] font-medium flex items-center justify-center gap-1">
+              <Link href="/doa/change-request" className="text-sm text-[#F59E0B] hover:text-[#D97706] font-medium flex items-center justify-center gap-1">
                 View All Activity
                 <ArrowRight className="w-4 h-4" />
               </Link>

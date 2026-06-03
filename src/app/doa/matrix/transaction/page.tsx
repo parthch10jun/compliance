@@ -31,12 +31,15 @@ export default function TransactionLookupPage() {
 
       <div className="bg-amber-50 border border-amber-200 rounded-lg p-6">
         <p className="text-sm text-amber-900">
-          The matrix-native transaction matcher is coming in a follow-up. In the meantime, the
-          existing transaction-first flow lives at{' '}
-          <Link href="/doa/requests/new" className="font-medium underline">
-            /doa/requests/new
+          The matrix-native transaction matcher is coming in a follow-up. For now, use{' '}
+          <Link href="/doa/matrix/by-role" className="font-medium underline">
+            By Role
           </Link>{' '}
-          and works against the legacy delegation-rule catalogue.
+          to look up who can approve a given matter, or{' '}
+          <Link href="/doa/matrix" className="font-medium underline">
+            Browse Matrix
+          </Link>{' '}
+          and use the smart command bar to search by transaction type.
         </p>
         <Link
           href="/doa/matrix"
