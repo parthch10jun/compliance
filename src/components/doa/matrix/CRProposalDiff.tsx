@@ -159,7 +159,9 @@ function CellStateView({ state, placeholder }: { state: CRCellState | null; plac
 }
 
 function TextDiff({ label, before, after }: { label: string; before?: string; after?: string }) {
-  if (!after && !before) return null;
+  // 'after === undefined' means the proposal didn't touch this field — hide
+  // it entirely. A blank string is a meaningful change (the field was cleared).
+  if (after === undefined) return null;
   if (before === after) return null;
   return (
     <div className="text-xs">

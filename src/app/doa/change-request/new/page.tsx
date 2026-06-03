@@ -208,6 +208,9 @@ export default function NewCRPage() {
     const number = `CR-2026-${String(Math.floor(Math.random() * 900) + 100)}`;
     const summary = buildSummary(proposal);
 
+    // Per JNBP's CR form ("Requestor identification — L1 level is mandatory"),
+    // the requestor IS the L1 endorser. So when submitting (not saving draft)
+    // we self-endorse and land directly in R&A's triage queue.
     const cr: ChangeRequest = {
       id, number,
       requestorUserId: user.id,
@@ -223,17 +226,26 @@ export default function NewCRPage() {
       effectiveDate: effectiveDate ? new Date(effectiveDate).toISOString() : null,
       reviewerSteps: REVIEWER_TEMPLATE.map(s => ({ ...s })),
       validatorSteps: VALIDATOR_TEMPLATE.map(s => ({ ...s })),
-      status: asDraft ? 'Draft' : 'PendingL1Endorsement',
+      status: asDraft ? 'Draft' : 'L1Endorsed',
       createdAt: now,
       submittedAt: asDraft ? null : now,
+      l1EndorserUserId: asDraft ? null : user.id,
+      l1EndorserUserName: asDraft ? null : user.name,
+      l1EndorsedAt: asDraft ? null : now,
+      l1EndorsementComment: asDraft ? null
+        : `Self-endorsed at submission (requestor = L1 per A.3.5).`,
       auditTrail: [
         { id: generateCRAuditId(), timestamp: now,
           actorUserId: user.id, actorUserName: user.name, action: 'Created' },
-        ...(!asDraft ? [{
-          id: generateCRAuditId(), timestamp: now,
-          actorUserId: user.id, actorUserName: user.name,
-          action: 'Submitted', comment: 'Submitted for L1 endorsement.',
-        }] : []),
+        ...(!asDraft ? [
+          { id: generateCRAuditId(), timestamp: now,
+            actorUserId: user.id, actorUserName: user.name,
+            action: 'Submitted', comment: 'Submitted by L1 (requestor self-endorsed).' },
+          { id: generateCRAuditId(), timestamp: now,
+            actorUserId: user.id, actorUserName: user.name,
+            action: 'L1Endorsed',
+            comment: 'Self-endorsed at submission (requestor = L1 per A.3.5).' },
+        ] : []),
       ],
     };
     saveChangeRequest(cr);
@@ -510,7 +522,7 @@ export default function NewCRPage() {
             </button>
             <button onClick={() => handleSubmit(false)}
               className="flex items-center gap-1.5 px-4 py-2 bg-amber-500 text-white rounded text-sm font-medium hover:bg-amber-600">
-              <Send className="w-4 h-4" />Submit for L1 endorsement
+              <Send className="w-4 h-4" />Submit (self-endorse as L1)
             </button>
           </div>
         )}

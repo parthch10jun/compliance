@@ -21,6 +21,7 @@ import {
 import { getMatrix, saveMatrix } from '@/lib/doa/matrix/store';
 import { applyProposalToMatrix } from '@/lib/doa/matrix/apply-proposal';
 import {
+  endorseL1,
   triageAccept, triageReject,
   reviewerApprove, reviewerReject,
   validatorApprove, validatorReject,
@@ -56,6 +57,7 @@ const STATUS_TONES: Record<string, string> = {
 };
 
 type ActionMode =
+  | { kind: 'l1-endorse' }
   | { kind: 'triage'; decision: 'accept' | 'reject' }
   | { kind: 'reviewer'; team: CRReviewerTeam; decision: 'approve' | 'reject' }
   | { kind: 'validator'; role: CRValidatorRole; decision: 'approve' | 'reject' }
@@ -91,6 +93,10 @@ export default function CRDetail() {
   const next = nextActionableStep(cr);
   const isRiskAndAuditLead = user.id === 'user-107'; // Priya
 
+  // L1 endorsement: per JNBP's form, the requestor IS the L1. New form
+  // submissions self-endorse. This button is a safety net for older CRs
+  // that may have been left in PendingL1Endorsement before that fix.
+  const canEndorseL1 = next?.kind === 'l1';
   const canTriage = next?.kind === 'triage' && isRiskAndAuditLead;
   const canImplement = next?.kind === 'implement' && isRiskAndAuditLead;
   const canApprove = next?.kind === 'approver' && user.id === 'user-101'; // Kundan
@@ -123,6 +129,10 @@ export default function CRDetail() {
   const doAction = () => {
     if (!actionMode) return;
     const actor = { id: user.id, name: user.name };
+    if (actionMode.kind === 'l1-endorse') {
+      applyAndSave(endorseL1(cr, actor, actionComment || undefined));
+      return;
+    }
     if (actionMode.kind === 'triage') {
       if (actionMode.decision === 'accept') {
         applyAndSave(triageAccept(cr, actor, actionComment || undefined));
@@ -206,6 +216,11 @@ export default function CRDetail() {
 
         {/* Action buttons */}
         <div className="flex gap-2 flex-wrap justify-end max-w-md">
+          {canEndorseL1 && (
+            <ActionBtn kind="primary" onClick={() => setActionMode({ kind: 'l1-endorse' })}>
+              Endorse as L1
+            </ActionBtn>
+          )}
           {canTriage && (
             <>
               <ActionBtn kind="reject" onClick={() => setActionMode({ kind: 'triage', decision: 'reject' })}>
@@ -258,6 +273,7 @@ export default function CRDetail() {
       {actionMode && (
         <div className="bg-white border-2 border-amber-300 rounded-lg p-4">
           <div className="text-sm font-semibold text-gray-900 mb-2">
+            {actionMode.kind === 'l1-endorse' && 'Endorse this CR as L1 → route to Risk & Audit triage'}
             {actionMode.kind === 'triage' && (actionMode.decision === 'accept' ? 'Accept this CR for the reviewer cascade' : 'Reject this CR at triage')}
             {actionMode.kind === 'reviewer' && (actionMode.decision === 'approve'
               ? `Approve as ${CR_REVIEWER_TEAM_LABELS[actionMode.team]}`
@@ -274,6 +290,7 @@ export default function CRDetail() {
             onChange={e => setActionComment(e.target.value)}
             placeholder={(() => {
               if (actionMode.kind === 'implement') return 'Communications notes (optional)';
+              if (actionMode.kind === 'l1-endorse') return 'Endorsement comment (optional)';
               const isApprove = 'decision' in actionMode && actionMode.decision === 'approve';
               return isApprove ? 'Comment (optional)' : 'Reason (required)';
             })()}
@@ -287,7 +304,7 @@ export default function CRDetail() {
               className={`px-4 py-1.5 rounded text-sm text-white ${
                 'decision' in actionMode && actionMode.decision === 'reject'
                   ? 'bg-red-600 hover:bg-red-700'
-                  : actionMode.kind === 'implement'
+                  : actionMode.kind === 'implement' || actionMode.kind === 'l1-endorse'
                   ? 'bg-amber-500 hover:bg-amber-600'
                   : 'bg-green-600 hover:bg-green-700'
               }`}
