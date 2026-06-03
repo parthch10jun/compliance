@@ -10,6 +10,7 @@ import type {
   CRReviewerStep,
   CRReviewerTeam,
   CRValidatorRole,
+  CRValidatorStep,
   ChangeRequest,
 } from './change-request-types';
 
@@ -19,6 +20,25 @@ let counter = 0;
 function genAuditId(): string {
   counter++;
   return `au-${Date.now().toString(36)}-${counter}`;
+}
+
+/**
+ * Compute the next CR stage based on what's still pending. If a CR has no
+ * remaining required reviewers, we skip 'UnderReview' and jump to
+ * 'Validation' (or 'PendingApproval' if there are no validators either).
+ *
+ * This is how a "fast-track" CR (e.g., with a single R&A reviewer and no
+ * validators) collapses the cycle to: triage → CEO → implement.
+ */
+function computeStageAfter(
+  reviewerSteps: CRReviewerStep[],
+  validatorSteps: CRValidatorStep[],
+): ChangeRequest['status'] {
+  const moreReviewers = reviewerSteps.some(s => s.required && !s.action);
+  if (moreReviewers) return 'UnderReview';
+  const moreValidators = validatorSteps.some(s => !s.action);
+  if (moreValidators) return 'Validation';
+  return 'PendingApproval';
 }
 
 function appendAudit(cr: ChangeRequest, entry: Omit<CRAuditEntry, 'id'>): ChangeRequest {
@@ -73,8 +93,11 @@ export function triageAccept(
       ? { ...s, action: 'Approved' as const, actionDate: t, comment: comment ?? 'Triage accepted; R&A review complete.' }
       : s,
   );
+  // Advance past empty reviewer/validator stages — a fast-track CR with
+  // only R&A required and no validators goes straight to PendingApproval.
+  const nextStatus = computeStageAfter(reviewerSteps, cr.validatorSteps);
   return appendAudit(
-    { ...cr, status: 'UnderReview', reviewerSteps },
+    { ...cr, status: nextStatus, reviewerSteps },
     { timestamp: t, actorUserId: actor.id, actorUserName: actor.name, action: 'TriageAccepted', comment },
   );
 }
@@ -125,12 +148,9 @@ export function reviewerApprove(
           reviewerUserId: s.reviewerUserId ?? actor.id, reviewerUserName: s.reviewerUserName ?? actor.name }
       : s,
   );
-  const updated: ChangeRequest = { ...cr, reviewerSteps };
-  // If all required reviewers are done, advance to Validation.
-  const stillPending = reviewerSteps.some(s => s.required && !s.action);
-  const moveOn = !stillPending;
+  const nextStatus = computeStageAfter(reviewerSteps, cr.validatorSteps);
   return appendAudit(
-    moveOn ? { ...updated, status: 'Validation' } : updated,
+    { ...cr, status: nextStatus, reviewerSteps },
     {
       timestamp: t, actorUserId: actor.id, actorUserName: actor.name,
       action: 'ReviewerApproved',
@@ -181,11 +201,9 @@ export function validatorApprove(
           validatorUserId: s.validatorUserId ?? actor.id, validatorUserName: s.validatorUserName ?? actor.name }
       : s,
   );
-  const updated: ChangeRequest = { ...cr, validatorSteps };
-  // All three validators done → move to PendingApproval.
-  const stillPending = validatorSteps.some(s => !s.action);
+  const nextStatus = computeStageAfter(cr.reviewerSteps, validatorSteps);
   return appendAudit(
-    stillPending ? updated : { ...updated, status: 'PendingApproval' },
+    { ...cr, status: nextStatus, validatorSteps },
     {
       timestamp: t, actorUserId: actor.id, actorUserName: actor.name,
       action: 'ValidatorApproved',

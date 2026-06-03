@@ -417,18 +417,42 @@ export default function NewCRPage() {
             </>
           )}
 
-          {(changeType === 'CascadeDown' || changeType === 'AddNew') && (
+          {changeType === 'CascadeDown' && (
             <>
               <div className="text-xs font-semibold text-gray-700 uppercase tracking-wide mt-3 mb-2">
-                Add cells
+                Current authority chain on {targetDelegationId}
+              </div>
+              <p className="text-xs text-gray-600 mb-2">
+                Pick a role <strong>not currently authorised</strong> and grant them a cap — typically below the lowest existing cap, to cascade authority downward.
+              </p>
+              <CurrentChainPreview authorities={currentAuthorities} allRoles={matrix.roles} />
+
+              <div className="text-xs font-semibold text-gray-700 uppercase tracking-wide mt-4 mb-2">
+                Cascade authority down to
               </div>
               <AddCellPicker
                 allRoles={matrix.roles}
-                excludeRoleIds={
-                  changeType === 'CascadeDown'
-                    ? currentAuthorities.map(a => a.roleId)
-                    : []
-                }
+                excludeRoleIds={currentAuthorities.map(a => a.roleId)}
+                edits={cellEdits}
+                onAdd={(role, state) => updateCellEdit(role.id, {
+                  roleId: role.id, roleName: role.name, before: null, after: state,
+                })}
+                onRemove={roleId => setCellEdits(prev => {
+                  const { [roleId]: _, ...rest } = prev;
+                  return rest;
+                })}
+              />
+            </>
+          )}
+
+          {changeType === 'AddNew' && (
+            <>
+              <div className="text-xs font-semibold text-gray-700 uppercase tracking-wide mt-3 mb-2">
+                Initial role authorities on the new delegation
+              </div>
+              <AddCellPicker
+                allRoles={matrix.roles}
+                excludeRoleIds={[]}
                 edits={cellEdits}
                 onAdd={(role, state) => updateCellEdit(role.id, {
                   roleId: role.id, roleName: role.name, before: null, after: state,
@@ -616,6 +640,49 @@ function CellEditRow({
         </div>
       )}
     </li>
+  );
+}
+
+// ============================================================================
+// Current chain preview (CascadeDown context)
+// ============================================================================
+
+function CurrentChainPreview({
+  authorities, allRoles,
+}: { authorities: RoleAuthority[]; allRoles: Role[] }) {
+  const roleById = new Map(allRoles.map(r => [r.id, r] as const));
+  // Sort descending by cap (Unlimited / no-cap first, then by amount desc, then conditional)
+  const sorted = [...authorities].sort((a, b) => {
+    const av = a.hasUnlimitedAuthority ? Number.POSITIVE_INFINITY
+      : a.monetaryCap?.amount ?? -1;
+    const bv = b.hasUnlimitedAuthority ? Number.POSITIVE_INFINITY
+      : b.monetaryCap?.amount ?? -1;
+    return bv - av;
+  });
+
+  if (sorted.length === 0) {
+    return (
+      <p className="text-xs italic text-gray-500 p-3 bg-gray-50 border border-gray-200 rounded">
+        No roles currently have authority on this delegation.
+      </p>
+    );
+  }
+
+  return (
+    <ul className="space-y-1 max-h-56 overflow-y-auto border border-gray-200 rounded bg-gray-50 p-2">
+      {sorted.map(a => {
+        const role = roleById.get(a.roleId);
+        const capStr = a.monetaryCap
+          ? `${a.monetaryCap.currency} ${formatNumber(a.monetaryCap.amount)}`
+          : a.hasUnlimitedAuthority ? 'Approval rights' : '—';
+        return (
+          <li key={a.roleId} className="flex items-center justify-between text-xs px-2 py-1">
+            <span className="text-gray-900">{role?.name ?? a.roleId}</span>
+            <span className="font-mono text-gray-700">{capStr}</span>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 

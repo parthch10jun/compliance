@@ -147,9 +147,15 @@ const seedRequests: ChangeRequest[] = [
     l1EndorserUserName: 'Subhash Iyer',
     l1EndorsedAt: isoAt('2026-05-29', '09:45'),
     l1EndorsementComment:
-      'Endorsed. Aligned with the procurement transformation programme; recommend prioritising.',
-    reviewerSteps: defaultReviewerSteps(),
-    validatorSteps: defaultValidatorSteps(),
+      'Endorsed. Aligned with the procurement transformation programme; recommend prioritising. Fast-track requested per A.3.5 (CR scope below executive threshold).',
+    // Fast-track flow: R&A consolidates reviewer + validator review in one step
+    // (no separate Legal / Finance / IG / CFO / SVP GC / R&A Cmte gates).
+    // After Priya accepts triage, CR jumps straight to PendingApproval → CEO.
+    reviewerSteps: [
+      { team: 'RiskAndAudit', required: true,
+        reviewerUserId: 'user-107', reviewerUserName: 'Priya Nair' },
+    ],
+    validatorSteps: [],
     status: 'L1Endorsed',
     createdAt: isoAt('2026-05-28', '14:10'),
     submittedAt: isoAt('2026-05-28', '16:00'),
