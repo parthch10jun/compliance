@@ -73,6 +73,71 @@ export interface CRAuditEntry {
   comment?: string;
 }
 
+// ---------------------------------------------------------------------------
+// Structured proposal — typed before/after diff against a real delegation
+// ---------------------------------------------------------------------------
+
+export interface CRMonetaryCap {
+  amount: number;
+  currency: string;
+}
+
+/** The shape of a single cell (role × delegation) at a point in time. */
+export interface CRCellState {
+  hasUnlimitedAuthority?: boolean;
+  monetaryCap?: CRMonetaryCap;
+  conditions?: string;
+}
+
+/** Before/after pair for one role's authority on a delegation. */
+export interface CRCellEdit {
+  roleId: string;
+  roleName: string;             // snapshot for display
+  before: CRCellState | null;   // null = role had no authority
+  after: CRCellState | null;    // null = role's authority removed
+}
+
+/** Discriminated proposal — what the CR is actually asking to change. */
+export type CRProposal =
+  | {
+      kind: 'Adjust';
+      targetDelegationId: string;
+      cellChanges: CRCellEdit[];
+      descriptionBefore?: string;
+      descriptionAfter?: string;
+      explanatoryNotesBefore?: string;
+      explanatoryNotesAfter?: string;
+    }
+  | {
+      kind: 'CascadeDown';
+      targetDelegationId: string;
+      cellsAdded: CRCellEdit[];           // all 'before: null'
+    }
+  | {
+      kind: 'Remove';
+      targetDelegationId: string;
+      wholeDelegation: boolean;           // remove the whole row
+      cellsRemoved?: CRCellEdit[];        // or just specific cells (all 'after: null')
+    }
+  | {
+      kind: 'Clarify';
+      targetDelegationId: string;
+      descriptionBefore?: string;
+      descriptionAfter?: string;
+      explanatoryNotesBefore?: string;
+      explanatoryNotesAfter?: string;
+    }
+  | {
+      kind: 'AddNew';
+      // The new delegation to insert.
+      newDelegationId: string;            // e.g. 'D.7.1'
+      subsectionId: string;
+      subSubsectionId?: string | null;
+      description: string;
+      explanatoryNotes: string;
+      cellsAdded: CRCellEdit[];           // all 'before: null'
+    };
+
 export interface ChangeRequest {
   id: string;                                  // 'CR-001'
   number: string;                              // human-friendly 'CR-2026-001'
@@ -87,10 +152,9 @@ export interface ChangeRequest {
 
   // Section 2 — Requested change details
   changeType: CRChangeType;
-  targetDelegationId?: string | null;          // for Adjust / Remove / Cascade / Clarify
-  targetRoleId?: string | null;                // for cell-level changes
-  proposedDescription?: string | null;         // for AddNew or for editing description
-  proposedChange: string;                      // free-text summary of what's changing
+  targetDelegationId?: string | null;          // convenience field; also lives inside proposal
+  proposedChange: string;                      // free-text summary (shown in lists)
+  proposal?: CRProposal;                       // structured before/after — source of truth
   justification: string;
   impactAssessment: string;
   effectiveDate?: string | null;

@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { getMatrix, getActiveVersion, getDelegationsForRole } from '@/lib/doa/matrix/store';
 import { listChangeRequests } from '@/lib/doa/matrix/change-request-store';
+import { CR_CHANGE_TYPE_LABELS } from '@/lib/doa/matrix/cr-labels';
 import { getMatrixRoleIdForUser } from '@/lib/doa/matrix/user-mapping';
 import { useCurrentUser } from '@/lib/doa/hooks/useCurrentUser';
 import { formatDate } from '@/lib/doa/utils/format';
@@ -210,7 +211,7 @@ export default function MatrixLanding() {
                     className="block text-xs px-2 py-1.5 hover:bg-gray-50 rounded -mx-2"
                   >
                     <span className="font-mono text-gray-500">{cr.number}</span>{' '}
-                    <span className="text-gray-900">— {cr.changeType}</span>
+                    <span className="text-gray-900">— {CR_CHANGE_TYPE_LABELS[cr.changeType] ?? cr.changeType}</span>
                     <div className="text-gray-500 truncate">{cr.proposedChange}</div>
                   </Link>
                 </li>
@@ -243,29 +244,17 @@ export default function MatrixLanding() {
         </div>
       </div>
 
-      {/* Definitions/References quick links */}
-      <div className="grid grid-cols-2 gap-3">
-        <Link
-          href="/doa/matrix/glossary"
-          className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
-        >
-          <div>
-            <div className="text-sm font-medium text-gray-900">Glossary</div>
-            <div className="text-xs text-gray-500">{matrix.terms.length} defined terms</div>
-          </div>
-          <ChevronRight className="w-4 h-4 text-gray-400" />
-        </Link>
-        <Link
-          href="/doa/matrix/references"
-          className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
-        >
-          <div>
-            <div className="text-sm font-medium text-gray-900">Source documents</div>
-            <div className="text-xs text-gray-500">{matrix.references.length} references</div>
-          </div>
-          <ChevronRight className="w-4 h-4 text-gray-400" />
-        </Link>
-      </div>
+      {/* Glossary quick link */}
+      <Link
+        href="/doa/matrix/glossary"
+        className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
+      >
+        <div>
+          <div className="text-sm font-medium text-gray-900">Glossary</div>
+          <div className="text-xs text-gray-500">{matrix.terms.length} defined terms</div>
+        </div>
+        <ChevronRight className="w-4 h-4 text-gray-400" />
+      </Link>
     </div>
   );
 }

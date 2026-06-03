@@ -1,26 +1,44 @@
 'use client';
 
 /**
- * Change Request detail — read-only view of all four CR sections.
+ * Change Request detail.
  *
- * Action buttons surface based on (current user × CR status). Phase-1 scope:
- * Risk & Audit triage accept/reject. Reviewer cascade and approver actions
- * land here in a follow-up.
+ * Surfaces the full four-section CR data + a structured before/after diff of
+ * the proposal + a single contextual action surface gated on
+ * (current user × CR status). Drives the entire approval flow.
  */
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import {
-  ArrowLeft, CheckCircle2, XCircle, Send, FileText, Clock, ShieldCheck,
-  Users, Activity, AlertTriangle,
+  ArrowLeft, CheckCircle2, XCircle, FileText, ShieldCheck,
+  Users, Activity, AlertTriangle, Send, Zap, GitBranch,
 } from 'lucide-react';
 import {
-  getChangeRequestById, saveChangeRequest, generateCRAuditId,
+  getChangeRequestById, saveChangeRequest,
 } from '@/lib/doa/matrix/change-request-store';
+import { getMatrix, saveMatrix } from '@/lib/doa/matrix/store';
+import { applyProposalToMatrix } from '@/lib/doa/matrix/apply-proposal';
+import {
+  triageAccept, triageReject,
+  reviewerApprove, reviewerReject,
+  validatorApprove, validatorReject,
+  approverApprove, approverReject,
+  markImplemented,
+  nextActionableStep,
+  nextRequiredReviewerStepIndex,
+} from '@/lib/doa/matrix/cr-transitions';
 import { useCurrentUser } from '@/lib/doa/hooks/useCurrentUser';
 import { formatDate, formatDateTime } from '@/lib/doa/utils/format';
-import type { ChangeRequest } from '@/lib/doa/matrix/change-request-types';
+import {
+  CR_CHANGE_TYPE_LONG_LABELS, CR_REVIEWER_TEAM_LABELS,
+  CR_STATUS_LABELS, CR_VALIDATOR_ROLE_LABELS, humanizeAction,
+} from '@/lib/doa/matrix/cr-labels';
+import CRProposalDiff from '@/components/doa/matrix/CRProposalDiff';
+import type {
+  ChangeRequest, CRReviewerTeam, CRValidatorRole,
+} from '@/lib/doa/matrix/change-request-types';
 
 const STATUS_TONES: Record<string, string> = {
   Draft: 'bg-gray-100 text-gray-700',
@@ -37,20 +55,19 @@ const STATUS_TONES: Record<string, string> = {
   ApproverRejected: 'bg-red-100 text-red-700',
 };
 
-const CHANGE_TYPE_LABELS: Record<string, string> = {
-  AddNew: 'Add a new delegation',
-  CascadeDown: 'Cascade down an existing delegation',
-  Adjust: 'Adjust an existing delegation',
-  Remove: 'Remove an existing delegation',
-  Clarify: 'Clarify an existing delegation',
-};
+type ActionMode =
+  | { kind: 'triage'; decision: 'accept' | 'reject' }
+  | { kind: 'reviewer'; team: CRReviewerTeam; decision: 'approve' | 'reject' }
+  | { kind: 'validator'; role: CRValidatorRole; decision: 'approve' | 'reject' }
+  | { kind: 'approver'; decision: 'approve' | 'reject'; scope: 'CEO' | 'Board' }
+  | { kind: 'implement' };
 
 export default function CRDetail() {
   const params = useParams();
   const crId = params.id as string;
   const { user } = useCurrentUser();
   const [cr, setCR] = useState<ChangeRequest | undefined>();
-  const [actionMode, setActionMode] = useState<'triage-accept' | 'triage-reject' | null>(null);
+  const [actionMode, setActionMode] = useState<ActionMode | null>(null);
   const [actionComment, setActionComment] = useState('');
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -68,60 +85,101 @@ export default function CRDetail() {
     );
   }
 
+  // -----------------------------------------------------------------------
   // Capability gates
+  // -----------------------------------------------------------------------
+  const next = nextActionableStep(cr);
   const isRiskAndAuditLead = user.id === 'user-107'; // Priya
-  const canTriage = cr.status === 'L1Endorsed' && isRiskAndAuditLead;
 
-  // Actions
-  const doTriageAccept = () => {
-    const now = new Date().toISOString();
-    const updated: ChangeRequest = {
-      ...cr,
-      status: 'UnderReview',
-      auditTrail: [
-        ...cr.auditTrail,
-        {
-          id: generateCRAuditId(), timestamp: now,
-          actorUserId: user.id, actorUserName: user.name,
-          action: 'TriageAccepted',
-          comment: actionComment || 'Accepted for review.',
-        },
-      ],
-    };
+  const canTriage = next?.kind === 'triage' && isRiskAndAuditLead;
+  const canImplement = next?.kind === 'implement' && isRiskAndAuditLead;
+  const canApprove = next?.kind === 'approver' && user.id === 'user-101'; // Kundan
+
+  // For reviewers: only the next required reviewer can act, and only if
+  // it's their userId on the step.
+  const nextReviewerStepIdx = nextRequiredReviewerStepIndex(cr);
+  const nextReviewerStep = nextReviewerStepIdx >= 0 ? cr.reviewerSteps[nextReviewerStepIdx] : undefined;
+  const canReview =
+    cr.status === 'UnderReview' &&
+    nextReviewerStep !== undefined &&
+    nextReviewerStep.reviewerUserId === user.id;
+
+  // For validators: any pending validator whose userId matches can act.
+  const myPendingValidator = cr.validatorSteps.find(
+    v => v.validatorUserId === user.id && !v.action,
+  );
+  const canValidate = cr.status === 'Validation' && myPendingValidator !== undefined;
+
+  // -----------------------------------------------------------------------
+  // Action handlers
+  // -----------------------------------------------------------------------
+  const applyAndSave = (updated: ChangeRequest) => {
     saveChangeRequest(updated);
     setRefreshKey(k => k + 1);
     setActionMode(null);
     setActionComment('');
   };
 
-  const doTriageReject = () => {
-    if (!actionComment.trim()) { alert('Triage rejection requires a reason.'); return; }
-    const now = new Date().toISOString();
-    const updated: ChangeRequest = {
-      ...cr,
-      status: 'TriageRejected',
-      closedAt: now,
-      rejectionStage: 'Triage',
-      rejectionByUserId: user.id,
-      rejectionByUserName: user.name,
-      rejectionDate: now,
-      rejectionReason: actionComment,
-      auditTrail: [
-        ...cr.auditTrail,
-        {
-          id: generateCRAuditId(), timestamp: now,
-          actorUserId: user.id, actorUserName: user.name,
-          action: 'TriageRejected',
-          comment: actionComment,
-        },
-      ],
-    };
-    saveChangeRequest(updated);
-    setRefreshKey(k => k + 1);
-    setActionMode(null);
-    setActionComment('');
+  const doAction = () => {
+    if (!actionMode) return;
+    const actor = { id: user.id, name: user.name };
+    if (actionMode.kind === 'triage') {
+      if (actionMode.decision === 'accept') {
+        applyAndSave(triageAccept(cr, actor, actionComment || undefined));
+      } else {
+        if (!actionComment.trim()) { alert('Triage rejection requires a reason.'); return; }
+        applyAndSave(triageReject(cr, actor, actionComment));
+      }
+      return;
+    }
+    if (actionMode.kind === 'reviewer') {
+      if (actionMode.decision === 'approve') {
+        applyAndSave(reviewerApprove(cr, actionMode.team, actor, actionComment || undefined));
+      } else {
+        if (!actionComment.trim()) { alert('Rejection requires a reason.'); return; }
+        applyAndSave(reviewerReject(cr, actionMode.team, actor, actionComment));
+      }
+      return;
+    }
+    if (actionMode.kind === 'validator') {
+      if (actionMode.decision === 'approve') {
+        applyAndSave(validatorApprove(cr, actionMode.role, actor, actionComment || undefined));
+      } else {
+        if (!actionComment.trim()) { alert('Rejection requires a reason.'); return; }
+        applyAndSave(validatorReject(cr, actionMode.role, actor, actionComment));
+      }
+      return;
+    }
+    if (actionMode.kind === 'approver') {
+      if (actionMode.decision === 'approve') {
+        applyAndSave(approverApprove(cr, actor, actionMode.scope, actionComment || undefined));
+      } else {
+        if (!actionComment.trim()) { alert('Rejection requires a reason.'); return; }
+        applyAndSave(approverReject(cr, actor, actionComment));
+      }
+      return;
+    }
+    if (actionMode.kind === 'implement') {
+      if (!cr.proposal) {
+        alert('This CR has no structured proposal — cannot auto-apply. Implement manually.');
+        return;
+      }
+      const matrix = getMatrix();
+      const { matrix: nextMatrix, newVersion } = applyProposalToMatrix(
+        matrix,
+        cr.proposal,
+        `CR ${cr.number}: ${cr.proposedChange.slice(0, 80)}`,
+        cr.approverUserName ?? 'CEO',
+      );
+      saveMatrix(nextMatrix);
+      applyAndSave(markImplemented(cr, actor, newVersion.version, actionComment || undefined));
+      return;
+    }
   };
 
+  // -----------------------------------------------------------------------
+  // Render
+  // -----------------------------------------------------------------------
   return (
     <div className="space-y-5">
       {/* Header */}
@@ -134,10 +192,10 @@ export default function CRDetail() {
             <div className="text-xs font-mono text-gray-500 mb-1">{cr.number}</div>
             <div className="flex items-center gap-2 mb-1">
               <h1 className="text-xl font-semibold text-gray-900">
-                {CHANGE_TYPE_LABELS[cr.changeType] ?? cr.changeType}
+                {CR_CHANGE_TYPE_LONG_LABELS[cr.changeType] ?? cr.changeType}
               </h1>
               <span className={`px-2 py-0.5 text-xs font-medium rounded ${STATUS_TONES[cr.status] ?? 'bg-gray-100 text-gray-700'}`}>
-                {cr.status}
+                {CR_STATUS_LABELS[cr.status] ?? cr.status}
               </span>
             </div>
             <p className="text-sm text-gray-600">
@@ -146,62 +204,125 @@ export default function CRDetail() {
           </div>
         </div>
 
-        <div className="flex gap-2">
+        {/* Action buttons */}
+        <div className="flex gap-2 flex-wrap justify-end max-w-md">
           {canTriage && (
             <>
-              <button
-                onClick={() => setActionMode('triage-reject')}
-                className="flex items-center gap-1.5 px-3 py-2 border border-red-300 text-red-700 rounded text-sm hover:bg-red-50"
-              >
-                <XCircle className="w-4 h-4" />Reject triage
-              </button>
-              <button
-                onClick={() => setActionMode('triage-accept')}
-                className="flex items-center gap-1.5 px-3 py-2 bg-amber-500 text-white rounded text-sm hover:bg-amber-600"
-              >
-                <CheckCircle2 className="w-4 h-4" />Accept &amp; route to reviewers
-              </button>
+              <ActionBtn kind="reject" onClick={() => setActionMode({ kind: 'triage', decision: 'reject' })}>
+                Reject triage
+              </ActionBtn>
+              <ActionBtn kind="primary" onClick={() => setActionMode({ kind: 'triage', decision: 'accept' })}>
+                Accept &amp; route to reviewers
+              </ActionBtn>
             </>
+          )}
+          {canReview && nextReviewerStep && (
+            <>
+              <ActionBtn kind="reject" onClick={() => setActionMode({ kind: 'reviewer', team: nextReviewerStep.team, decision: 'reject' })}>
+                Reject as {CR_REVIEWER_TEAM_LABELS[nextReviewerStep.team]}
+              </ActionBtn>
+              <ActionBtn kind="approve" onClick={() => setActionMode({ kind: 'reviewer', team: nextReviewerStep.team, decision: 'approve' })}>
+                Approve as {CR_REVIEWER_TEAM_LABELS[nextReviewerStep.team]}
+              </ActionBtn>
+            </>
+          )}
+          {canValidate && myPendingValidator && (
+            <>
+              <ActionBtn kind="reject" onClick={() => setActionMode({ kind: 'validator', role: myPendingValidator.role, decision: 'reject' })}>
+                Reject as {CR_VALIDATOR_ROLE_LABELS[myPendingValidator.role]}
+              </ActionBtn>
+              <ActionBtn kind="approve" onClick={() => setActionMode({ kind: 'validator', role: myPendingValidator.role, decision: 'approve' })}>
+                Validate as {CR_VALIDATOR_ROLE_LABELS[myPendingValidator.role]}
+              </ActionBtn>
+            </>
+          )}
+          {canApprove && (
+            <>
+              <ActionBtn kind="reject" onClick={() => setActionMode({ kind: 'approver', decision: 'reject', scope: 'CEO' })}>
+                Reject
+              </ActionBtn>
+              <ActionBtn kind="approve" onClick={() => setActionMode({ kind: 'approver', decision: 'approve', scope: 'CEO' })}>
+                Approve as CEO
+              </ActionBtn>
+            </>
+          )}
+          {canImplement && (
+            <ActionBtn kind="primary" onClick={() => setActionMode({ kind: 'implement' })}>
+              <Zap className="w-4 h-4" />Implement &amp; publish new matrix version
+            </ActionBtn>
           )}
         </div>
       </div>
 
+      {/* Action prompt */}
       {actionMode && (
         <div className="bg-white border-2 border-amber-300 rounded-lg p-4">
           <div className="text-sm font-semibold text-gray-900 mb-2">
-            {actionMode === 'triage-accept' && 'Accept this CR for the reviewer cascade'}
-            {actionMode === 'triage-reject' && 'Reject this CR at triage'}
+            {actionMode.kind === 'triage' && (actionMode.decision === 'accept' ? 'Accept this CR for the reviewer cascade' : 'Reject this CR at triage')}
+            {actionMode.kind === 'reviewer' && (actionMode.decision === 'approve'
+              ? `Approve as ${CR_REVIEWER_TEAM_LABELS[actionMode.team]}`
+              : `Reject as ${CR_REVIEWER_TEAM_LABELS[actionMode.team]}`)}
+            {actionMode.kind === 'validator' && (actionMode.decision === 'approve'
+              ? `Validate as ${CR_VALIDATOR_ROLE_LABELS[actionMode.role]}`
+              : `Reject as ${CR_VALIDATOR_ROLE_LABELS[actionMode.role]}`)}
+            {actionMode.kind === 'approver' && (actionMode.decision === 'approve' ? 'Approve as CEO' : 'Reject final approval')}
+            {actionMode.kind === 'implement' && 'Implement — apply the structured proposal to the matrix and publish a new version'}
           </div>
           <textarea
             rows={2}
             value={actionComment}
             onChange={e => setActionComment(e.target.value)}
-            placeholder={actionMode === 'triage-accept' ? 'Comment (optional)' : 'Reason for triage rejection (required)'}
+            placeholder={(() => {
+              if (actionMode.kind === 'implement') return 'Communications notes (optional)';
+              const isApprove = 'decision' in actionMode && actionMode.decision === 'approve';
+              return isApprove ? 'Comment (optional)' : 'Reason (required)';
+            })()}
             className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 mb-2"
           />
           <div className="flex gap-2 justify-end">
             <button onClick={() => { setActionMode(null); setActionComment(''); }}
               className="px-3 py-1.5 border border-gray-300 rounded text-sm hover:bg-gray-50">Cancel</button>
             <button
-              onClick={() => actionMode === 'triage-accept' ? doTriageAccept() : doTriageReject()}
+              onClick={doAction}
               className={`px-4 py-1.5 rounded text-sm text-white ${
-                actionMode === 'triage-reject' ? 'bg-red-600 hover:bg-red-700' : 'bg-amber-500 hover:bg-amber-600'
+                'decision' in actionMode && actionMode.decision === 'reject'
+                  ? 'bg-red-600 hover:bg-red-700'
+                  : actionMode.kind === 'implement'
+                  ? 'bg-amber-500 hover:bg-amber-600'
+                  : 'bg-green-600 hover:bg-green-700'
               }`}
-            >
-              Confirm
-            </button>
+            >Confirm</button>
           </div>
         </div>
       )}
 
+      {/* Terminal state banners */}
       {cr.status === 'TriageRejected' && (
-        <div className="bg-red-50 border border-red-200 rounded p-3 text-sm text-red-900 flex items-start gap-2">
-          <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-          <div>
-            <strong>Rejected at triage</strong> by {cr.rejectionByUserName} on {formatDate(cr.rejectionDate)}.
-            Reason: {cr.rejectionReason}
-          </div>
-        </div>
+        <Banner tone="red">
+          <strong>Rejected at triage</strong> by {cr.rejectionByUserName} on {formatDate(cr.rejectionDate)}. Reason: {cr.rejectionReason}
+        </Banner>
+      )}
+      {cr.status === 'ReviewerRejected' && (
+        <Banner tone="red">
+          <strong>Rejected by reviewer</strong> {cr.rejectionByUserName} on {formatDate(cr.rejectionDate)}. Reason: {cr.rejectionReason}
+        </Banner>
+      )}
+      {cr.status === 'ValidationRejected' && (
+        <Banner tone="red">
+          <strong>Rejected by validator</strong> {cr.rejectionByUserName} on {formatDate(cr.rejectionDate)}. Reason: {cr.rejectionReason}
+        </Banner>
+      )}
+      {cr.status === 'ApproverRejected' && (
+        <Banner tone="red">
+          <strong>Rejected by approver</strong> {cr.approverUserName} on {formatDate(cr.approverDate)}. Reason: {cr.approverComment}
+        </Banner>
+      )}
+      {cr.status === 'Implemented' && cr.resultingMatrixVersion && (
+        <Banner tone="green">
+          <strong>Implemented.</strong> Matrix advanced to{' '}
+          <Link href="/doa/matrix/versions" className="underline font-semibold">v{cr.resultingMatrixVersion}</Link>
+          {' '}on {formatDate(cr.implementedDate)}.
+        </Banner>
       )}
 
       <div className="grid grid-cols-3 gap-5">
@@ -215,7 +336,7 @@ export default function CRDetail() {
           </Card>
 
           <Card title="Section 2 — Requested change" icon={<FileText className="w-4 h-4" />}>
-            <Row label="Type of change" value={CHANGE_TYPE_LABELS[cr.changeType]} />
+            <Row label="Type of change" value={CR_CHANGE_TYPE_LONG_LABELS[cr.changeType]} />
             {cr.targetDelegationId && (
               <Row label="DoA reference" value={
                 <Link href={`/doa/matrix/delegation/${encodeURIComponent(cr.targetDelegationId)}`} className="text-amber-700 hover:underline font-mono">
@@ -223,10 +344,14 @@ export default function CRDetail() {
                 </Link>
               } />
             )}
-            <Row label="Proposed change" value={cr.proposedChange} multiline />
+            <Row label="Summary" value={cr.proposedChange} multiline />
             <Row label="Justification" value={cr.justification} multiline />
             <Row label="Impact assessment" value={cr.impactAssessment} multiline />
             {cr.effectiveDate && <Row label="Effective date" value={formatDate(cr.effectiveDate)} />}
+          </Card>
+
+          <Card title="Proposed change (structured diff)" icon={<GitBranch className="w-4 h-4" />}>
+            <CRProposalDiff proposal={cr.proposal} />
           </Card>
 
           <Card title="Section 3 — Approval flow" icon={<ShieldCheck className="w-4 h-4" />}>
@@ -255,7 +380,7 @@ export default function CRDetail() {
                       }`} />
                       <div className="flex-1">
                         <div>
-                          <span className="font-medium text-gray-900">{step.team}</span>
+                          <span className="font-medium text-gray-900">{CR_REVIEWER_TEAM_LABELS[step.team] ?? step.team}</span>
                           {!step.required && <span className="text-xs text-gray-500 ml-1.5">(ad hoc)</span>}
                           {step.reviewerUserName && <span className="text-xs text-gray-600 ml-1.5">— {step.reviewerUserName}</span>}
                         </div>
@@ -272,7 +397,7 @@ export default function CRDetail() {
               </div>
 
               <div>
-                <div className="text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Validators</div>
+                <div className="text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Validators (parallel, all required)</div>
                 <ul className="space-y-1.5">
                   {cr.validatorSteps.map((step, idx) => (
                     <li key={idx} className="text-sm flex items-start gap-2">
@@ -282,7 +407,7 @@ export default function CRDetail() {
                         'bg-gray-300'
                       }`} />
                       <div className="flex-1">
-                        <span className="font-medium text-gray-900">{step.role.replace(/_/g, ' ')}</span>
+                        <span className="font-medium text-gray-900">{CR_VALIDATOR_ROLE_LABELS[step.role] ?? step.role}</span>
                         {step.validatorUserName && <span className="text-xs text-gray-600 ml-1.5">— {step.validatorUserName}</span>}
                         {step.action && (
                           <div className="text-xs text-gray-600">
@@ -327,7 +452,7 @@ export default function CRDetail() {
               {[...cr.auditTrail].reverse().map(e => (
                 <li key={e.id} className="text-xs">
                   <div className="flex items-baseline gap-1.5">
-                    <span className="font-medium text-gray-900">{e.action}</span>
+                    <span className="font-medium text-gray-900">{humanizeAction(e.action)}</span>
                     <span className="text-gray-500">by {e.actorUserName}</span>
                   </div>
                   <div className="text-gray-400">{formatDateTime(e.timestamp)}</div>
@@ -341,6 +466,10 @@ export default function CRDetail() {
     </div>
   );
 }
+
+// ============================================================================
+// Sub-components
+// ============================================================================
 
 function Card({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) {
   return (
@@ -359,5 +488,38 @@ function Row({ label, value, multiline = false }: { label: string; value: React.
       <span className="text-xs text-gray-500 flex-shrink-0">{label}</span>
       <span className={`text-sm text-gray-900 ${multiline ? 'block whitespace-pre-wrap' : 'text-right break-words'}`}>{value}</span>
     </div>
+  );
+}
+
+function Banner({ tone, children }: { tone: 'amber' | 'green' | 'red' | 'gray'; children: React.ReactNode }) {
+  const styles = {
+    amber: 'bg-amber-50 border-amber-200 text-amber-900',
+    green: 'bg-green-50 border-green-200 text-green-900',
+    red: 'bg-red-50 border-red-200 text-red-900',
+    gray: 'bg-gray-50 border-gray-200 text-gray-900',
+  }[tone];
+  return (
+    <div className={`flex items-start gap-2 p-3 border rounded text-sm ${styles}`}>
+      <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" /><div className="flex-1">{children}</div>
+    </div>
+  );
+}
+
+function ActionBtn({
+  kind, onClick, children,
+}: { kind: 'primary' | 'approve' | 'reject'; onClick: () => void; children: React.ReactNode }) {
+  const cls = kind === 'primary'
+    ? 'bg-amber-500 text-white hover:bg-amber-600'
+    : kind === 'approve'
+    ? 'bg-green-600 text-white hover:bg-green-700'
+    : 'border border-red-300 text-red-700 hover:bg-red-50';
+  return (
+    <button onClick={onClick}
+      className={`flex items-center gap-1.5 px-3 py-2 rounded text-sm font-medium ${cls}`}>
+      {kind === 'approve' && <CheckCircle2 className="w-4 h-4" />}
+      {kind === 'reject' && <XCircle className="w-4 h-4" />}
+      {kind === 'primary' && <Send className="w-4 h-4" />}
+      {children}
+    </button>
   );
 }

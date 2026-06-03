@@ -136,14 +136,6 @@ export default function DelegationDetail() {
 
         {/* Sidebar */}
         <div className="space-y-4">
-          {delegation.referenceDocText && (
-            <Card title="Reference" icon={<ShieldCheck className="w-4 h-4" />}>
-              <div className="text-xs text-gray-600 whitespace-pre-wrap leading-relaxed">
-                {delegation.referenceDocText}
-              </div>
-            </Card>
-          )}
-
           <Card title="Matrix" icon={<ShieldCheck className="w-4 h-4" />}>
             <div className="text-xs text-gray-700 space-y-1.5">
               <div>
@@ -167,13 +159,15 @@ export default function DelegationDetail() {
 }
 
 // ============================================================================
-// Authority tiers (the no-grid view of authorised roles)
+// Authority tiers — grouped role cards, no misleading ladder strip.
 // ============================================================================
 
+type TierKind = 'granted' | 'monetary' | 'conditional';
+
 interface Tier {
+  kind: TierKind;
   label: string;
-  // Sort key for cap comparison; 'unlimited' uses Infinity, 'conditional' uses -1.
-  weight: number;
+  weight: number;     // sort key — higher = shown first
   entries: { role: Role; auth: RoleAuthority }[];
 }
 
@@ -184,24 +178,26 @@ function AuthorityTiers({
     const roleById = new Map(roles.map(r => [r.id, r] as const));
     const buckets = new Map<string, Tier>();
 
-    const tierKeyForAuth = (a: RoleAuthority): { key: string; label: string; weight: number } => {
+    const keyForAuth = (a: RoleAuthority): Tier => {
       if (a.hasUnlimitedAuthority) {
-        return { key: 'unlimited', label: 'Unlimited authority', weight: Number.POSITIVE_INFINITY };
+        return { kind: 'granted', label: 'Approval rights', weight: Number.POSITIVE_INFINITY, entries: [] };
       }
       if (a.monetaryCap) {
         const amt = a.monetaryCap.amount;
         return {
-          key: `${a.monetaryCap.currency}-${amt}`,
+          kind: 'monetary',
           label: `${a.monetaryCap.currency} ${formatNumber(amt)}`,
           weight: amt,
+          entries: [],
         };
       }
-      return { key: 'conditional', label: 'Conditional (no monetary cap)', weight: -1 };
+      return { kind: 'conditional', label: 'With conditions', weight: -1, entries: [] };
     };
 
     authorities.forEach(a => {
-      const { key, label, weight } = tierKeyForAuth(a);
-      if (!buckets.has(key)) buckets.set(key, { label, weight, entries: [] });
+      const proto = keyForAuth(a);
+      const key = `${proto.kind}|${proto.label}`;
+      if (!buckets.has(key)) buckets.set(key, proto);
       const role = roleById.get(a.roleId);
       if (role) buckets.get(key)!.entries.push({ role, auth: a });
     });
@@ -214,65 +210,24 @@ function AuthorityTiers({
   }
 
   return (
-    <div className="space-y-4">
-      {/* Visual ladder: dots at each tier on a horizontal axis */}
-      <div className="hidden md:block">
-        <div className="relative h-12 bg-gradient-to-r from-emerald-50 via-amber-50 to-red-50 rounded border border-gray-200">
-          <div className="absolute inset-x-3 inset-y-2 flex items-end justify-between">
-            {tiers.map((t, i) => (
-              <div
-                key={i}
-                className="flex flex-col items-center gap-1 text-[10px] text-gray-700 font-medium"
-                style={{ minWidth: 48 }}
-              >
-                <div
-                  className={`w-2.5 h-2.5 rounded-full ring-2 ring-white ${
-                    t.weight === Number.POSITIVE_INFINITY
-                      ? 'bg-red-600'
-                      : t.weight === -1
-                      ? 'bg-gray-500'
-                      : t.weight >= 100_000_000
-                      ? 'bg-amber-600'
-                      : t.weight >= 10_000_000
-                      ? 'bg-amber-400'
-                      : 'bg-emerald-500'
-                  }`}
-                />
-                <span className="whitespace-nowrap">{t.label}</span>
-                <span className="text-gray-400">{t.entries.length}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Tier cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        {tiers.map((t, i) => (
-          <TierCard key={i} tier={t} />
-        ))}
-      </div>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+      {tiers.map((t, i) => (
+        <TierCard key={i} tier={t} />
+      ))}
     </div>
   );
 }
 
 function TierCard({ tier }: { tier: Tier }) {
-  const isUnlimited = tier.weight === Number.POSITIVE_INFINITY;
-  const isConditional = tier.weight === -1;
+  const cls = (() => {
+    if (tier.kind === 'granted') return 'border-blue-200 bg-blue-50/60';
+    if (tier.kind === 'conditional') return 'border-gray-200 bg-gray-50';
+    if (tier.weight >= 100_000_000) return 'border-amber-300 bg-amber-50';
+    if (tier.weight >= 10_000_000) return 'border-amber-200 bg-amber-50/40';
+    return 'border-emerald-200 bg-emerald-50/40';
+  })();
   return (
-    <div
-      className={`border rounded p-3 ${
-        isUnlimited
-          ? 'border-red-200 bg-red-50'
-          : isConditional
-          ? 'border-gray-200 bg-gray-50'
-          : tier.weight >= 100_000_000
-          ? 'border-amber-300 bg-amber-50'
-          : tier.weight >= 10_000_000
-          ? 'border-amber-200 bg-amber-50/40'
-          : 'border-emerald-200 bg-emerald-50/40'
-      }`}
-    >
+    <div className={`border rounded p-3 ${cls}`}>
       <div className="flex items-baseline justify-between mb-2">
         <div className="text-sm font-semibold text-gray-900">{tier.label}</div>
         <div className="text-xs text-gray-500">{tier.entries.length} role{tier.entries.length === 1 ? '' : 's'}</div>

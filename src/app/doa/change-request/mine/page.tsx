@@ -10,6 +10,7 @@ import { Plus, FileText } from 'lucide-react';
 import { listChangeRequests } from '@/lib/doa/matrix/change-request-store';
 import { useCurrentUser } from '@/lib/doa/hooks/useCurrentUser';
 import { formatDate } from '@/lib/doa/utils/format';
+import { CR_CHANGE_TYPE_LABELS, CR_STATUS_LABELS } from '@/lib/doa/matrix/cr-labels';
 import type { ChangeRequest } from '@/lib/doa/matrix/change-request-types';
 
 export default function MyCRsPage() {
@@ -53,8 +54,8 @@ export default function MyCRsPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-mono font-medium text-amber-700">{cr.number}</span>
-                      <span className="text-xs text-gray-600">{cr.changeType}</span>
-                      <span className="text-[10px] uppercase tracking-wider text-gray-500">{cr.status}</span>
+                      <span className="text-xs text-gray-600">{CR_CHANGE_TYPE_LABELS[cr.changeType] ?? cr.changeType}</span>
+                      <span className="text-[10px] uppercase tracking-wider text-gray-500">{CR_STATUS_LABELS[cr.status] ?? cr.status}</span>
                     </div>
                     <div className="text-sm text-gray-900 line-clamp-2 mt-0.5">{cr.proposedChange}</div>
                     <div className="text-xs text-gray-500 mt-0.5">submitted {formatDate(cr.requestDate)}</div>

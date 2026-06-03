@@ -13,6 +13,7 @@ import { Plus, Search, ChevronRight, FileText, Inbox } from 'lucide-react';
 import { listChangeRequests } from '@/lib/doa/matrix/change-request-store';
 import { useCurrentUser } from '@/lib/doa/hooks/useCurrentUser';
 import { formatDate } from '@/lib/doa/utils/format';
+import { CR_CHANGE_TYPE_LABELS } from '@/lib/doa/matrix/cr-labels';
 import type { ChangeRequest, CRStatus } from '@/lib/doa/matrix/change-request-types';
 
 type Tab = 'all' | 'open' | 'triage' | 'review' | 'pending-approval' | 'closed';
@@ -123,7 +124,7 @@ export default function CRInbox() {
                   >
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium text-gray-900 truncate">
-                        <span className="font-mono text-amber-700">{cr.number}</span> · {cr.changeType}
+                        <span className="font-mono text-amber-700">{cr.number}</span> · {CR_CHANGE_TYPE_LABELS[cr.changeType] ?? cr.changeType}
                         {cr.targetDelegationId && (
                           <span className="text-gray-500"> · {cr.targetDelegationId}</span>
                         )}
@@ -201,9 +202,9 @@ function CRRow({ cr }: { cr: ChangeRequest }) {
             <div className="flex items-center gap-2 mb-1">
               <span className="text-xs font-mono font-medium text-amber-700">{cr.number}</span>
               <span className={`px-1.5 py-0.5 text-[10px] font-medium rounded ${status.cls}`}>{status.label}</span>
-              <span className="text-xs text-gray-500">· {cr.changeType}</span>
+              <span className="text-xs text-gray-500">· {CR_CHANGE_TYPE_LABELS[cr.changeType] ?? cr.changeType}</span>
               {cr.targetDelegationId && (
-                <span className="text-xs text-gray-500">· target {cr.targetDelegationId}</span>
+                <span className="text-xs text-gray-500">· {cr.targetDelegationId}</span>
               )}
             </div>
             <div className="text-sm text-gray-900 line-clamp-2 mb-0.5">{cr.proposedChange}</div>

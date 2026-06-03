@@ -55,7 +55,6 @@ const navigationItems: NavItem[] = [
       { label: 'Transaction Lookup', href: '/doa/matrix/transaction' },
       { label: 'Versions', href: '/doa/matrix/versions' },
       { label: 'Glossary', href: '/doa/matrix/glossary' },
-      { label: 'References', href: '/doa/matrix/references' },
     ],
   },
   {

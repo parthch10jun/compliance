@@ -94,15 +94,15 @@ export default function RoleView() {
                     <span className="text-xs font-mono font-medium text-amber-700 flex-shrink-0 w-16">{delegation.id}</span>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm text-gray-900 line-clamp-1">{delegation.description.split('.')[0]}.</div>
-                      <div className="text-xs text-gray-600 mt-0.5">
-                        {authority.hasUnlimitedAuthority ? (
-                          <span className="text-red-700 font-medium">Unlimited authority</span>
-                        ) : authority.monetaryCap ? (
-                          <span><strong>{authority.monetaryCap.currency} {formatNumber(authority.monetaryCap.amount)}</strong>{authority.conditions ? ` · ${authority.conditions}` : ''}</span>
-                        ) : (
-                          <span className="italic">{authority.conditions ?? 'Conditional'}</span>
-                        )}
-                      </div>
+                      {(authority.monetaryCap || authority.conditions) && (
+                        <div className="text-xs text-gray-600 mt-0.5">
+                          {authority.monetaryCap && (
+                            <strong>{authority.monetaryCap.currency} {formatNumber(authority.monetaryCap.amount)}</strong>
+                          )}
+                          {authority.monetaryCap && authority.conditions && <span> · </span>}
+                          {authority.conditions && <span className="italic">{authority.conditions}</span>}
+                        </div>
+                      )}
                     </div>
                     <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0" />
                   </Link>
