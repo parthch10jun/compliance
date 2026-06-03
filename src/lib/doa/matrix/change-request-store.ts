@@ -104,7 +104,7 @@ const seedRequests: ChangeRequest[] = [
     ],
   },
 
-  // --- CR-002 — L1Endorsed (Adjust D.2.6 Procurement Analyst cap) ----------
+  // --- CR-002 — L1Endorsed (Adjust D.2.5 Procurement Analyst cap) ----------
   {
     id: 'cr-002',
     number: 'CR-2026-002',
@@ -115,12 +115,12 @@ const seedRequests: ChangeRequest[] = [
     contactPersonUserId: 'user-109',
     contactPersonUserName: 'Neha Reddy',
     changeType: 'Adjust',
-    targetDelegationId: 'D.2.6',
+    targetDelegationId: 'D.2.5',
     proposedChange:
-      'Raise Procurement Analyst authority on D.2.6 (Invoice and payment approval) from US$ 1m to US$ 5m, keeping the existing "within approved plans" qualifier and 3-year contracting-duration limit.',
+      'Raise Procurement Analyst authority on D.2.5 (Commitment authority — POs and contracts) from US$ 1m to US$ 5m, keeping the existing "within approved plans" qualifier and 3-year contracting-duration limit.',
     proposal: {
       kind: 'Adjust',
-      targetDelegationId: 'D.2.6',
+      targetDelegationId: 'D.2.5',
       cellChanges: [
         {
           roleId: 'role-procurement-analyst',
@@ -181,9 +181,9 @@ const seedRequests: ChangeRequest[] = [
       kind: 'Clarify',
       targetDelegationId: 'A.3.2',
       explanatoryNotesBefore:
-        'Any policy which is not for the Board or Shareholders to approve can be approved by the appropriate member of the Management Team.',
+        'Any policy which is not for the Board or Shareholders to approve can be approved by the appropriate member of the Management Team. The CEO will determine which Management Team member is authorised to approve which policies and may retain the right to approve certain policies directly.',
       explanatoryNotesAfter:
-        'Any policy which is not for the Board or Shareholders to approve can be approved by the appropriate member of the Management Team. IT-domain policies that touch privileged access or production systems require dual sign-off (CTO + CISO).',
+        'Any policy which is not for the Board or Shareholders to approve can be approved by the appropriate member of the Management Team. The CEO will determine which Management Team member is authorised to approve which policies and may retain the right to approve certain policies directly. IT-domain policies that touch privileged access or production systems require dual sign-off (CTO + CISO).',
     } as CRProposal,
     justification:
       'Recent audit finding noted ambiguity about who can solely approve IT policies. Adding the dual-sign-off rule for privileged-access policies tightens the control without changing approval authority for routine IT policies.',
