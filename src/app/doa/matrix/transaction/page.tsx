@@ -123,14 +123,30 @@ export default function TransactionLookup() {
   // Tokenise the query, expand each token through the synonym dictionary,
   // and rank each delegation by the count of matching tokens — across its
   // ID, description, explanatory notes, subsection title, and section title.
+  // When the search is empty, fall back to a curated set of common matters
+  // so the user has something to click without knowing what to type.
   const matchingDelegations = useMemo<Delegation[]>(() => {
     if (!active) return [];
-    if (!search.trim()) return [];
 
-    const tokens = expandQuery(search);
     const subById = new Map(active.subsections.map(s => [s.id, s] as const));
     const sectionById = new Map(active.sections.map(s => [s.id, s] as const));
 
+    // Empty search → curated common matters (procurement / hiring / contracts /
+    // capex / payment / policy / merger / tax / hedging / IPO).
+    if (!search.trim()) {
+      const COMMON_IDS = [
+        'D.1.3', 'D.2.5', 'D.2.6', 'D.2.4',  // contracts / commitment / payment / sourcing
+        'D.5.4', 'D.5.6',                     // hiring / compensation
+        'A.2.1', 'A.3.2',                     // business plan / policy
+        'D.3.1.2', 'D.3.3.4',                 // insurance / tax filings
+        'C.1.1', 'B.2.2',                     // borrowing / share acquisition
+      ];
+      return COMMON_IDS
+        .map(id => active.delegations.find(d => d.id === id))
+        .filter((d): d is Delegation => d !== undefined);
+    }
+
+    const tokens = expandQuery(search);
     type Scored = { d: Delegation; score: number };
     const scored: Scored[] = active.delegations.map(d => {
       const sub = subById.get(d.subsectionId);
@@ -259,16 +275,57 @@ export default function TransactionLookup() {
       </div>
 
       <div className="grid grid-cols-3 gap-5">
-        {/* Left: form */}
+        {/* Left: form (amount always visible) */}
         <div className="col-span-1 space-y-4">
+          {/* Transaction parameters — always visible so the user can fill in
+              any order. Pair with a matter on the right. */}
           <div className="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
-            <h2 className="text-sm font-semibold text-gray-900">1. Pick a matter</h2>
+            <h2 className="text-sm font-semibold text-gray-900">Transaction amount</h2>
+            <div className="grid grid-cols-3 gap-2">
+              <label className="col-span-2 text-xs">
+                <span className="block text-gray-600 mb-1">Monetary amount</span>
+                <input
+                  type="text" inputMode="numeric"
+                  value={amount}
+                  onChange={e => setAmount(e.target.value)}
+                  placeholder="e.g. 40000000"
+                  className="w-full px-2 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                />
+                <span className="block text-[10px] text-gray-500 mt-1">
+                  Leave blank to see every role authorised on the matter.
+                </span>
+              </label>
+              <label className="text-xs">
+                <span className="block text-gray-600 mb-1">Currency</span>
+                <select value={currency}
+                  onChange={e => setCurrency(e.target.value)}
+                  className="w-full px-2 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-amber-400">
+                  {['USD', 'EUR', 'GBP', 'JPY', 'AED'].map(c => <option key={c}>{c}</option>)}
+                </select>
+              </label>
+            </div>
+            <label className="block text-xs">
+              <span className="block text-gray-600 mb-1">Conditions filter (optional)</span>
+              <input
+                type="text" value={conditionFilter}
+                onChange={e => setConditionFilter(e.target.value)}
+                placeholder='e.g. "COD", "Offtake"'
+                className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+              />
+            </label>
+          </div>
+
+          {/* Matter picker */}
+          <div className="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
+            <h2 className="text-sm font-semibold text-gray-900">
+              {selectedDelegation ? 'Selected matter' : 'Pick a matter'}
+            </h2>
             <div className="relative">
               <Search className="w-4 h-4 absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder='e.g. "vendor contract", "hiring", "tax filing"'
+                placeholder='Search — vendor, hiring, capex, tax…'
                 className="w-full pl-8 pr-3 py-2 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-amber-400"
               />
             </div>
@@ -291,26 +348,33 @@ export default function TransactionLookup() {
                 </Link>
               </div>
             ) : matchingDelegations.length > 0 ? (
-              <ul className="space-y-1 max-h-64 overflow-y-auto">
-                {matchingDelegations.map(d => (
-                  <li key={d.id}>
-                    <button
-                      onClick={() => { setSelectedDelegationId(d.id); setSearch(''); }}
-                      className="w-full text-left flex items-start gap-2 px-2 py-1.5 hover:bg-gray-50 rounded"
-                    >
-                      <span className="text-xs font-mono text-amber-700 flex-shrink-0 w-14">{d.id}</span>
-                      <span className="text-xs text-gray-900 line-clamp-2">
-                        {d.description.split('.')[0]}.
-                      </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            ) : search ? (
+              <>
+                {!search.trim() && (
+                  <p className="text-[10px] uppercase tracking-wide text-gray-500 font-semibold">
+                    Common matters · click to pick
+                  </p>
+                )}
+                <ul className="space-y-1 max-h-72 overflow-y-auto">
+                  {matchingDelegations.map(d => (
+                    <li key={d.id}>
+                      <button
+                        onClick={() => { setSelectedDelegationId(d.id); setSearch(''); }}
+                        className="w-full text-left flex items-start gap-2 px-2 py-1.5 hover:bg-gray-50 rounded"
+                      >
+                        <span className="text-xs font-mono text-amber-700 flex-shrink-0 w-14">{d.id}</span>
+                        <span className="text-xs text-gray-900 line-clamp-2">
+                          {d.description.split('.')[0]}.
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
               <div className="text-xs italic text-gray-500 space-y-2">
                 <p>No matters match.</p>
                 <p className="not-italic text-gray-600">
-                  Try a broader term — e.g.{' '}
+                  Try{' '}
                   <button onClick={() => setSearch('procurement')} className="underline hover:text-amber-700">procurement</button>,{' '}
                   <button onClick={() => setSearch('contract')} className="underline hover:text-amber-700">contract</button>,{' '}
                   <button onClick={() => setSearch('hiring')} className="underline hover:text-amber-700">hiring</button>,{' '}
@@ -318,58 +382,8 @@ export default function TransactionLookup() {
                   <button onClick={() => setSearch('tax')} className="underline hover:text-amber-700">tax</button>.
                 </p>
               </div>
-            ) : (
-              <div className="text-xs italic text-gray-500 space-y-2">
-                <p>Type a few characters to find the relevant matter.</p>
-                <p className="not-italic text-gray-600">
-                  Try{' '}
-                  <button onClick={() => setSearch('vendor contract')} className="underline hover:text-amber-700">vendor contract</button>,{' '}
-                  <button onClick={() => setSearch('hiring')} className="underline hover:text-amber-700">hiring</button>, or{' '}
-                  <button onClick={() => setSearch('capex')} className="underline hover:text-amber-700">capex</button>.
-                </p>
-              </div>
             )}
           </div>
-
-          {selectedDelegation && (
-            <div className="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
-              <h2 className="text-sm font-semibold text-gray-900">2. Transaction details</h2>
-
-              <div className="grid grid-cols-3 gap-2">
-                <label className="col-span-2 text-xs">
-                  <span className="block text-gray-600 mb-1">Monetary amount</span>
-                  <input
-                    type="text" inputMode="numeric"
-                    value={amount}
-                    onChange={e => setAmount(e.target.value)}
-                    placeholder="e.g. 40000000"
-                    className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-                  />
-                </label>
-                <label className="text-xs">
-                  <span className="block text-gray-600 mb-1">Currency</span>
-                  <select value={currency}
-                    onChange={e => setCurrency(e.target.value)}
-                    className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-amber-400">
-                    {['USD', 'EUR', 'GBP', 'JPY', 'AED'].map(c => <option key={c}>{c}</option>)}
-                  </select>
-                </label>
-              </div>
-
-              <label className="block text-xs">
-                <span className="block text-gray-600 mb-1">Conditions filter (optional)</span>
-                <input
-                  type="text" value={conditionFilter}
-                  onChange={e => setConditionFilter(e.target.value)}
-                  placeholder='e.g. "COD", "Offtake", "post COD"'
-                  className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-                />
-                <span className="block text-[10px] text-gray-500 mt-1">
-                  If your transaction has a qualifier (e.g. "up to COD"), filter to roles whose cell conditions include it.
-                </span>
-              </label>
-            </div>
-          )}
         </div>
 
         {/* Right: results */}
