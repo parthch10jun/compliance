@@ -23,6 +23,68 @@ import type {
   AuthorityMatrix, Delegation, MatrixVersion, Role, RoleAuthority,
 } from '@/lib/doa/matrix/types';
 
+/**
+ * Synonym dictionary — bridges colloquial business terms to JNBP's formal
+ * matrix language. Keyed by what users actually type; values are the formal
+ * tokens to match against in the haystack.
+ */
+const SYNONYMS: Record<string, string[]> = {
+  vendor: ['supplier', 'procurement', 'project contract', 'goods or services', 'third party'],
+  vendors: ['supplier', 'procurement', 'project contract', 'goods or services', 'third party'],
+  supplier: ['supplier', 'vendor', 'procurement', 'goods or services'],
+  contract: ['project contract', 'commitment', 'agreement', 'third party contracts'],
+  contracts: ['project contract', 'commitment', 'agreement', 'third party contracts'],
+  hire: ['hiring', 'people', 'employment', 'recruitment'],
+  hiring: ['people', 'employment'],
+  salary: ['compensation', 'remuneration', 'pay', 'people'],
+  raise: ['compensation', 'salary increase', 'remuneration'],
+  bonus: ['compensation', 'bonus'],
+  purchase: ['purchase orders', 'pos', 'procurement', 'commitment'],
+  po: ['purchase orders', 'pos', 'commitment'],
+  pos: ['purchase orders', 'procurement'],
+  payment: ['invoice and payment', 'payments', 'manual payment'],
+  payments: ['invoice and payment', 'manual payment'],
+  invoice: ['invoice', 'invoice and payment'],
+  policy: ['policies'],
+  policies: ['policies'],
+  capex: ['capital expenditure', 'investment'],
+  opex: ['operating expenditure', 'operational expenditure'],
+  budget: ['business plan', 'annual budget'],
+  tax: ['tax', 'tax returns', 'tax authority'],
+  audit: ['external auditor', 'audit'],
+  insurance: ['insurance programme', 'insurance'],
+  bank: ['bank accounts', 'treasury'],
+  loan: ['loans', 'borrowing', 'guarantee'],
+  borrowing: ['indebtedness', 'borrowing', 'loans'],
+  hedge: ['hedging', 'risk management'],
+  hedging: ['hedging', 'risk management'],
+  fx: ['hedging', 'fx'],
+  comms: ['communications', 'press release'],
+  media: ['external media', 'press', 'communications'],
+  donate: ['donation', 'charitable'],
+  donation: ['donation', 'charitable', 'community'],
+  legal: ['legal', 'legal action'],
+  litigation: ['legal action', 'commencement'],
+  share: ['shares', 'share capital'],
+  shares: ['shares', 'share capital'],
+  dividend: ['distribution', 'distributions'],
+  distribution: ['distribution', 'distributions'],
+  ipo: ['initial public offering', 'public offering'],
+  jv: ['joint venture', 'partnership'],
+  merger: ['merger', 'consolidation'],
+  acquisition: ['acquisition', 'acquire'],
+};
+
+function expandQuery(raw: string): string[] {
+  const tokens = raw.toLowerCase().split(/\s+/).filter(Boolean);
+  const expanded = new Set<string>();
+  tokens.forEach(t => {
+    expanded.add(t);
+    (SYNONYMS[t] ?? []).forEach(s => expanded.add(s.toLowerCase()));
+  });
+  return Array.from(expanded);
+}
+
 type Fit =
   | { kind: 'monetary'; capAmount: number; currency: string }
   | { kind: 'unlimited' }
@@ -57,14 +119,38 @@ export default function TransactionLookup() {
     setActive(getActiveVersion(m));
   }, []);
 
-  // -- Matter search (filter delegations by free-text) ---------------------
+  // -- Matter search ------------------------------------------------------
+  // Tokenise the query, expand each token through the synonym dictionary,
+  // and rank each delegation by the count of matching tokens — across its
+  // ID, description, explanatory notes, subsection title, and section title.
   const matchingDelegations = useMemo<Delegation[]>(() => {
     if (!active) return [];
     if (!search.trim()) return [];
-    const q = search.toLowerCase();
-    return active.delegations
-      .filter(d => `${d.id} ${d.description} ${d.explanatoryNotes}`.toLowerCase().includes(q))
-      .slice(0, 10);
+
+    const tokens = expandQuery(search);
+    const subById = new Map(active.subsections.map(s => [s.id, s] as const));
+    const sectionById = new Map(active.sections.map(s => [s.id, s] as const));
+
+    type Scored = { d: Delegation; score: number };
+    const scored: Scored[] = active.delegations.map(d => {
+      const sub = subById.get(d.subsectionId);
+      const section = sub ? sectionById.get(sub.sectionId) : undefined;
+      const haystack = [
+        d.id,
+        d.description,
+        d.explanatoryNotes,
+        sub?.title ?? '',
+        section?.title ?? '',
+      ].join(' ').toLowerCase();
+      const score = tokens.reduce((acc, t) => acc + (haystack.includes(t) ? 1 : 0), 0);
+      return { d, score };
+    });
+
+    return scored
+      .filter(s => s.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 10)
+      .map(s => s.d);
   }, [active, search]);
 
   const selectedDelegation = useMemo<Delegation | undefined>(() => {
@@ -221,9 +307,27 @@ export default function TransactionLookup() {
                 ))}
               </ul>
             ) : search ? (
-              <p className="text-xs italic text-gray-500">No matters match — try a different keyword.</p>
+              <div className="text-xs italic text-gray-500 space-y-2">
+                <p>No matters match.</p>
+                <p className="not-italic text-gray-600">
+                  Try a broader term — e.g.{' '}
+                  <button onClick={() => setSearch('procurement')} className="underline hover:text-amber-700">procurement</button>,{' '}
+                  <button onClick={() => setSearch('contract')} className="underline hover:text-amber-700">contract</button>,{' '}
+                  <button onClick={() => setSearch('hiring')} className="underline hover:text-amber-700">hiring</button>,{' '}
+                  <button onClick={() => setSearch('payment')} className="underline hover:text-amber-700">payment</button>, or{' '}
+                  <button onClick={() => setSearch('tax')} className="underline hover:text-amber-700">tax</button>.
+                </p>
+              </div>
             ) : (
-              <p className="text-xs italic text-gray-500">Type a few characters to find the relevant matter.</p>
+              <div className="text-xs italic text-gray-500 space-y-2">
+                <p>Type a few characters to find the relevant matter.</p>
+                <p className="not-italic text-gray-600">
+                  Try{' '}
+                  <button onClick={() => setSearch('vendor contract')} className="underline hover:text-amber-700">vendor contract</button>,{' '}
+                  <button onClick={() => setSearch('hiring')} className="underline hover:text-amber-700">hiring</button>, or{' '}
+                  <button onClick={() => setSearch('capex')} className="underline hover:text-amber-700">capex</button>.
+                </p>
+              </div>
             )}
           </div>
 
