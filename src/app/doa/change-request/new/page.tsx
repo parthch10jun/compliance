@@ -10,7 +10,7 @@
  *   4. Justification + impact + effective date
  */
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { Suspense, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -58,6 +58,16 @@ const VALIDATOR_TEMPLATE: CRValidatorStep[] = [
 type Step = 1 | 2 | 3 | 4;
 
 export default function NewCRPage() {
+  // useSearchParams() needs a Suspense boundary for static generation
+  // (Next.js opts out of prerender otherwise). Wrap the real form.
+  return (
+    <Suspense fallback={<div className="px-6 py-12 text-center text-sm text-gray-500">Loading form…</div>}>
+      <NewCRPageInner />
+    </Suspense>
+  );
+}
+
+function NewCRPageInner() {
   const router = useRouter();
   const params = useSearchParams();
   const { user } = useCurrentUser();
