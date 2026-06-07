@@ -11,9 +11,13 @@ import Link from 'next/link';
 import { Bell, Search, ChevronRight } from 'lucide-react';
 import PersonaSwitcher from './PersonaSwitcher';
 import UserSwitcher from './UserSwitcher';
+import ProfileSwitcher from './ProfileSwitcher';
+import { useClientProfile } from '@/lib/doa/hooks/useClientProfile';
 
 export default function DOATopBar() {
   const pathname = usePathname();
+  const { profileId } = useClientProfile();
+  const isSEC = profileId === 'sec';
   
   // Generate breadcrumbs from pathname
   const generateBreadcrumbs = () => {
@@ -67,11 +71,13 @@ export default function DOATopBar() {
 
         {/* Quick actions */}
         <div className="flex items-center gap-3">
-          {/* Acts-as User Switcher (for DoA demo) */}
-          <UserSwitcher />
+          {/* Discrete workspace switcher */}
+          <ProfileSwitcher />
 
-          {/* Persona Switcher */}
-          <PersonaSwitcher />
+          {/* Persona / user switchers — hidden in SEC mode to keep the
+              workspace clean and avoid any cross-tenant name leakage. */}
+          {!isSEC && <UserSwitcher />}
+          {!isSEC && <PersonaSwitcher />}
 
           {/* Search */}
           <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">

@@ -19,9 +19,22 @@ import { listChangeRequests } from '@/lib/doa/matrix/change-request-store';
 import { CR_CHANGE_TYPE_LABELS } from '@/lib/doa/matrix/cr-labels';
 import { getMatrixRoleIdForUser } from '@/lib/doa/matrix/user-mapping';
 import { useCurrentUser } from '@/lib/doa/hooks/useCurrentUser';
+import { useClientProfile } from '@/lib/doa/hooks/useClientProfile';
 import { formatDate } from '@/lib/doa/utils/format';
+import SECMatrixLanding from '@/components/doa/matrix/SECMatrixLanding';
 import type { AuthorityMatrix, MatrixVersion } from '@/lib/doa/matrix/types';
 import type { ChangeRequest } from '@/lib/doa/matrix/change-request-types';
+
+/**
+ * Profile-aware matrix landing: the SEC workspace renders the RACI grid,
+ * the JNBP workspace renders the cap-tier card view. One route, two
+ * fully isolated experiences.
+ */
+export default function MatrixLanding() {
+  const { profileId } = useClientProfile();
+  if (profileId === 'sec') return <SECMatrixLanding />;
+  return <JNBPMatrixLanding />;
+}
 
 const SECTION_THEMES: Record<string, { color: string; icon: React.ReactNode; bg: string; border: string }> = {
   A: { color: 'text-indigo-700', icon: <ShieldCheck className="w-5 h-5" />, bg: 'bg-indigo-50', border: 'border-indigo-200' },
@@ -30,7 +43,7 @@ const SECTION_THEMES: Record<string, { color: string; icon: React.ReactNode; bg:
   D: { color: 'text-amber-700', icon: <Briefcase className="w-5 h-5" />, bg: 'bg-amber-50', border: 'border-amber-200' },
 };
 
-export default function MatrixLanding() {
+function JNBPMatrixLanding() {
   const { user } = useCurrentUser();
   const [matrix, setMatrix] = useState<AuthorityMatrix | null>(null);
   const [active, setActive] = useState<MatrixVersion | null>(null);

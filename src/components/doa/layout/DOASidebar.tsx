@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { usePersona } from '@/contexts/PersonaContext';
+import { useClientProfile } from '@/lib/doa/hooks/useClientProfile';
 import {
   LayoutDashboard,
   FileText,
@@ -143,6 +144,8 @@ const navigationItems: NavItem[] = [
 export default function DOASidebar() {
   const pathname = usePathname();
   const { hasPermission } = usePersona();
+  const { profileId } = useClientProfile();
+  const isSEC = profileId === 'sec';
   const [expandedSections, setExpandedSections] = useState<string[]>([
     'Authority Matrix',
     'Approvals',
@@ -174,11 +177,21 @@ export default function DOASidebar() {
     return children.some(child => pathname === child.href || pathname.startsWith(child.href + '/'));
   };
 
+  // In the SEC workspace, hide everything JNBP-shaped so no cross-tenant
+  // data or naming leaks. SEC sees: the Authority Matrix (RACI grid) and
+  // Settings (Integrations).
+  const SEC_ALLOWED_SECTIONS = new Set(['Authority Matrix', 'Settings']);
+  const SEC_ALLOWED_CHILDREN = new Set(['/doa/matrix', '/doa/settings', '/doa/settings/integrations', '/doa/settings/notifications']);
+
   // Filter navigation items based on permissions
   const getFilteredNavItems = () => {
     return navigationItems.map(item => {
       // Filter children based on permissions
       const filteredChildren = item.children?.filter(child => {
+        // SEC workspace: only allow the matrix browse + settings children
+        if (isSEC && !SEC_ALLOWED_CHILDREN.has(child.href)) {
+          return false;
+        }
         // Delegations children
         if (child.href === '/doa/delegations/new') {
           return hasPermission('createDelegation');
@@ -196,6 +209,10 @@ export default function DOASidebar() {
         children: filteredChildren,
       };
     }).filter(item => {
+      // SEC workspace: only the matrix + settings sections
+      if (isSEC && !SEC_ALLOWED_SECTIONS.has(item.label)) {
+        return false;
+      }
       // Hide entire sections based on permissions
       if (item.label === 'Settings') {
         return hasPermission('manageRoles') || hasPermission('managePolicies');
