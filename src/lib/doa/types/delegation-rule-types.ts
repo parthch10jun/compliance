@@ -48,6 +48,22 @@ export interface ChainDesignee {
   label: string;
 }
 
+/**
+ * Optional RACI approval model — a discreet alternative to the numbered
+ * L1/L2/L3 chain, mirroring the RACI grid used in the SEC Authorization
+ * Matrix. When a delegation carries `raci`, the detail view renders the RACI
+ * workflow (Responsible / Accountable / Consulted / Informed) in place of the
+ * runtime chain. The core L1/L2/L3 workflow is otherwise unchanged.
+ */
+export type DelegationRaciCode = 'R' | 'A' | 'C' | 'I';
+
+export interface DelegationRaciAssignee {
+  code: DelegationRaciCode;
+  userName: string;
+  userTitle: string;
+  note?: string;
+}
+
 export interface ComplianceLink {
   framework: string;
   controlCode: string;
@@ -139,6 +155,10 @@ export interface DelegationRule {
   scope: DelegationScope;
 
   chain: ChainDesignee[];
+
+  // Optional RACI approval model (discreet, SEC-style). When set, the detail
+  // view renders a RACI workflow instead of the numbered L1/L2/L3 chain.
+  raci?: DelegationRaciAssignee[];
 
   complianceLinks: ComplianceLink[];
 

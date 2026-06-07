@@ -42,6 +42,15 @@ const FIELD_LABELS: Record<string, string> = {
   'scope.notes': 'Scope notes',
 };
 
+// RACI metadata for the (discreet) RACI-model delegations. Chip colours match
+// the SEC Authorization Matrix RACI grid for visual consistency.
+const RACI_META: Record<'R' | 'A' | 'C' | 'I', { word: string; hint: string; chip: string }> = {
+  R: { word: 'Responsible', hint: 'Carries out / approves the request', chip: 'bg-blue-100 text-blue-700' },
+  A: { word: 'Accountable', hint: 'Owns the outcome', chip: 'bg-emerald-100 text-emerald-700' },
+  C: { word: 'Consulted', hint: 'Gives input before the decision', chip: 'bg-amber-100 text-amber-700' },
+  I: { word: 'Informed', hint: 'Kept up to date', chip: 'bg-gray-100 text-gray-600' },
+};
+
 export default function DelegationDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -402,27 +411,66 @@ export default function DelegationDetailPage() {
             {rule.scope.notes && <Row label="Notes" value={rule.scope.notes} multiline />}
           </Card>
 
-          {/* Approval chain */}
-          <Card title="Approval chain (runtime)" icon={<Users className="w-4 h-4" />}>
-            <p className="text-xs text-gray-500 mb-3">
-              These designees approve <em>matching runtime requests</em> once the rule is active.
-              They were notified at rule creation; they do not gate the rule's approval.
-            </p>
-            <div className="space-y-2">
-              {rule.chain.map((c, idx) => (
-                <div key={c.userId} className="flex items-center gap-2 p-2 bg-gray-50 border border-gray-200 rounded">
-                  <div className="w-7 h-7 rounded-full bg-amber-100 text-amber-900 flex items-center justify-center text-xs font-bold">
-                    {c.position}
+          {/* Approval workflow — RACI model (discreet exception) or runtime L1/L2/L3 chain */}
+          {rule.raci && rule.raci.length > 0 ? (
+            <Card title="RACI approval workflow" icon={<Users className="w-4 h-4" />}>
+              <p className="text-xs text-gray-500 mb-3">
+                This delegation follows the <strong>RACI model</strong> from the SEC Authorization
+                Matrix — who is Responsible, Accountable, Consulted, and Informed for matching
+                runtime requests — instead of a sequential L1/L2/L3 chain.
+              </p>
+              <div className="space-y-2">
+                {rule.raci.map((a, idx) => {
+                  const meta = RACI_META[a.code];
+                  return (
+                    <div key={idx} className="flex items-start gap-3 p-2.5 bg-gray-50 border border-gray-200 rounded">
+                      <span className={`w-8 h-8 rounded flex items-center justify-center text-sm font-bold flex-shrink-0 ${meta.chip}`}>
+                        {a.code}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium text-gray-900">{a.userName}</div>
+                        <div className="text-xs text-gray-500">{a.userTitle}</div>
+                        {a.note && <div className="text-xs text-gray-500 mt-0.5">{a.note}</div>}
+                      </div>
+                      <span className="text-xs font-medium text-gray-600 flex-shrink-0 mt-1">{meta.word}</span>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3 pt-3 border-t border-gray-100 text-[11px] text-gray-500">
+                {(['R', 'A', 'C', 'I'] as const).map(code => (
+                  <span key={code} className="flex items-center gap-1.5">
+                    <span className={`inline-flex items-center justify-center w-4 h-4 rounded text-[10px] font-bold ${RACI_META[code].chip}`}>
+                      {code}
+                    </span>
+                    <strong>{RACI_META[code].word}</strong>
+                    <span className="text-gray-400">— {RACI_META[code].hint}</span>
+                  </span>
+                ))}
+              </div>
+            </Card>
+          ) : (
+            <Card title="Approval chain (runtime)" icon={<Users className="w-4 h-4" />}>
+              <p className="text-xs text-gray-500 mb-3">
+                These designees approve <em>matching runtime requests</em> once the rule is active.
+                They were notified at rule creation; they do not gate the rule's approval.
+              </p>
+              <div className="space-y-2">
+                {rule.chain.map((c, idx) => (
+                  <div key={c.userId} className="flex items-center gap-2 p-2 bg-gray-50 border border-gray-200 rounded">
+                    <div className="w-7 h-7 rounded-full bg-amber-100 text-amber-900 flex items-center justify-center text-xs font-bold">
+                      {c.position}
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-sm font-medium text-gray-900">{c.userName}</div>
+                      <div className="text-xs text-gray-500">{c.userTitle} · {c.label}</div>
+                    </div>
+                    {idx < rule.chain.length - 1 && <span className="text-gray-300">→</span>}
                   </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-medium text-gray-900">{c.userName}</div>
-                    <div className="text-xs text-gray-500">{c.userTitle} · {c.label}</div>
-                  </div>
-                  {idx < rule.chain.length - 1 && <span className="text-gray-300">→</span>}
-                </div>
-              ))}
-            </div>
-          </Card>
+                ))}
+              </div>
+            </Card>
+          )}
 
           {/* Compliance */}
           {rule.complianceLinks.length > 0 && (

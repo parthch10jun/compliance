@@ -29,8 +29,8 @@ import {
 } from '@/components/doa/delegations/form-pieces';
 import type {
   AuditEntry, ChainDesignee, ComplianceLink, DelegationCategory,
-  DelegationLifecycleType, DelegationRule, DelegationScope, PendingModification,
-  VersionSnapshot,
+  DelegationLifecycleType, DelegationRaciAssignee, DelegationRule, DelegationScope,
+  PendingModification, VersionSnapshot,
 } from '@/lib/doa/types/delegation-rule-types';
 
 const FINANCIAL_AUTHORITIES = [
@@ -60,6 +60,7 @@ interface EditState {
   scopePercentageCap: string;
   scopeQuantityCap: string;
   chain: ChainDesignee[];
+  raci: DelegationRaciAssignee[];
   complianceLinks: ComplianceLink[];
   type: DelegationLifecycleType;
   effectiveFrom: string;
@@ -81,6 +82,7 @@ function ruleToState(rule: DelegationRule): EditState {
     scopePercentageCap: rule.scope.percentageCap !== undefined ? String(rule.scope.percentageCap) : '',
     scopeQuantityCap: rule.scope.quantityCap !== undefined ? String(rule.scope.quantityCap) : '',
     chain: rule.chain,
+    raci: rule.raci ? rule.raci.map(a => ({ ...a })) : [],
     complianceLinks: rule.complianceLinks,
     type: rule.type,
     effectiveFrom: rule.effectiveFrom.slice(0, 10),
@@ -117,6 +119,8 @@ function buildProposedRule(original: DelegationRule, state: EditState): Delegati
     justification: state.justification.trim(),
     scope,
     chain: state.chain,
+    // Only the RACI-model delegations carry `raci`; leave it untouched otherwise.
+    raci: original.raci ? state.raci : original.raci,
     complianceLinks: state.complianceLinks,
     type: state.type,
     effectiveFrom: state.effectiveFrom ? new Date(state.effectiveFrom).toISOString() : original.effectiveFrom,
@@ -231,16 +235,30 @@ export default function EditDelegationPage() {
   const onChainRemove = (uid: string) => setState(s => s ? { ...s, chain: chainRemoveHelper(s.chain, uid) } : s);
   const onChainMove = (uid: string, dir: -1 | 1) => setState(s => s ? { ...s, chain: chainMoveHelper(s.chain, uid, dir) } : s);
 
+  // RACI editor handlers (only used for RACI-model delegations).
+  const updateRaci = (idx: number, patch: Partial<DelegationRaciAssignee>) =>
+    setState(s => s ? { ...s, raci: s.raci.map((a, i) => (i === idx ? { ...a, ...patch } : a)) } : s);
+  const addRaci = () =>
+    setState(s => s ? { ...s, raci: [...s.raci, { code: 'C', userName: '', userTitle: '', note: '' }] } : s);
+  const removeRaci = (idx: number) =>
+    setState(s => s ? { ...s, raci: s.raci.filter((_, i) => i !== idx) } : s);
+
   const proposed = buildProposedRule(rule, state);
   const changes = analysis?.changes ?? [];
-  const hasChanges = changes.length > 0;
+  // RACI assignments live outside the criticality engine's tracked fields, so
+  // detect their change here and treat it as a non-critical, auto-applied edit.
+  const isRaciDelegation = !!rule.raci;
+  const raciChanged = isRaciDelegation && JSON.stringify(rule.raci ?? []) !== JSON.stringify(state.raci);
+  const hasChanges = changes.length > 0 || raciChanged;
   const isCritical = analysis?.isCritical ?? false;
 
   const submit = () => {
     if (!hasChanges) { setError('No changes to submit.'); return; }
     if (!state.name.trim()) { setError('Name is required.'); return; }
     if (!state.authorityType.trim()) { setError('Authority type is required.'); return; }
-    if (state.chain.length === 0) { setError('At least one chain designee is required.'); return; }
+    if (!isRaciDelegation && state.chain.length === 0) { setError('At least one chain designee is required.'); return; }
+    if (isRaciDelegation && state.raci.length === 0) { setError('At least one RACI assignee is required.'); return; }
+    if (isRaciDelegation && state.raci.some(a => !a.userName.trim())) { setError('Every RACI assignee needs a name.'); return; }
 
     const now = new Date().toISOString();
 
@@ -273,7 +291,9 @@ export default function EditDelegationPage() {
       router.push(`/doa/delegations/${rule.id}`);
     } else {
       // Snapshot the current version before applying the auto-applied edit.
-      const changedNonCritical = (analysis?.nonCriticalFields ?? []).map(f => FIELD_LABELS[f] ?? f).join(', ');
+      const nonCriticalParts = (analysis?.nonCriticalFields ?? []).map(f => FIELD_LABELS[f] ?? f);
+      if (raciChanged) nonCriticalParts.push('RACI assignments');
+      const changedNonCritical = nonCriticalParts.join(', ');
       const snapshot: VersionSnapshot = {
         version: rule.version,
         name: rule.name,
@@ -294,8 +314,27 @@ export default function EditDelegationPage() {
         changesSummary: `Superseded by v${rule.version + 1} — non-critical update to ${changedNonCritical}.`,
         auditTrail: rule.auditTrail,
       };
+      // For RACI delegations keep the (otherwise vestigial) chain in step with
+      // the R/A assignees so the list view and notifications stay consistent.
+      // Done here, post-analysis, so it never re-triggers critical re-approval.
+      const syncedChain = isRaciDelegation
+        ? state.raci
+            .filter(a => a.code === 'R' || a.code === 'A')
+            .map((a, i) => ({
+              userId: `raci-${a.code.toLowerCase()}-${i}`,
+              userName: a.userName,
+              userTitle: a.userTitle,
+              position: i + 1,
+              label: a.code === 'R' ? 'R · Responsible' : 'A · Accountable',
+            }))
+        : proposed.chain;
+      const notifiedNames = (isRaciDelegation
+        ? state.raci.map(a => a.userName)
+        : rule.chain.map(c => c.userName)
+      ).filter(Boolean).join(', ');
       const applied: DelegationRule = {
         ...proposed,
+        chain: syncedChain,
         version: rule.version + 1,
         versionHistory: [...(rule.versionHistory ?? []), snapshot],
         auditTrail: [
@@ -311,7 +350,7 @@ export default function EditDelegationPage() {
             id: generateAuditEntryId(), timestamp: now,
             actorUserId: currentUser.id, actorUserName: currentUser.name,
             action: 'Notified',
-            comment: `Chain designees notified of update: ${rule.chain.map(c => c.userName).join(', ') || 'none'}.`,
+            comment: `${isRaciDelegation ? 'RACI parties' : 'Chain designees'} notified of update: ${notifiedNames || 'none'}.`,
           },
         ],
       };
@@ -441,9 +480,19 @@ export default function EditDelegationPage() {
             </Field>
           </Section>
 
-          <Section title="Approval chain (runtime)">
-            <ChainPicker chain={state.chain} onAdd={onChainAdd} onRemove={onChainRemove} onMove={onChainMove} />
-          </Section>
+          {isRaciDelegation ? (
+            <Section title="RACI approval workflow">
+              <p className="text-xs text-gray-500 -mt-1 mb-2">
+                Map people to RACI responsibilities — Responsible, Accountable, Consulted, Informed.
+                Changes auto-apply and bump the version.
+              </p>
+              <RaciEditor raci={state.raci} onUpdate={updateRaci} onAdd={addRaci} onRemove={removeRaci} />
+            </Section>
+          ) : (
+            <Section title="Approval chain (runtime)">
+              <ChainPicker chain={state.chain} onAdd={onChainAdd} onRemove={onChainRemove} onMove={onChainMove} />
+            </Section>
+          )}
 
           <Section title="Compliance links">
             <ComplianceLinksEditor links={state.complianceLinks} onChange={v => set('complianceLinks', v)} />
@@ -515,6 +564,17 @@ export default function EditDelegationPage() {
                 </div>
 
                 <ul className="space-y-2 mb-3 max-h-64 overflow-y-auto">
+                  {raciChanged && (
+                    <li className="text-xs">
+                      <div className="flex items-center gap-1 mb-0.5">
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500" />
+                        <span className="font-medium text-gray-900">RACI assignments</span>
+                      </div>
+                      <div className="ml-3 text-gray-600 text-[11px]">
+                        Updated who is Responsible / Accountable / Consulted / Informed.
+                      </div>
+                    </li>
+                  )}
                   {changes.map(c => {
                     const critical = (analysis?.criticalFields ?? []).includes(c.field);
                     return (
@@ -556,6 +616,74 @@ export default function EditDelegationPage() {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+const RACI_CODE_OPTIONS: { code: DelegationRaciAssignee['code']; label: string; chip: string }[] = [
+  { code: 'R', label: 'R · Responsible', chip: 'bg-blue-100 text-blue-700' },
+  { code: 'A', label: 'A · Accountable', chip: 'bg-emerald-100 text-emerald-700' },
+  { code: 'C', label: 'C · Consulted', chip: 'bg-amber-100 text-amber-700' },
+  { code: 'I', label: 'I · Informed', chip: 'bg-gray-100 text-gray-600' },
+];
+
+function RaciEditor({
+  raci, onUpdate, onAdd, onRemove,
+}: {
+  raci: DelegationRaciAssignee[];
+  onUpdate: (idx: number, patch: Partial<DelegationRaciAssignee>) => void;
+  onAdd: () => void;
+  onRemove: (idx: number) => void;
+}) {
+  const chipFor = (code: string) => RACI_CODE_OPTIONS.find(o => o.code === code)?.chip ?? 'bg-gray-100 text-gray-600';
+  return (
+    <div className="space-y-2">
+      {raci.length === 0 && (
+        <p className="text-xs text-gray-500 italic">No assignees yet — add the first person.</p>
+      )}
+      {raci.map((a, idx) => (
+        <div key={idx} className="border border-gray-200 rounded p-2.5 space-y-2">
+          <div className="flex items-center gap-2">
+            <span className={`w-7 h-7 rounded flex items-center justify-center text-xs font-bold flex-shrink-0 ${chipFor(a.code)}`}>
+              {a.code}
+            </span>
+            <select
+              value={a.code}
+              onChange={e => onUpdate(idx, { code: e.target.value as DelegationRaciAssignee['code'] })}
+              className="px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+            >
+              {RACI_CODE_OPTIONS.map(o => <option key={o.code} value={o.code}>{o.label}</option>)}
+            </select>
+            <input
+              type="text" value={a.userName}
+              onChange={e => onUpdate(idx, { userName: e.target.value })}
+              placeholder="Person name"
+              className="flex-1 px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+            />
+            <button type="button" onClick={() => onRemove(idx)} className="p-1.5 text-gray-400 hover:text-red-600" aria-label="Remove assignee">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+          <input
+            type="text" value={a.userTitle}
+            onChange={e => onUpdate(idx, { userTitle: e.target.value })}
+            placeholder="Title / role"
+            className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+          />
+          <input
+            type="text" value={a.note ?? ''}
+            onChange={e => onUpdate(idx, { note: e.target.value })}
+            placeholder="Note (optional)"
+            className="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:outline-none focus:ring-2 focus:ring-amber-400"
+          />
+        </div>
+      ))}
+      <button
+        type="button" onClick={onAdd}
+        className="w-full px-3 py-2 border border-dashed border-gray-300 rounded text-sm text-gray-600 hover:bg-gray-50"
+      >
+        + Add person
+      </button>
     </div>
   );
 }

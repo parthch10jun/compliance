@@ -13,6 +13,72 @@ import type { DelegationRule } from '../types/delegation-rule-types';
 const isoAt = (date: string, time: string) => `${date}T${time}:00.000Z`;
 
 export const seedDelegationRules: DelegationRule[] = [
+  // -------- Financial (RACI) — SEC Distribution capital approval ⭐ RACI demo --------
+  // Discreet exception: this delegation follows the SEC Authorization Matrix
+  // RACI model instead of an L1/L2/L3 chain. The detail view renders a RACI
+  // workflow when `raci` is present; every other delegation is unchanged.
+  {
+    id: 'dr-sec-raci-001',
+    version: 1,
+    name: 'Distribution Capital Project Approval — up to SAR 50m (RACI)',
+    category: 'Financial',
+    authorityType: 'Capital Expenditure Approval',
+    description:
+      'Authority to approve distribution capital projects within the Planning & Project Management branch up to SAR 50m. Governed by a RACI approval model rather than a sequential L1/L2/L3 chain, mirroring the Tier 2 Distribution & Subscriber Services authorization matrix.',
+    justification:
+      'Aligns delegated capital approval with the RACI defined in the SEC Authorization Matrix for the Distribution & Subscriber Services business line, so the Responsible, Accountable, Consulted and Informed parties are explicit for every capital decision.',
+    scope: {
+      monetaryCap: { amount: 50_000_000, currency: 'SAR' },
+      businessUnits: ['Distribution & Subscriber Services'],
+      functions: ['Capital Planning & Project Monitoring'],
+      notes: 'Capital projects above SAR 50m escalate to the Tier governance matrix (BOD / General Assembly).',
+    },
+    chain: [
+      { userId: 'sec-u-201', userName: 'Faisal Al-Otaibi', userTitle: 'Director, Capital Planning & Project Monitoring', position: 1, label: 'R · Responsible' },
+      { userId: 'sec-u-202', userName: 'Abdullah Al-Qahtani', userTitle: 'VP, Planning & Project Management', position: 2, label: 'A · Accountable' },
+    ],
+    raci: [
+      { code: 'R', userName: 'Faisal Al-Otaibi', userTitle: 'Director, Capital Planning & Project Monitoring', note: 'Approves the capital project gateway within the delegated cap.' },
+      { code: 'A', userName: 'Abdullah Al-Qahtani', userTitle: 'VP, Planning & Project Management', note: 'Accountable for the outcome of the delegated authority.' },
+      { code: 'C', userName: 'Mohammed Al-Harbi', userTitle: 'EVP, Distribution & Subscriber Services', note: 'Consulted on cross-directorate and programme-level impact.' },
+      { code: 'C', userName: 'Sara Al-Dossari', userTitle: 'Director, Network Studies', note: 'Consulted on load-forecast and network-planning alignment.' },
+      { code: 'I', userName: 'Khalid Al-Zahrani', userTitle: 'Group Finance', note: 'Informed of committed capital for budget tracking.' },
+    ],
+    complianceLinks: [
+      {
+        framework: 'SEC DoA',
+        controlCode: 'T2 · DSS · PPM 1.3',
+        controlName: 'Capital Planning & Project Monitoring',
+        rationale: 'Mirrors the RACI in the Tier 2 Distribution & Subscriber Services authorization matrix.',
+      },
+      {
+        framework: 'ISO 22301',
+        controlCode: '8.4',
+        controlName: 'Business continuity — capital resilience',
+      },
+    ],
+    type: 'Permanent',
+    effectiveFrom: isoAt('2026-06-06', '00:00'),
+    status: 'Active',
+    createdByUserId: 'sec-u-202',
+    createdByUserName: 'Abdullah Al-Qahtani',
+    createdAt: isoAt('2026-06-05', '09:00'),
+    approvalAuthorityUserId: 'sec-u-203',
+    approvalAuthorityUserName: 'Mohammed Al-Harbi',
+    approvalAuthorityTitle: 'EVP, Distribution & Subscriber Services',
+    approvalAuthoritySuggestionRationale:
+      'Capital cap of SAR 50m sits within the EVP tier for the Distribution & Subscriber Services business line.',
+    submittedAt: isoAt('2026-06-05', '09:30'),
+    approvedAt: isoAt('2026-06-06', '08:00'),
+    approvedComment: 'Approved. RACI assignments confirmed against the Tier 2 authorization matrix.',
+    auditTrail: [
+      { id: 'au-sec-raci-1', timestamp: isoAt('2026-06-05', '09:00'), actorUserId: 'sec-u-202', actorUserName: 'Abdullah Al-Qahtani', action: 'Created' },
+      { id: 'au-sec-raci-2', timestamp: isoAt('2026-06-05', '09:30'), actorUserId: 'sec-u-202', actorUserName: 'Abdullah Al-Qahtani', action: 'Submitted', comment: 'Submitted for EVP approval.' },
+      { id: 'au-sec-raci-3', timestamp: isoAt('2026-06-05', '09:31'), actorUserId: 'sec-u-202', actorUserName: 'Abdullah Al-Qahtani', action: 'Notified', comment: 'RACI parties (Responsible, Accountable, Consulted, Informed) notified of designation.' },
+      { id: 'au-sec-raci-4', timestamp: isoAt('2026-06-06', '08:00'), actorUserId: 'sec-u-203', actorUserName: 'Mohammed Al-Harbi', action: 'Approved', comment: 'Approved. RACI assignments confirmed against the Tier 2 authorization matrix.' },
+    ],
+  },
+
   // -------- Financial 1 — Pay Hike (v3 Active; v1 + v2 in history) ⭐ demo --------
   {
     id: 'dr-001',
