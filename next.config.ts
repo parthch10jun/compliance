@@ -8,11 +8,9 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // ESLint runs during builds by default; suppress to keep deploys unblocked
-  // by stylistic warnings in legacy code.
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // Note: Next.js 16 no longer runs ESLint during `next build`, and the
+  // `eslint` config key is rejected as an unrecognized option — so it's been
+  // removed. Lint stylistic issues in legacy code don't block deploys.
 };
 
 export default nextConfig;

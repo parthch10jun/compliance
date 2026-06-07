@@ -177,21 +177,20 @@ export default function DOASidebar() {
     return children.some(child => pathname === child.href || pathname.startsWith(child.href + '/'));
   };
 
-  // In the SEC workspace, hide everything JNBP-shaped so no cross-tenant
-  // data or naming leaks. SEC sees: the Authority Matrix (RACI grid) and
-  // Settings (Integrations).
-  const SEC_ALLOWED_SECTIONS = new Set(['Authority Matrix', 'Settings']);
-  const SEC_ALLOWED_CHILDREN = new Set(['/doa/matrix', '/doa/settings', '/doa/settings/integrations', '/doa/settings/notifications']);
+  // In the SEC workspace we keep the FULL DoA navigation — every module stays
+  // visible exactly as in the main app (Dashboard, Change Requests, Delegations,
+  // Policies, SoD, Exceptions, Reports, Audit Trail, Settings → Integrations …).
+  // Only the Authority Matrix *content* changes by profile (see the
+  // profile-aware matrix page); the top bar separately hides the JNBP
+  // persona/user switchers so no JERA-named identities leak.
 
   // Filter navigation items based on permissions
   const getFilteredNavItems = () => {
     return navigationItems.map(item => {
       // Filter children based on permissions
       const filteredChildren = item.children?.filter(child => {
-        // SEC workspace: only allow the matrix browse + settings children
-        if (isSEC && !SEC_ALLOWED_CHILDREN.has(child.href)) {
-          return false;
-        }
+        // SEC workspace: keep every child — full navigation, unchanged.
+        if (isSEC) return true;
         // Delegations children
         if (child.href === '/doa/delegations/new') {
           return hasPermission('createDelegation');
@@ -209,10 +208,8 @@ export default function DOASidebar() {
         children: filteredChildren,
       };
     }).filter(item => {
-      // SEC workspace: only the matrix + settings sections
-      if (isSEC && !SEC_ALLOWED_SECTIONS.has(item.label)) {
-        return false;
-      }
+      // SEC workspace: show every module, same as the full app.
+      if (isSEC) return true;
       // Hide entire sections based on permissions
       if (item.label === 'Settings') {
         return hasPermission('manageRoles') || hasPermission('managePolicies');
@@ -235,24 +232,24 @@ export default function DOASidebar() {
   const filteredNavItems = getFilteredNavItems();
 
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 flex flex-col overflow-hidden">
+    <aside className="w-52 bg-white border-r border-gray-200 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b border-gray-200">
-        <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-[#F59E0B] transition-colors mb-3">
-          <Home className="w-4 h-4" />
-          <span className="text-sm">Back to Main</span>
+      <div className="px-3 py-3.5 border-b border-gray-200">
+        <Link href="/" className="flex items-center gap-1.5 text-gray-500 hover:text-[#F59E0B] transition-colors mb-2.5">
+          <Home className="w-3.5 h-3.5" />
+          <span className="text-xs">Back to Main</span>
         </Link>
-        <h2 className="text-h3 font-semibold text-[#F59E0B] flex items-center gap-2">
-          <FileText className="w-6 h-6" />
+        <h2 className="text-base font-semibold text-[#F59E0B] flex items-center gap-2 leading-tight">
+          <FileText className="w-5 h-5 flex-shrink-0" />
           Delegation of Authority
         </h2>
-        <p className="text-p3 text-gray-600 mt-1">
-          Authority Matrix & Approvals
+        <p className="text-xs text-gray-500 mt-1">
+          Authority Matrix &amp; Approvals
         </p>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto p-3 space-y-1">
+      <nav className="flex-1 overflow-y-auto px-2.5 py-3 space-y-0.5">
         {filteredNavItems.map((item) => (
           <div key={item.label}>
             {/* Main nav item */}
@@ -260,14 +257,14 @@ export default function DOASidebar() {
               // Parent item with children - only toggles, doesn't navigate
               <button
                 className={`
-                  w-full flex items-center justify-between px-3 py-2 rounded-lg transition-all cursor-pointer
+                  w-full flex items-center justify-between px-2.5 py-2 rounded-lg transition-all cursor-pointer
                   text-gray-700 hover:bg-gray-50
                 `}
                 onClick={() => toggleSection(item.label)}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2.5 min-w-0">
                   {item.icon}
-                  <span className="text-p2 font-medium">{item.label}</span>
+                  <span className="text-p2 font-medium truncate">{item.label}</span>
                 </div>
                 {expandedSections.includes(item.label) ? (
                   <ChevronDown className="w-4 h-4" />
@@ -280,7 +277,7 @@ export default function DOASidebar() {
               <Link
                 href={item.href}
                 className={`
-                  flex items-center gap-3 px-3 py-2 rounded-lg transition-all
+                  flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-all
                   ${pathname === item.href
                     ? 'bg-amber-50 text-[#F59E0B]'
                     : 'text-gray-700 hover:bg-gray-50'
@@ -294,7 +291,7 @@ export default function DOASidebar() {
 
             {/* Sub-nav items */}
             {item.children && expandedSections.includes(item.label) && (
-              <div className="ml-8 mt-1 space-y-1">
+              <div className="ml-6 mt-0.5 space-y-0.5">
                 {item.children.map((child) => {
                   // Determine if this child is active
                   const isActive = child.exact

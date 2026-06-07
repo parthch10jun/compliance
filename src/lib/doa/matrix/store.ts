@@ -14,15 +14,20 @@ import type {
   RoleAuthority,
 } from './types';
 import { SEED_MATRIX } from './data';
+import { maskBrandingIfSEC, shouldMaskBranding } from '../branding';
 
 const STORAGE_KEY = 'doa_authority_matrix_v1';
+
+// SEC mutations persist under their own key so a write in one profile can never
+// contaminate the other (e.g. a masked clone leaking back into JNBP's store).
+const storageKey = (): string => (shouldMaskBranding() ? `${STORAGE_KEY}__sec` : STORAGE_KEY);
 
 const isBrowser = (): boolean => typeof window !== 'undefined';
 
 function readStore(): AuthorityMatrix | null {
   if (!isBrowser()) return null;
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = window.localStorage.getItem(storageKey());
     return raw ? (JSON.parse(raw) as AuthorityMatrix) : null;
   } catch {
     return null;
@@ -31,11 +36,13 @@ function readStore(): AuthorityMatrix | null {
 
 function writeStore(matrix: AuthorityMatrix): void {
   if (!isBrowser()) return;
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(matrix));
+  window.localStorage.setItem(storageKey(), JSON.stringify(matrix));
 }
 
 export function getMatrix(): AuthorityMatrix {
-  return readStore() ?? SEED_MATRIX;
+  // SEC profile: mask JERA branding on read so no module leaks it. Returns a
+  // deep clone, so the seed/store is never mutated. No-op under JNBP.
+  return maskBrandingIfSEC(readStore() ?? SEED_MATRIX);
 }
 
 export function saveMatrix(matrix: AuthorityMatrix): void {
@@ -44,7 +51,7 @@ export function saveMatrix(matrix: AuthorityMatrix): void {
 
 export function resetMatrix(): void {
   if (!isBrowser()) return;
-  window.localStorage.removeItem(STORAGE_KEY);
+  window.localStorage.removeItem(storageKey());
 }
 
 export function getActiveVersion(matrix: AuthorityMatrix = getMatrix()): MatrixVersion {
