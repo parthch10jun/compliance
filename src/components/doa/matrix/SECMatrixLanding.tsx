@@ -128,7 +128,7 @@ export default function SECMatrixLanding() {
 
       <div className="flex gap-4 items-start">
         {/* Tree rail */}
-        <aside className="w-48 flex-shrink-0">
+        <aside className="w-60 flex-shrink-0">
           <div className="border border-gray-200 rounded-lg bg-white p-2">
             <div className="text-[10px] font-semibold uppercase tracking-wide text-gray-400 px-2 py-1.5">
               Org hierarchy
@@ -231,14 +231,14 @@ function TreeNode({
   return (
     <div>
       <div
-        className={`flex items-center gap-0.5 rounded cursor-pointer select-none ${
+        className={`flex items-start gap-1 rounded cursor-pointer select-none ${
           isSelected ? 'bg-blue-50 ring-1 ring-blue-200' : 'hover:bg-gray-50'
         }`}
-        style={{ paddingLeft: depth * 11 + 2 }}
+        style={{ paddingLeft: depth * 14 + 4 }}
       >
         <button
           onClick={() => hasChildren && onToggle(node.id)}
-          className={`p-0.5 flex-shrink-0 ${hasChildren ? 'text-gray-400 hover:text-gray-700' : 'invisible'}`}
+          className={`p-1 mt-0.5 flex-shrink-0 ${hasChildren ? 'text-gray-400 hover:text-gray-700' : 'invisible'}`}
           aria-label={isOpen ? 'Collapse' : 'Expand'}
         >
           {isOpen ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
@@ -246,19 +246,19 @@ function TreeNode({
         <button
           onClick={() => onSelect(node)}
           title={node.label}
-          className="flex items-center gap-1.5 py-1.5 pr-1.5 flex-1 min-w-0 text-left"
+          className="flex items-start gap-2 py-1.5 pr-2 flex-1 min-w-0 text-left"
         >
-          <span className={isSelected ? 'text-[color:var(--navy)]' : 'text-gray-400'} style={{ ['--navy' as string]: NAVY }}>
+          <span className={`flex-shrink-0 mt-0.5 ${isSelected ? 'text-[color:var(--navy)]' : 'text-gray-400'}`} style={{ ['--navy' as string]: NAVY }}>
             {KIND_ICON[node.kind]}
           </span>
           <span className="flex-1 min-w-0">
-            <span className={`block text-sm truncate ${isSelected ? 'font-semibold text-gray-900' : 'text-gray-700'}`}>
+            <span className={`block text-sm leading-snug ${isSelected ? 'font-semibold text-gray-900' : 'text-gray-700'}`}>
               {node.label}
             </span>
           </span>
           {node.matrix && (
             <span
-              className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+              className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1.5"
               style={{ backgroundColor: NAVY }}
               title="Matrix available"
             />
